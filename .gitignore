@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Build / output artifacts
+out/
+dist/
+build/
+tmp/
+public/narration/
+whisper.cpp/
+
+# Audio intermediates
+*.aiff
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db

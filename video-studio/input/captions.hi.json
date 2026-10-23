@@ -1,0 +1,791 @@
+{
+  "pages": [
+    {
+      "startMs": 0,
+      "endMs": 2031,
+      "tokens": [
+        {
+          "text": "Java",
+          "startMs": 0,
+          "endMs": 508,
+          "emphasis": true
+        },
+        {
+          "text": "का",
+          "startMs": 508,
+          "endMs": 762,
+          "emphasis": false
+        },
+        {
+          "text": "static",
+          "startMs": 762,
+          "endMs": 1523,
+          "emphasis": true
+        },
+        {
+          "text": "कीवर्ड",
+          "startMs": 1523,
+          "endMs": 2031,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 2031,
+      "endMs": 3554,
+      "tokens": [
+        {
+          "text": "बहुत",
+          "startMs": 2031,
+          "endMs": 2412,
+          "emphasis": true
+        },
+        {
+          "text": "लोगों",
+          "startMs": 2412,
+          "endMs": 2665,
+          "emphasis": true
+        },
+        {
+          "text": "को",
+          "startMs": 2665,
+          "endMs": 2919,
+          "emphasis": false
+        },
+        {
+          "text": "कन्फ्यूज़",
+          "startMs": 2919,
+          "endMs": 3554,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 3554,
+      "endMs": 4823,
+      "tokens": [
+        {
+          "text": "करता",
+          "startMs": 3554,
+          "endMs": 3935,
+          "emphasis": true
+        },
+        {
+          "text": "है।",
+          "startMs": 3935,
+          "endMs": 4188,
+          "emphasis": true
+        },
+        {
+          "text": "चलिए",
+          "startMs": 4188,
+          "endMs": 4569,
+          "emphasis": true
+        },
+        {
+          "text": "इसे",
+          "startMs": 4569,
+          "endMs": 4823,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 4823,
+      "endMs": 6219,
+      "tokens": [
+        {
+          "text": "आसान",
+          "startMs": 4823,
+          "endMs": 5204,
+          "emphasis": true
+        },
+        {
+          "text": "भाषा",
+          "startMs": 5204,
+          "endMs": 5458,
+          "emphasis": true
+        },
+        {
+          "text": "में",
+          "startMs": 5458,
+          "endMs": 5711,
+          "emphasis": true
+        },
+        {
+          "text": "समझते",
+          "startMs": 5711,
+          "endMs": 6219,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 6219,
+      "endMs": 6473,
+      "tokens": [
+        {
+          "text": "हैं।",
+          "startMs": 6219,
+          "endMs": 6473,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 6473,
+      "endMs": 8512,
+      "tokens": [
+        {
+          "text": "static",
+          "startMs": 6473,
+          "endMs": 7238,
+          "emphasis": true
+        },
+        {
+          "text": "वेरिएबल",
+          "startMs": 7238,
+          "endMs": 7875,
+          "emphasis": true
+        },
+        {
+          "text": "क्लास",
+          "startMs": 7875,
+          "endMs": 8257,
+          "emphasis": true
+        },
+        {
+          "text": "से",
+          "startMs": 8257,
+          "endMs": 8512,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 8512,
+      "endMs": 9532,
+      "tokens": [
+        {
+          "text": "जुड़ा",
+          "startMs": 8512,
+          "endMs": 8767,
+          "emphasis": true
+        },
+        {
+          "text": "होता",
+          "startMs": 8767,
+          "endMs": 9022,
+          "emphasis": true
+        },
+        {
+          "text": "है,",
+          "startMs": 9022,
+          "endMs": 9277,
+          "emphasis": false
+        },
+        {
+          "text": "किसी",
+          "startMs": 9277,
+          "endMs": 9532,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 9532,
+      "endMs": 10934,
+      "tokens": [
+        {
+          "text": "ऑब्जेक्ट",
+          "startMs": 9532,
+          "endMs": 10169,
+          "emphasis": true
+        },
+        {
+          "text": "से",
+          "startMs": 10169,
+          "endMs": 10424,
+          "emphasis": false
+        },
+        {
+          "text": "नहीं।",
+          "startMs": 10424,
+          "endMs": 10679,
+          "emphasis": true
+        },
+        {
+          "text": "सभी",
+          "startMs": 10679,
+          "endMs": 10934,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 10934,
+      "endMs": 12591,
+      "tokens": [
+        {
+          "text": "ऑब्जेक्ट्स",
+          "startMs": 10934,
+          "endMs": 11698,
+          "emphasis": true
+        },
+        {
+          "text": "इसकी",
+          "startMs": 11698,
+          "endMs": 12081,
+          "emphasis": true
+        },
+        {
+          "text": "एक",
+          "startMs": 12081,
+          "endMs": 12336,
+          "emphasis": false
+        },
+        {
+          "text": "ही",
+          "startMs": 12336,
+          "endMs": 12591,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 12591,
+      "endMs": 13865,
+      "tokens": [
+        {
+          "text": "कॉपी",
+          "startMs": 12591,
+          "endMs": 12845,
+          "emphasis": true
+        },
+        {
+          "text": "शेयर",
+          "startMs": 12845,
+          "endMs": 13228,
+          "emphasis": true
+        },
+        {
+          "text": "करते",
+          "startMs": 13228,
+          "endMs": 13610,
+          "emphasis": true
+        },
+        {
+          "text": "हैं।",
+          "startMs": 13610,
+          "endMs": 13865,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 13865,
+      "endMs": 15678,
+      "tokens": [
+        {
+          "text": "यहाँ",
+          "startMs": 13865,
+          "endMs": 14107,
+          "emphasis": true
+        },
+        {
+          "text": "count",
+          "startMs": 14107,
+          "endMs": 14711,
+          "emphasis": true
+        },
+        {
+          "text": "static",
+          "startMs": 14711,
+          "endMs": 15437,
+          "emphasis": true
+        },
+        {
+          "text": "है।",
+          "startMs": 15437,
+          "endMs": 15678,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 15678,
+      "endMs": 17008,
+      "tokens": [
+        {
+          "text": "हर",
+          "startMs": 15678,
+          "endMs": 15920,
+          "emphasis": false
+        },
+        {
+          "text": "बार",
+          "startMs": 15920,
+          "endMs": 16162,
+          "emphasis": true
+        },
+        {
+          "text": "नया",
+          "startMs": 16162,
+          "endMs": 16404,
+          "emphasis": true
+        },
+        {
+          "text": "ऑब्जेक्ट",
+          "startMs": 16404,
+          "endMs": 17008,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 17008,
+      "endMs": 18580,
+      "tokens": [
+        {
+          "text": "बनेगा",
+          "startMs": 17008,
+          "endMs": 17371,
+          "emphasis": true
+        },
+        {
+          "text": "तो",
+          "startMs": 17371,
+          "endMs": 17613,
+          "emphasis": false
+        },
+        {
+          "text": "count",
+          "startMs": 17613,
+          "endMs": 18217,
+          "emphasis": true
+        },
+        {
+          "text": "बढ़ता",
+          "startMs": 18217,
+          "endMs": 18580,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 18580,
+      "endMs": 19910,
+      "tokens": [
+        {
+          "text": "जाएगा,",
+          "startMs": 18580,
+          "endMs": 18943,
+          "emphasis": true
+        },
+        {
+          "text": "क्योंकि",
+          "startMs": 18943,
+          "endMs": 19305,
+          "emphasis": true
+        },
+        {
+          "text": "वो",
+          "startMs": 19305,
+          "endMs": 19547,
+          "emphasis": false
+        },
+        {
+          "text": "सबमें",
+          "startMs": 19547,
+          "endMs": 19910,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 19910,
+      "endMs": 20756,
+      "tokens": [
+        {
+          "text": "शेयर",
+          "startMs": 19910,
+          "endMs": 20272,
+          "emphasis": true
+        },
+        {
+          "text": "होता",
+          "startMs": 20272,
+          "endMs": 20514,
+          "emphasis": true
+        },
+        {
+          "text": "है।",
+          "startMs": 20514,
+          "endMs": 20756,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 20756,
+      "endMs": 22823,
+      "tokens": [
+        {
+          "text": "static",
+          "startMs": 20756,
+          "endMs": 21531,
+          "emphasis": true
+        },
+        {
+          "text": "मेथड",
+          "startMs": 21531,
+          "endMs": 21919,
+          "emphasis": true
+        },
+        {
+          "text": "को",
+          "startMs": 21919,
+          "endMs": 22177,
+          "emphasis": false
+        },
+        {
+          "text": "ऑब्जेक्ट",
+          "startMs": 22177,
+          "endMs": 22823,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 22823,
+      "endMs": 24115,
+      "tokens": [
+        {
+          "text": "बनाए",
+          "startMs": 22823,
+          "endMs": 23211,
+          "emphasis": true
+        },
+        {
+          "text": "बिना,",
+          "startMs": 23211,
+          "endMs": 23469,
+          "emphasis": true
+        },
+        {
+          "text": "सीधे",
+          "startMs": 23469,
+          "endMs": 23727,
+          "emphasis": true
+        },
+        {
+          "text": "क्लास",
+          "startMs": 23727,
+          "endMs": 24115,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 24115,
+      "endMs": 25148,
+      "tokens": [
+        {
+          "text": "के",
+          "startMs": 24115,
+          "endMs": 24373,
+          "emphasis": false
+        },
+        {
+          "text": "नाम",
+          "startMs": 24373,
+          "endMs": 24632,
+          "emphasis": true
+        },
+        {
+          "text": "से",
+          "startMs": 24632,
+          "endMs": 24890,
+          "emphasis": false
+        },
+        {
+          "text": "कॉल",
+          "startMs": 24890,
+          "endMs": 25148,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 25148,
+      "endMs": 26311,
+      "tokens": [
+        {
+          "text": "कर",
+          "startMs": 25148,
+          "endMs": 25407,
+          "emphasis": false
+        },
+        {
+          "text": "सकते",
+          "startMs": 25407,
+          "endMs": 25794,
+          "emphasis": true
+        },
+        {
+          "text": "हैं।",
+          "startMs": 25794,
+          "endMs": 26053,
+          "emphasis": true
+        },
+        {
+          "text": "जैसे",
+          "startMs": 26053,
+          "endMs": 26311,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 26311,
+      "endMs": 27603,
+      "tokens": [
+        {
+          "text": "Math",
+          "startMs": 26311,
+          "endMs": 26828,
+          "emphasis": true
+        },
+        {
+          "text": "dot",
+          "startMs": 26828,
+          "endMs": 27215,
+          "emphasis": true
+        },
+        {
+          "text": "max।",
+          "startMs": 27215,
+          "endMs": 27603,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 27603,
+      "endMs": 28992,
+      "tokens": [
+        {
+          "text": "एक",
+          "startMs": 27603,
+          "endMs": 27817,
+          "emphasis": false
+        },
+        {
+          "text": "ज़रूरी",
+          "startMs": 27817,
+          "endMs": 28137,
+          "emphasis": true
+        },
+        {
+          "text": "बात।",
+          "startMs": 28137,
+          "endMs": 28351,
+          "emphasis": true
+        },
+        {
+          "text": "static",
+          "startMs": 28351,
+          "endMs": 28992,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 28992,
+      "endMs": 30061,
+      "tokens": [
+        {
+          "text": "मेथड",
+          "startMs": 28992,
+          "endMs": 29313,
+          "emphasis": true
+        },
+        {
+          "text": "के",
+          "startMs": 29313,
+          "endMs": 29526,
+          "emphasis": false
+        },
+        {
+          "text": "अंदर",
+          "startMs": 29526,
+          "endMs": 29847,
+          "emphasis": true
+        },
+        {
+          "text": "आप",
+          "startMs": 29847,
+          "endMs": 30061,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 30061,
+      "endMs": 31771,
+      "tokens": [
+        {
+          "text": "non",
+          "startMs": 30061,
+          "endMs": 30381,
+          "emphasis": true
+        },
+        {
+          "text": "static",
+          "startMs": 30381,
+          "endMs": 31023,
+          "emphasis": true
+        },
+        {
+          "text": "वेरिएबल",
+          "startMs": 31023,
+          "endMs": 31557,
+          "emphasis": true
+        },
+        {
+          "text": "या",
+          "startMs": 31557,
+          "endMs": 31771,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 31771,
+      "endMs": 33160,
+      "tokens": [
+        {
+          "text": "this",
+          "startMs": 31771,
+          "endMs": 32198,
+          "emphasis": true
+        },
+        {
+          "text": "का",
+          "startMs": 32198,
+          "endMs": 32412,
+          "emphasis": false
+        },
+        {
+          "text": "इस्तेमाल",
+          "startMs": 32412,
+          "endMs": 32946,
+          "emphasis": true
+        },
+        {
+          "text": "नहीं",
+          "startMs": 32946,
+          "endMs": 33160,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 33160,
+      "endMs": 33694,
+      "tokens": [
+        {
+          "text": "कर",
+          "startMs": 33160,
+          "endMs": 33373,
+          "emphasis": false
+        },
+        {
+          "text": "सकते।",
+          "startMs": 33373,
+          "endMs": 33694,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 33694,
+      "endMs": 34834,
+      "tokens": [
+        {
+          "text": "ऐसे",
+          "startMs": 33694,
+          "endMs": 33947,
+          "emphasis": true
+        },
+        {
+          "text": "ही",
+          "startMs": 33947,
+          "endMs": 34201,
+          "emphasis": false
+        },
+        {
+          "text": "रोज़ाना",
+          "startMs": 34201,
+          "endMs": 34581,
+          "emphasis": true
+        },
+        {
+          "text": "एक",
+          "startMs": 34581,
+          "endMs": 34834,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 34834,
+      "endMs": 36481,
+      "tokens": [
+        {
+          "text": "Java",
+          "startMs": 34834,
+          "endMs": 35341,
+          "emphasis": true
+        },
+        {
+          "text": "कॉन्सेप्ट",
+          "startMs": 35341,
+          "endMs": 35974,
+          "emphasis": true
+        },
+        {
+          "text": "के",
+          "startMs": 35974,
+          "endMs": 36228,
+          "emphasis": false
+        },
+        {
+          "text": "लिए",
+          "startMs": 36228,
+          "endMs": 36481,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 36481,
+      "endMs": 36988,
+      "tokens": [
+        {
+          "text": "फॉलो",
+          "startMs": 36481,
+          "endMs": 36735,
+          "emphasis": true
+        },
+        {
+          "text": "करें।",
+          "startMs": 36735,
+          "endMs": 36988,
+          "emphasis": true
+        }
+      ]
+    }
+  ],
+  "_source": "synthetic"
+}

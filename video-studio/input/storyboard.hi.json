@@ -1,0 +1,107 @@
+{
+  "title": "Java static keyword (Hindi)",
+  "platform": "short",
+  "language": "hi",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "totalSeconds": 36.989,
+  "audio": "narration/hi/full.wav",
+  "style": {
+    "genre": "tech-explainer",
+    "mood": "punchy",
+    "palette": {
+      "bg": "#12100E",
+      "fg": "#FFF7ED",
+      "accent": "#F89820"
+    },
+    "captionStyle": "karaoke"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "template": "title",
+      "narration": "Java का static कीवर्ड बहुत लोगों को कन्फ्यूज़ करता है। चलिए इसे आसान भाषा में समझते हैं।",
+      "motion": "popWords",
+      "text": {
+        "heading": "static कीवर्ड",
+        "sub": "Java में आसान भाषा में"
+      },
+      "durationSec": 6.473
+    },
+    {
+      "id": "s2",
+      "template": "bullets",
+      "narration": "static वेरिएबल क्लास से जुड़ा होता है, किसी ऑब्जेक्ट से नहीं। सभी ऑब्जेक्ट्स इसकी एक ही कॉपी शेयर करते हैं।",
+      "motion": "slideUp",
+      "text": {
+        "heading": "static वेरिएबल",
+        "bullets": [
+          "class से जुड़ा होता है",
+          "सभी objects शेयर करते हैं",
+          "memory में सिर्फ एक copy"
+        ]
+      },
+      "durationSec": 7.392
+    },
+    {
+      "id": "s3",
+      "template": "code",
+      "narration": "यहाँ count static है। हर बार नया ऑब्जेक्ट बनेगा तो count बढ़ता जाएगा, क्योंकि वो सबमें शेयर होता है।",
+      "motion": "typewriter",
+      "text": {
+        "heading": "उदाहरण",
+        "code": [
+          "class Counter {",
+          "  static int count = 0;",
+          "  Counter() {",
+          "    count++;",
+          "  }",
+          "}"
+        ]
+      },
+      "durationSec": 6.891
+    },
+    {
+      "id": "s4",
+      "template": "bullets",
+      "narration": "static मेथड को ऑब्जेक्ट बनाए बिना, सीधे क्लास के नाम से कॉल कर सकते हैं। जैसे Math dot max।",
+      "motion": "slideUp",
+      "text": {
+        "heading": "static मेथड",
+        "bullets": [
+          "object बनाए बिना call",
+          "ClassName.method()",
+          "जैसे Math.max()"
+        ]
+      },
+      "durationSec": 6.847
+    },
+    {
+      "id": "s5",
+      "template": "bullets",
+      "narration": "एक ज़रूरी बात। static मेथड के अंदर आप non static वेरिएबल या this का इस्तेमाल नहीं कर सकते।",
+      "motion": "slideUp",
+      "text": {
+        "heading": "ध्यान रखें",
+        "bullets": [
+          "static से non-static access नहीं",
+          "this काम नहीं करता",
+          "memory में एक बार load"
+        ]
+      },
+      "durationSec": 6.091
+    },
+    {
+      "id": "s6",
+      "template": "cta",
+      "narration": "ऐसे ही रोज़ाना एक Java कॉन्सेप्ट के लिए फॉलो करें।",
+      "motion": "fade",
+      "text": {
+        "heading": "रोज़ाना Java सीखें",
+        "sub": "@devshorts"
+      },
+      "durationSec": 3.294
+    }
+  ]
+}
