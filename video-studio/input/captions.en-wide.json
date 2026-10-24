@@ -1,0 +1,803 @@
+{
+  "pages": [
+    {
+      "startMs": 0,
+      "endMs": 1504,
+      "tokens": [
+        {
+          "text": "Typing",
+          "startMs": 0,
+          "endMs": 430,
+          "emphasis": true
+        },
+        {
+          "text": "fires",
+          "startMs": 430,
+          "endMs": 788,
+          "emphasis": true
+        },
+        {
+          "text": "your",
+          "startMs": 788,
+          "endMs": 1074,
+          "emphasis": false
+        },
+        {
+          "text": "search",
+          "startMs": 1074,
+          "endMs": 1504,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 1504,
+      "endMs": 2793,
+      "tokens": [
+        {
+          "text": "fifty",
+          "startMs": 1504,
+          "endMs": 1862,
+          "emphasis": true
+        },
+        {
+          "text": "times",
+          "startMs": 1862,
+          "endMs": 2220,
+          "emphasis": true
+        },
+        {
+          "text": "a",
+          "startMs": 2220,
+          "endMs": 2363,
+          "emphasis": false
+        },
+        {
+          "text": "second.",
+          "startMs": 2363,
+          "endMs": 2793,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 2793,
+      "endMs": 4010,
+      "tokens": [
+        {
+          "text": "Debounce",
+          "startMs": 2793,
+          "endMs": 3366,
+          "emphasis": true
+        },
+        {
+          "text": "fixes",
+          "startMs": 3366,
+          "endMs": 3724,
+          "emphasis": true
+        },
+        {
+          "text": "that.",
+          "startMs": 3724,
+          "endMs": 4010,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 4010,
+      "endMs": 5600,
+      "tokens": [
+        {
+          "text": "Debounce",
+          "startMs": 4010,
+          "endMs": 4616,
+          "emphasis": true
+        },
+        {
+          "text": "waits",
+          "startMs": 4616,
+          "endMs": 4994,
+          "emphasis": true
+        },
+        {
+          "text": "until",
+          "startMs": 4994,
+          "endMs": 5373,
+          "emphasis": true
+        },
+        {
+          "text": "the",
+          "startMs": 5373,
+          "endMs": 5600,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 5600,
+      "endMs": 7418,
+      "tokens": [
+        {
+          "text": "events",
+          "startMs": 5600,
+          "endMs": 6055,
+          "emphasis": true
+        },
+        {
+          "text": "stop.",
+          "startMs": 6055,
+          "endMs": 6357,
+          "emphasis": false
+        },
+        {
+          "text": "Every",
+          "startMs": 6357,
+          "endMs": 6736,
+          "emphasis": true
+        },
+        {
+          "text": "keystroke",
+          "startMs": 6736,
+          "endMs": 7418,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 7418,
+      "endMs": 8629,
+      "tokens": [
+        {
+          "text": "resets",
+          "startMs": 7418,
+          "endMs": 7872,
+          "emphasis": true
+        },
+        {
+          "text": "a",
+          "startMs": 7872,
+          "endMs": 8023,
+          "emphasis": false
+        },
+        {
+          "text": "timer,",
+          "startMs": 8023,
+          "endMs": 8402,
+          "emphasis": true
+        },
+        {
+          "text": "and",
+          "startMs": 8402,
+          "endMs": 8629,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 8629,
+      "endMs": 10068,
+      "tokens": [
+        {
+          "text": "the",
+          "startMs": 8629,
+          "endMs": 8856,
+          "emphasis": false
+        },
+        {
+          "text": "function",
+          "startMs": 8856,
+          "endMs": 9462,
+          "emphasis": true
+        },
+        {
+          "text": "only",
+          "startMs": 9462,
+          "endMs": 9765,
+          "emphasis": false
+        },
+        {
+          "text": "runs",
+          "startMs": 9765,
+          "endMs": 10068,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 10068,
+      "endMs": 11279,
+      "tokens": [
+        {
+          "text": "once",
+          "startMs": 10068,
+          "endMs": 10371,
+          "emphasis": false
+        },
+        {
+          "text": "after",
+          "startMs": 10371,
+          "endMs": 10749,
+          "emphasis": true
+        },
+        {
+          "text": "a",
+          "startMs": 10749,
+          "endMs": 10901,
+          "emphasis": false
+        },
+        {
+          "text": "short",
+          "startMs": 10901,
+          "endMs": 11279,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 11279,
+      "endMs": 11658,
+      "tokens": [
+        {
+          "text": "pause.",
+          "startMs": 11279,
+          "endMs": 11658,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 11658,
+      "endMs": 13039,
+      "tokens": [
+        {
+          "text": "Here's",
+          "startMs": 11658,
+          "endMs": 12042,
+          "emphasis": true
+        },
+        {
+          "text": "the",
+          "startMs": 12042,
+          "endMs": 12272,
+          "emphasis": false
+        },
+        {
+          "text": "whole",
+          "startMs": 12272,
+          "endMs": 12656,
+          "emphasis": true
+        },
+        {
+          "text": "thing.",
+          "startMs": 12656,
+          "endMs": 13039,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 13039,
+      "endMs": 14037,
+      "tokens": [
+        {
+          "text": "Keep",
+          "startMs": 13039,
+          "endMs": 13346,
+          "emphasis": false
+        },
+        {
+          "text": "a",
+          "startMs": 13346,
+          "endMs": 13500,
+          "emphasis": false
+        },
+        {
+          "text": "timer",
+          "startMs": 13500,
+          "endMs": 13884,
+          "emphasis": true
+        },
+        {
+          "text": "in",
+          "startMs": 13884,
+          "endMs": 14037,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 14037,
+      "endMs": 15265,
+      "tokens": [
+        {
+          "text": "a",
+          "startMs": 14037,
+          "endMs": 14191,
+          "emphasis": false
+        },
+        {
+          "text": "closure.",
+          "startMs": 14191,
+          "endMs": 14728,
+          "emphasis": true
+        },
+        {
+          "text": "Clear",
+          "startMs": 14728,
+          "endMs": 15112,
+          "emphasis": true
+        },
+        {
+          "text": "it",
+          "startMs": 15112,
+          "endMs": 15265,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 15265,
+      "endMs": 16339,
+      "tokens": [
+        {
+          "text": "on",
+          "startMs": 15265,
+          "endMs": 15418,
+          "emphasis": false
+        },
+        {
+          "text": "every",
+          "startMs": 15418,
+          "endMs": 15802,
+          "emphasis": true
+        },
+        {
+          "text": "call,",
+          "startMs": 15802,
+          "endMs": 16109,
+          "emphasis": false
+        },
+        {
+          "text": "and",
+          "startMs": 16109,
+          "endMs": 16339,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 16339,
+      "endMs": 17414,
+      "tokens": [
+        {
+          "text": "set",
+          "startMs": 16339,
+          "endMs": 16570,
+          "emphasis": false
+        },
+        {
+          "text": "it",
+          "startMs": 16570,
+          "endMs": 16723,
+          "emphasis": false
+        },
+        {
+          "text": "again.",
+          "startMs": 16723,
+          "endMs": 17107,
+          "emphasis": true
+        },
+        {
+          "text": "Only",
+          "startMs": 17107,
+          "endMs": 17414,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 17414,
+      "endMs": 18872,
+      "tokens": [
+        {
+          "text": "the",
+          "startMs": 17414,
+          "endMs": 17644,
+          "emphasis": false
+        },
+        {
+          "text": "last",
+          "startMs": 17644,
+          "endMs": 17951,
+          "emphasis": false
+        },
+        {
+          "text": "call",
+          "startMs": 17951,
+          "endMs": 18258,
+          "emphasis": false
+        },
+        {
+          "text": "survives.",
+          "startMs": 18258,
+          "endMs": 18872,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 18872,
+      "endMs": 20334,
+      "tokens": [
+        {
+          "text": "Use",
+          "startMs": 18872,
+          "endMs": 19103,
+          "emphasis": false
+        },
+        {
+          "text": "it",
+          "startMs": 19103,
+          "endMs": 19257,
+          "emphasis": false
+        },
+        {
+          "text": "anywhere",
+          "startMs": 19257,
+          "endMs": 19872,
+          "emphasis": true
+        },
+        {
+          "text": "events",
+          "startMs": 19872,
+          "endMs": 20334,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 20334,
+      "endMs": 21642,
+      "tokens": [
+        {
+          "text": "fire",
+          "startMs": 20334,
+          "endMs": 20642,
+          "emphasis": false
+        },
+        {
+          "text": "too",
+          "startMs": 20642,
+          "endMs": 20872,
+          "emphasis": false
+        },
+        {
+          "text": "fast:",
+          "startMs": 20872,
+          "endMs": 21180,
+          "emphasis": false
+        },
+        {
+          "text": "search",
+          "startMs": 21180,
+          "endMs": 21642,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 21642,
+      "endMs": 22796,
+      "tokens": [
+        {
+          "text": "as",
+          "startMs": 21642,
+          "endMs": 21796,
+          "emphasis": false
+        },
+        {
+          "text": "you",
+          "startMs": 21796,
+          "endMs": 22027,
+          "emphasis": false
+        },
+        {
+          "text": "type,",
+          "startMs": 22027,
+          "endMs": 22334,
+          "emphasis": false
+        },
+        {
+          "text": "window",
+          "startMs": 22334,
+          "endMs": 22796,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 22796,
+      "endMs": 24565,
+      "tokens": [
+        {
+          "text": "resize,",
+          "startMs": 22796,
+          "endMs": 23258,
+          "emphasis": true
+        },
+        {
+          "text": "scroll",
+          "startMs": 23258,
+          "endMs": 23719,
+          "emphasis": true
+        },
+        {
+          "text": "handlers,",
+          "startMs": 23719,
+          "endMs": 24335,
+          "emphasis": true
+        },
+        {
+          "text": "and",
+          "startMs": 24335,
+          "endMs": 24565,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 24565,
+      "endMs": 25181,
+      "tokens": [
+        {
+          "text": "auto-save.",
+          "startMs": 24565,
+          "endMs": 25181,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 25181,
+      "endMs": 27159,
+      "tokens": [
+        {
+          "text": "Quick",
+          "startMs": 25181,
+          "endMs": 25561,
+          "emphasis": true
+        },
+        {
+          "text": "contrast.",
+          "startMs": 25561,
+          "endMs": 26170,
+          "emphasis": true
+        },
+        {
+          "text": "Debounce",
+          "startMs": 26170,
+          "endMs": 26779,
+          "emphasis": true
+        },
+        {
+          "text": "waits",
+          "startMs": 26779,
+          "endMs": 27159,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 27159,
+      "endMs": 28681,
+      "tokens": [
+        {
+          "text": "for",
+          "startMs": 27159,
+          "endMs": 27388,
+          "emphasis": false
+        },
+        {
+          "text": "quiet.",
+          "startMs": 27388,
+          "endMs": 27768,
+          "emphasis": true
+        },
+        {
+          "text": "Throttle",
+          "startMs": 27768,
+          "endMs": 28377,
+          "emphasis": true
+        },
+        {
+          "text": "runs",
+          "startMs": 28377,
+          "endMs": 28681,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 28681,
+      "endMs": 29670,
+      "tokens": [
+        {
+          "text": "at",
+          "startMs": 28681,
+          "endMs": 28833,
+          "emphasis": false
+        },
+        {
+          "text": "most",
+          "startMs": 28833,
+          "endMs": 29138,
+          "emphasis": false
+        },
+        {
+          "text": "once",
+          "startMs": 29138,
+          "endMs": 29442,
+          "emphasis": false
+        },
+        {
+          "text": "per",
+          "startMs": 29442,
+          "endMs": 29670,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 29670,
+      "endMs": 31116,
+      "tokens": [
+        {
+          "text": "interval.",
+          "startMs": 29670,
+          "endMs": 30279,
+          "emphasis": true
+        },
+        {
+          "text": "Don't",
+          "startMs": 30279,
+          "endMs": 30583,
+          "emphasis": false
+        },
+        {
+          "text": "mix",
+          "startMs": 30583,
+          "endMs": 30811,
+          "emphasis": false
+        },
+        {
+          "text": "them",
+          "startMs": 30811,
+          "endMs": 31116,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 31116,
+      "endMs": 31268,
+      "tokens": [
+        {
+          "text": "up.",
+          "startMs": 31116,
+          "endMs": 31268,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 31268,
+      "endMs": 32669,
+      "tokens": [
+        {
+          "text": "Add",
+          "startMs": 31268,
+          "endMs": 31531,
+          "emphasis": false
+        },
+        {
+          "text": "this",
+          "startMs": 31531,
+          "endMs": 31881,
+          "emphasis": false
+        },
+        {
+          "text": "one",
+          "startMs": 31881,
+          "endMs": 32144,
+          "emphasis": false
+        },
+        {
+          "text": "helper,",
+          "startMs": 32144,
+          "endMs": 32669,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 32669,
+      "endMs": 33896,
+      "tokens": [
+        {
+          "text": "and",
+          "startMs": 32669,
+          "endMs": 32932,
+          "emphasis": false
+        },
+        {
+          "text": "your",
+          "startMs": 32932,
+          "endMs": 33283,
+          "emphasis": false
+        },
+        {
+          "text": "API",
+          "startMs": 33283,
+          "endMs": 33545,
+          "emphasis": false
+        },
+        {
+          "text": "will",
+          "startMs": 33545,
+          "endMs": 33896,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 33896,
+      "endMs": 35385,
+      "tokens": [
+        {
+          "text": "thank",
+          "startMs": 33896,
+          "endMs": 34334,
+          "emphasis": true
+        },
+        {
+          "text": "you.",
+          "startMs": 34334,
+          "endMs": 34597,
+          "emphasis": false
+        },
+        {
+          "text": "Follow",
+          "startMs": 34597,
+          "endMs": 35122,
+          "emphasis": true
+        },
+        {
+          "text": "for",
+          "startMs": 35122,
+          "endMs": 35385,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 35385,
+      "endMs": 35998,
+      "tokens": [
+        {
+          "text": "daily",
+          "startMs": 35385,
+          "endMs": 35823,
+          "emphasis": true
+        },
+        {
+          "text": "JS.",
+          "startMs": 35823,
+          "endMs": 35998,
+          "emphasis": false
+        }
+      ]
+    }
+  ],
+  "_source": "synthetic"
+}
