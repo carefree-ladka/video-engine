@@ -7,6 +7,7 @@
     "studio": "remotion studio src/remotion/index.ts",
     "make": "tsx src/pipeline/make.ts",
     "render": "tsx src/pipeline/render.ts",
+    "pace": "tsx src/pipeline/retime.ts",
     "check-f5": "bash scripts/check-f5.sh"
   },
   "dependencies": {

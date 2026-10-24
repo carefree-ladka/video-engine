@@ -5,3 +5,6 @@ whisper.cpp
 .env
 *.aiff
 tmp
+
+# retime pristine backups
+input/*.orig.json
