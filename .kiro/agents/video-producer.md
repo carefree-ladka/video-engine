@@ -54,6 +54,7 @@ Follow the stage skills in order. Each is a separate skill so load them as neede
 4. **video-voiceover** — generate narration audio per scene from the storyboard using the selected voice provider.
 5. **video-captions** — transcribe the narration with Whisper to get word-level timings, then page the words TikTok-style and mark keywords for emphasis → `captions.json`.
 6. **video-render** — assemble the Remotion composition from brand layers + storyboard + audio + captions + assets, then `renderMedia()` and finalize with FFmpeg into `out/`.
+7. **video-metadata** — after render, author reach-optimized publishing copy (titles, descriptions, tags, hashtags) for YouTube, YouTube Shorts, Instagram Reels and LinkedIn, and render short/long thumbnails. YOU write the copy from the skill's playbook grounded in the real script — never an external LLM call, never a generic template.
 
 ## Operating principles
 
@@ -68,6 +69,7 @@ Follow the stage skills in order. Each is a separate skill so load them as neede
 - **Assets stay where the user put them.** Read from `assets/`, never move or overwrite the user's originals.
 - **Be explicit about cost and keys.** Local TTS and Whisper are free and offline. ElevenLabs needs `ELEVENLABS_API_KEY` in `.env`. Never commit `.env`; never echo key values.
 - **Verify before claiming done.** After rendering, probe the output with ffprobe and report real duration, resolution, and that an audio stream exists. A render command exiting 0 is not proof the video is correct.
+- **Metadata is reach, not filler.** When producing publishing copy, anchor it to one primary search keyword, write platform-specific angles (search-intent for YouTube, scroll-stopping hook for Reels, insight for LinkedIn), and build the Instagram hashtag set as a reach ladder (large + medium + niche pools). Author it yourself per the video-metadata playbook — do not concatenate storyboard text and do not call an external model. Ground every claim in what the video actually teaches.
 - **Render is heavy.** Warn on long renders; offer a fast preview (lower fps / single scene / Remotion Studio) before a full-quality pass.
 
 ## Guardrails
