@@ -6,6 +6,7 @@ import {
   interpolate,
 } from "remotion";
 import { FitStage } from "./Stage";
+import { Card } from "./Card";
 import { Background } from "./Background";
 import { useEnter } from "./motion";
 import { FONT, MONO, DISPLAY } from "./fonts";
@@ -117,15 +118,15 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({
   return (
     <AbsoluteFill style={{ color: theme.fg, fontFamily: FONT }}>
       <Background theme={theme} variant={(theme as any).bgVariant} />
-      <FitStage estHeight={estHeight}>
+      <FitStage estHeight={estHeight + 58}>
         {scene.text?.heading ? (
           <h2
             style={{
               fontFamily: DISPLAY,
               fontSize: 64,
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: "-0.02em",
-              marginBottom: 36,
+              marginBottom: 32,
               opacity: headingP,
               transform: `translateY(${(1 - headingP) * 20}px)`,
             }}
@@ -134,49 +135,83 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({
           </h2>
         ) : null}
 
-        <div
-          style={{
-            background: "#15151C",
-            border: "1px solid #26262F",
-            borderRadius: 20,
-            padding: "36px 40px",
-            fontFamily: MONO,
-            fontSize,
-            lineHeight: 1.5,
-            boxShadow: "0 20px 60px rgba(0,0,0,0.45)",
-          }}
-        >
-          {lines.map((line, li) => {
-            const toks = tokenizeLine(line, theme);
-            const rendered: React.ReactNode[] = [];
-            for (let ti = 0; ti < toks.length; ti++) {
-              const t = toks[ti];
-              if (consumed >= shown) break;
-              const remaining = shown - consumed;
-              const slice = t.text.slice(0, remaining);
-              rendered.push(
-                <span key={ti} style={{ color: t.color }}>
-                  {slice}
-                </span>,
+        <Card radius={20} style={{ overflow: "hidden" }}>
+          {/* editor title bar with traffic lights */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              padding: "16px 22px",
+              borderBottom: "1px solid rgba(255,255,255,0.07)",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.04), transparent)",
+            }}
+          >
+            {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => (
+              <span
+                key={c}
+                style={{
+                  width: 16,
+                  height: 16,
+                  borderRadius: 999,
+                  background: c,
+                  boxShadow: `0 0 10px ${c}66`,
+                }}
+              />
+            ))}
+            <span
+              style={{
+                marginLeft: 10,
+                fontFamily: MONO,
+                fontSize: 22,
+                color: "rgba(245,243,247,0.5)",
+              }}
+            >
+              debounce.js
+            </span>
+          </div>
+
+          <div
+            style={{
+              padding: "30px 40px 36px",
+              fontFamily: MONO,
+              fontSize,
+              lineHeight: 1.55,
+            }}
+          >
+            {lines.map((line, li) => {
+              const toks = tokenizeLine(line, theme);
+              const rendered: React.ReactNode[] = [];
+              for (let ti = 0; ti < toks.length; ti++) {
+                const t = toks[ti];
+                if (consumed >= shown) break;
+                const remaining = shown - consumed;
+                const slice = t.text.slice(0, remaining);
+                rendered.push(
+                  <span key={ti} style={{ color: t.color }}>
+                    {slice}
+                  </span>,
+                );
+                consumed += t.text.length;
+              }
+              // account for the newline char between lines
+              if (li < lines.length - 1) consumed += 1;
+              const lineHasContent = rendered.length > 0;
+              return (
+                <div
+                  key={li}
+                  style={{ minHeight: fontSize * 1.5, whiteSpace: "pre" }}
+                >
+                  {rendered}
+                  {lineHasContent && caretOn && consumed >= shown ? (
+                    <span style={{ color: theme.accent }}>▋</span>
+                  ) : null}
+                </div>
               );
-              consumed += t.text.length;
-            }
-            // account for the newline char between lines
-            if (li < lines.length - 1) consumed += 1;
-            const lineHasContent = rendered.length > 0;
-            return (
-              <div
-                key={li}
-                style={{ minHeight: fontSize * 1.5, whiteSpace: "pre" }}
-              >
-                {rendered}
-                {lineHasContent && caretOn && consumed >= shown ? (
-                  <span style={{ color: theme.accent }}>▋</span>
-                ) : null}
-              </div>
-            );
-          })}
-        </div>
+            })}
+          </div>
+        </Card>
       </FitStage>
     </AbsoluteFill>
   );

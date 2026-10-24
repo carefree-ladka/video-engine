@@ -11,12 +11,13 @@
     "genre": "tech-explainer",
     "mood": "punchy",
     "palette": {
-      "bg": "#120E12",
-      "fg": "#FFF1F2",
-      "accent": "#FB7185"
+      "bg": "#0E0B12",
+      "fg": "#F5F3F7",
+      "accent": "#F5A524"
     },
     "captionStyle": "karaoke",
-    "transitionFamily": "slide"
+    "transitionFamily": "slide",
+    "background": "grid-glow"
   },
   "scenes": [
     {
@@ -26,7 +27,8 @@
       "motion": "popWords",
       "text": {
         "heading": "Stop spamming your API",
-        "sub": "debounce, in 40 seconds"
+        "sub": "debounce, in 40 seconds",
+        "kicker": "JavaScript"
       },
       "durationSec": 4.01
     },
@@ -94,7 +96,8 @@
           "search-as-you-type",
           "resize & scroll handlers",
           "auto-save on input"
-        ]
+        ],
+        "kicker": "Use cases"
       },
       "durationSec": 6.309
     },
@@ -109,7 +112,8 @@
           "debounce: wait for a pause",
           "throttle: once per interval",
           "pick by the behavior you want"
-        ]
+        ],
+        "kicker": "Comparison"
       },
       "durationSec": 6.087
     },
@@ -120,7 +124,7 @@
       "motion": "fade",
       "text": {
         "heading": "Follow for daily JS",
-        "sub": "@devshorts"
+        "sub": "@code2offer"
       },
       "durationSec": 4.73
     }

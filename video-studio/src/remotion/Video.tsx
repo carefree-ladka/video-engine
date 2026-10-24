@@ -76,9 +76,9 @@ export const Video: React.FC<VideoProps> = ({
         bgVariant: storyboard.style.background ?? "grid-glow",
       }
     : {
-        bg: "#0B1020",
-        fg: "#FFFFFF",
-        accent: "#00D9FF",
+        bg: "#0E0B12",
+        fg: "#F5F3F7",
+        accent: "#F5A524",
         bgVariant: "grid-glow",
       };
 

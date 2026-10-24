@@ -11,11 +11,12 @@
     "genre": "tech-explainer",
     "mood": "punchy",
     "palette": {
-      "bg": "#12100E",
-      "fg": "#FFF7ED",
-      "accent": "#F89820"
+      "bg": "#0E0B12",
+      "fg": "#F5F3F7",
+      "accent": "#F5A524"
     },
-    "captionStyle": "karaoke"
+    "captionStyle": "karaoke",
+    "background": "grid-glow"
   },
   "scenes": [
     {
@@ -25,7 +26,8 @@
       "motion": "popWords",
       "text": {
         "heading": "static कीवर्ड",
-        "sub": "Java में आसान भाषा में"
+        "sub": "Java में आसान भाषा में",
+        "kicker": "JavaScript"
       },
       "durationSec": 6.473
     },
@@ -73,7 +75,8 @@
           "object बनाए बिना call",
           "ClassName.method()",
           "जैसे Math.max()"
-        ]
+        ],
+        "kicker": "Use cases"
       },
       "durationSec": 6.847
     },
@@ -88,7 +91,8 @@
           "static से non-static access नहीं",
           "this काम नहीं करता",
           "memory में एक बार load"
-        ]
+        ],
+        "kicker": "Comparison"
       },
       "durationSec": 6.091
     },
@@ -99,7 +103,7 @@
       "motion": "fade",
       "text": {
         "heading": "रोज़ाना Java सीखें",
-        "sub": "@devshorts"
+        "sub": "@code2offer"
       },
       "durationSec": 3.294
     }

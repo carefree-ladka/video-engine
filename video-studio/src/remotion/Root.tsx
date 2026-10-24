@@ -12,7 +12,7 @@ const fallback = {
     totalSeconds: 6,
     audio: null,
     style: {
-      palette: { bg: "#0B1020", fg: "#FFFFFF", accent: "#00D9FF" },
+      palette: { bg: "#0E0B12", fg: "#F5F3F7", accent: "#F5A524" },
       captionStyle: "karaoke",
     },
     scenes: [

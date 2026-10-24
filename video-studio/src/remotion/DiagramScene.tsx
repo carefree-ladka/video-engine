@@ -6,6 +6,7 @@ import {
   interpolate,
 } from "remotion";
 import { FitStage } from "./Stage";
+import { Card } from "./Card";
 import { Background } from "./Background";
 import { useReveal, wipeUp, EASING } from "./motion";
 import { FONT, DISPLAY } from "./fonts";
@@ -65,47 +66,55 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
             key={i}
             style={{
               flex: vertical ? "0 0 auto" : 1,
-              minHeight: vertical ? 0 : 260,
-              borderRadius: 18,
-              border: `3px solid ${isAccent ? theme.accent : "#2A2F37"}`,
-              background: isAccent ? `${theme.accent}18` : "#13171E",
-              padding: vertical ? "18px 22px" : "24px 22px",
+              display: "flex",
               opacity: p,
               transform: `translateY(${(1 - p) * 40}px)`,
-              boxShadow: isAccent
-                ? `0 16px 50px ${theme.accent}33`
-                : "0 10px 30px rgba(0,0,0,0.35)",
             }}
           >
-            <div
+            <Card
+              highlighted={isAccent}
+              accent={theme.accent}
+              radius={18}
               style={{
-                fontFamily: DISPLAY,
-                fontSize: vertical ? 34 : 30,
-                fontWeight: 700,
-                color: isAccent ? theme.accent : theme.fg,
-                marginBottom: (box.items?.length ?? 0) ? 16 : 0,
+                flex: 1,
+                minHeight: vertical ? 0 : 260,
+                padding: vertical ? "20px 24px" : "26px 24px",
               }}
             >
-              {box.title}
-            </div>
-            {(box.items ?? []).map((it, j) => {
-              const cp = useReveal(16 + i * 5 + j * 4, 10, EASING.snap);
-              return (
-                <div
-                  key={j}
-                  style={{
-                    fontSize: vertical ? 26 : 24,
-                    background: "#1C222B",
-                    borderRadius: 10,
-                    padding: "8px 14px",
-                    margin: "8px 0",
-                    clipPath: wipeUp(cp),
-                  }}
-                >
-                  {it}
-                </div>
-              );
-            })}
+              <div
+                style={{
+                  fontFamily: DISPLAY,
+                  fontSize: vertical ? 34 : 30,
+                  fontWeight: 800,
+                  letterSpacing: "-0.01em",
+                  color: isAccent ? theme.accent : theme.fg,
+                  marginBottom: (box.items?.length ?? 0) ? 16 : 0,
+                }}
+              >
+                {box.title}
+              </div>
+              {(box.items ?? []).map((it, j) => {
+                const cp = useReveal(16 + i * 5 + j * 4, 10, EASING.snap);
+                return (
+                  <div
+                    key={j}
+                    style={{
+                      fontFamily: FONT,
+                      fontWeight: 500,
+                      fontSize: vertical ? 26 : 24,
+                      background: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      borderRadius: 10,
+                      padding: "9px 14px",
+                      margin: "8px 0",
+                      clipPath: wipeUp(cp),
+                    }}
+                  >
+                    {it}
+                  </div>
+                );
+              })}
+            </Card>
           </div>
         );
       })}

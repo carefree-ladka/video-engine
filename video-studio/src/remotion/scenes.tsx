@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import { SafeZone } from "./SafeZone";
 import { FitStage } from "./Stage";
+import { Card } from "./Card";
 import { Background } from "./Background";
 import { useReveal, wipeX, wipeUp, LightSweep, EASING } from "./motion";
 import { FONT, DISPLAY } from "./fonts";
@@ -13,6 +14,7 @@ type Scene = {
   template: string;
   motion?: string;
   text?: {
+    kicker?: string;
     heading?: string;
     sub?: string;
     bullets?: string[];
@@ -22,22 +24,67 @@ type Scene = {
 };
 type Theme = { bg: string; fg: string; accent: string; bgVariant?: string };
 
+const muted = (fg: string) => `${fg}9E`; // ~62% alpha secondary text
+
+// Small uppercase label that gives scenes an editorial, designed feel.
+const Kicker: React.FC<{ text?: string; accent: string; p: number }> = ({
+  text,
+  accent,
+  p,
+}) =>
+  text ? (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 12,
+        marginBottom: 22,
+        opacity: p,
+        transform: `translateY(${(1 - p) * 10}px)`,
+      }}
+    >
+      <span
+        style={{
+          width: 26,
+          height: 3,
+          borderRadius: 2,
+          background: accent,
+          boxShadow: `0 0 16px ${accent}AA`,
+        }}
+      />
+      <span
+        style={{
+          fontFamily: FONT,
+          fontSize: 24,
+          fontWeight: 700,
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          color: accent,
+        }}
+      >
+        {text}
+      </span>
+    </div>
+  ) : null;
+
 const Title: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
-  const h = useReveal(2, 14, EASING.snap);
-  const s = useReveal(14, 12, EASING.snap);
+  const k = useReveal(1, 10, EASING.snap);
+  const h = useReveal(3, 14, EASING.snap);
+  const s = useReveal(15, 12, EASING.snap);
   return (
     <AbsoluteFill style={{ color: theme.fg }}>
       <Background theme={theme} variant={theme.bgVariant} />
       <SafeZone>
+        <Kicker text={scene.text?.kicker} accent={theme.accent} p={k} />
         <div style={{ position: "relative", display: "inline-block" }}>
           <h1
             style={{
               fontFamily: DISPLAY,
-              fontSize: 96,
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
+              fontSize: 104,
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
               margin: 0,
-              lineHeight: 1.05,
+              lineHeight: 1.02,
               clipPath: wipeX(h),
             }}
           >
@@ -50,9 +97,10 @@ const Title: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
             style={{
               fontFamily: FONT,
               fontSize: 42,
-              fontWeight: 500,
-              opacity: 0.78,
-              marginTop: 24,
+              fontWeight: 400,
+              fontStyle: "italic",
+              color: muted(theme.fg),
+              marginTop: 26,
               clipPath: wipeX(s),
             }}
           >
@@ -61,10 +109,10 @@ const Title: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
         ) : null}
         <div
           style={{
-            marginTop: 28,
-            height: 8,
-            width: `${h * 150}px`,
-            background: theme.accent,
+            marginTop: 30,
+            height: 6,
+            width: `${h * 170}px`,
+            background: `linear-gradient(90deg, ${theme.accent}, ${theme.accent}00)`,
             borderRadius: 4,
           }}
         />
@@ -77,58 +125,88 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
   scene,
   theme,
 }) => {
-  const hp = useReveal(2, 12, EASING.snap);
+  const k = useReveal(1, 10, EASING.snap);
+  const hp = useReveal(3, 12, EASING.snap);
   const bullets = scene.text?.bullets ?? [];
-  // Estimate content height so a long list scales down to clear the captions.
   const estHeight =
-    (scene.text?.heading ? 70 * 1.1 + 36 : 0) +
-    bullets.length * (50 * 1.3 + 32);
+    (scene.text?.kicker ? 46 : 0) +
+    (scene.text?.heading ? 74 * 1.1 + 40 : 0) +
+    bullets.length * (96 + 22);
   return (
     <AbsoluteFill style={{ color: theme.fg }}>
       <Background theme={theme} variant={theme.bgVariant} />
       <FitStage estHeight={estHeight}>
+        <Kicker text={scene.text?.kicker} accent={theme.accent} p={k} />
         {scene.text?.heading ? (
           <h2
             style={{
               fontFamily: DISPLAY,
-              fontSize: 70,
-              fontWeight: 700,
+              fontSize: 74,
+              fontWeight: 800,
               letterSpacing: "-0.02em",
-              marginBottom: 36,
+              marginBottom: 40,
               clipPath: wipeX(hp),
             }}
           >
             {scene.text.heading}
           </h2>
         ) : null}
-        {bullets.map((b, i) => {
-          const p = useReveal(10 + i * 4, 12, EASING.snap);
-          return (
-            <div
-              key={i}
-              style={{
-                fontFamily: FONT,
-                fontSize: 50,
-                fontWeight: 500,
-                margin: "16px 0",
-                clipPath: wipeX(p),
-                display: "flex",
-                alignItems: "baseline",
-              }}
-            >
-              <span
+        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+          {bullets.map((b, i) => {
+            const p = useReveal(10 + i * 5, 14, EASING.overshoot);
+            const [lead, ...rest] = b.split(/(?<=^[^\s]+)\s/); // bold the first word
+            return (
+              <div
+                key={i}
                 style={{
-                  color: theme.accent,
-                  marginRight: 18,
-                  fontWeight: 800,
+                  opacity: p,
+                  transform: `translateY(${(1 - p) * 26}px)`,
                 }}
               >
-                ▍
-              </span>
-              {b}
-            </div>
-          );
-        })}
+                <Card style={{ padding: "20px 26px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 22,
+                    }}
+                  >
+                    <span
+                      style={{
+                        flex: "0 0 auto",
+                        width: 46,
+                        height: 46,
+                        borderRadius: 12,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontFamily: DISPLAY,
+                        fontSize: 26,
+                        fontWeight: 800,
+                        color: theme.bg,
+                        background: `linear-gradient(145deg, ${theme.accent}, ${theme.accent}C0)`,
+                        boxShadow: `0 8px 22px -8px ${theme.accent}99`,
+                      }}
+                    >
+                      {i + 1}
+                    </span>
+                    <div
+                      style={{
+                        fontFamily: FONT,
+                        fontSize: 46,
+                        fontWeight: 500,
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      <span style={{ fontWeight: 800 }}>{lead}</span>
+                      {rest.length ? " " + rest.join(" ") : ""}
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            );
+          })}
+        </div>
       </FitStage>
     </AbsoluteFill>
   );
@@ -140,37 +218,35 @@ const Cta: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
   const s = useReveal(22, 12, EASING.snap);
   return (
     <AbsoluteFill style={{ color: theme.fg }}>
-      {/* same dark, designed stage as every other scene — accent on ONE element only */}
-      <Background theme={theme} variant={theme.bgVariant} />
+      <Background theme={theme} variant="mesh" />
       <SafeZone>
         <div style={{ textAlign: "center" }}>
           <h1
             style={{
               fontFamily: DISPLAY,
-              fontSize: 84,
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.08,
+              fontSize: 90,
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.06,
               clipPath: wipeUp(p),
             }}
           >
             {scene.text?.heading ?? "Follow for more"}
           </h1>
 
-          {/* the one signal-colour element: a Follow pill */}
           <div
             style={{
               display: "inline-block",
-              marginTop: 40,
-              padding: "20px 48px",
+              marginTop: 44,
+              padding: "22px 54px",
               borderRadius: 999,
-              background: theme.accent,
+              background: `linear-gradient(145deg, ${theme.accent}, ${theme.accent}CC)`,
               color: theme.bg,
               fontFamily: DISPLAY,
-              fontSize: 48,
-              fontWeight: 700,
+              fontSize: 50,
+              fontWeight: 800,
               letterSpacing: "-0.01em",
-              boxShadow: `0 16px 50px ${theme.accent}55`,
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.35), 0 18px 55px ${theme.accent}55`,
               opacity: pill,
               transform: `scale(${0.85 + pill * 0.15})`,
             }}
@@ -183,9 +259,10 @@ const Cta: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
               style={{
                 fontFamily: FONT,
                 fontSize: 44,
-                fontWeight: 600,
-                opacity: 0.8,
-                marginTop: 28,
+                fontWeight: 400,
+                fontStyle: "italic",
+                color: muted(theme.fg),
+                marginTop: 30,
                 clipPath: wipeX(s),
               }}
             >
@@ -199,32 +276,32 @@ const Cta: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
   );
 };
 
-// Mid-video re-hook: a short, visually distinct pattern-interrupt that opens a new loop.
+// Mid-video re-hook: a short, visually distinct pattern-interrupt.
 const Interstitial: React.FC<{ scene: Scene; theme: Theme }> = ({
   scene,
   theme,
 }) => {
+  const k = useReveal(0, 10, EASING.snap);
   const p = useReveal(1, 12, EASING.overshoot);
   const bar = useReveal(6, 12, EASING.snap);
   return (
     <AbsoluteFill style={{ color: theme.fg }}>
       <Background theme={theme} variant="mesh" />
       <SafeZone>
-        <div
-          style={{
-            textAlign: "center",
-            opacity: p,
-            transform: `scale(${0.9 + p * 0.1})`,
-          }}
-        >
+        <div style={{ textAlign: "center" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Kicker text={scene.text?.kicker} accent={theme.accent} p={k} />
+          </div>
           <div
             style={{
               fontFamily: DISPLAY,
-              fontSize: 82,
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-              color: theme.accent,
+              fontSize: 88,
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.08,
+              color: theme.fg,
+              opacity: p,
+              transform: `scale(${0.92 + p * 0.08})`,
             }}
           >
             {scene.text?.heading}
@@ -234,9 +311,10 @@ const Interstitial: React.FC<{ scene: Scene; theme: Theme }> = ({
               style={{
                 fontFamily: FONT,
                 fontSize: 44,
-                fontWeight: 600,
-                opacity: 0.85,
-                marginTop: 20,
+                fontWeight: 400,
+                fontStyle: "italic",
+                color: muted(theme.fg),
+                marginTop: 22,
               }}
             >
               {scene.text.sub}
@@ -244,12 +322,13 @@ const Interstitial: React.FC<{ scene: Scene; theme: Theme }> = ({
           ) : null}
           <div
             style={{
-              height: 8,
-              width: 180,
-              background: theme.accent,
+              height: 6,
+              width: 190,
+              background: `linear-gradient(90deg, ${theme.accent}, ${theme.accent}00)`,
               borderRadius: 4,
-              margin: "30px auto 0",
+              margin: "32px auto 0",
               transform: `scaleX(${bar})`,
+              transformOrigin: "center",
             }}
           />
         </div>
