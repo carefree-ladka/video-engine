@@ -1,17 +1,32 @@
-// Modern type system. Space Grotesk for display, Plus Jakarta Sans for body,
-// Hind as the Devanagari fallback (so Hindi still renders), JetBrains Mono for code.
-import { loadFont as loadDisplay } from "@remotion/google-fonts/SpaceGrotesk";
-import { loadFont as loadBody } from "@remotion/google-fonts/PlusJakartaSans";
-import { loadFont as loadHind } from "@remotion/google-fonts/Hind";
+// Code2Offer type system.
+// - Montserrat ExtraBold  -> hooks / big titles
+// - Inter                 -> long-form (16:9) captions + headings (clean, pro)
+// - Poppins               -> Reels/Shorts (9:16) captions (friendly, punchy)
+// - JetBrains Mono        -> code / terminal
+// - Hind                  -> Devanagari fallback so Hindi never renders as boxes
+import { loadFont as loadMontserrat } from "@remotion/google-fonts/Montserrat";
+import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
+import { loadFont as loadPoppins } from "@remotion/google-fonts/Poppins";
 import { loadFont as loadMono } from "@remotion/google-fonts/JetBrainsMono";
+import { loadFont as loadHind } from "@remotion/google-fonts/Hind";
 
-const { fontFamily: display } = loadDisplay("normal", {
-  weights: ["500", "700"],
+const { fontFamily: montserrat } = loadMontserrat("normal", {
+  weights: ["700", "800"],
   subsets: ["latin"],
   ignoreTooManyRequestsWarning: true,
 });
-const { fontFamily: body } = loadBody("normal", {
-  weights: ["400", "600", "700", "800"],
+const { fontFamily: inter } = loadInter("normal", {
+  weights: ["500", "600", "700", "800"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: poppins } = loadPoppins("normal", {
+  weights: ["600", "700"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: mono } = loadMono("normal", {
+  weights: ["400", "500", "700"],
   subsets: ["latin"],
   ignoreTooManyRequestsWarning: true,
 });
@@ -20,12 +35,14 @@ const { fontFamily: hind } = loadHind("normal", {
   subsets: ["latin", "devanagari"],
   ignoreTooManyRequestsWarning: true,
 });
-const { fontFamily: mono } = loadMono("normal", {
-  weights: ["400", "700"],
-  subsets: ["latin"],
-  ignoreTooManyRequestsWarning: true,
-});
 
-export const DISPLAY = `${display}, ${hind}, Inter, system-ui, sans-serif`;
-export const FONT = `${body}, ${hind}, Inter, system-ui, sans-serif`;
+// Role-based stacks.
+export const DISPLAY = `${montserrat}, ${hind}, Inter, system-ui, sans-serif`; // hooks / titles
+export const FONT = `${inter}, ${hind}, system-ui, sans-serif`; // default body / long-form captions
+export const POPPINS = `${poppins}, ${hind}, system-ui, sans-serif`; // Reels/Shorts captions
+export const INTER = `${inter}, ${hind}, system-ui, sans-serif`;
 export const MONO = `${mono}, ui-monospace, "SF Mono", Menlo, monospace`;
+
+// Caption face by orientation: Poppins for vertical Shorts/Reels, Inter for 16:9 long-form.
+export const captionFont = (vertical: boolean): string =>
+  vertical ? POPPINS : INTER;

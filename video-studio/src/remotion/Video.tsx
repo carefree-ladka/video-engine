@@ -76,9 +76,9 @@ export const Video: React.FC<VideoProps> = ({
         bgVariant: storyboard.style.background ?? "grid-glow",
       }
     : {
-        bg: "#0B0B0F",
+        bg: "#0B1020",
         fg: "#FFFFFF",
-        accent: "#FF3366",
+        accent: "#00D9FF",
         bgVariant: "grid-glow",
       };
 
@@ -130,7 +130,6 @@ export const Video: React.FC<VideoProps> = ({
       <Captions
         pages={captions?.pages ?? []}
         style={storyboard.style?.captionStyle ?? "karaoke"}
-        accent={theme.accent}
       />
 
       <Watermark brand={brand} />
