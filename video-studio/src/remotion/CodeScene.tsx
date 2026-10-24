@@ -5,7 +5,7 @@ import {
   useVideoConfig,
   interpolate,
 } from "remotion";
-import { SafeZone } from "./SafeZone";
+import { FitStage } from "./Stage";
 import { Background } from "./Background";
 import { useEnter } from "./motion";
 import { FONT, MONO, DISPLAY } from "./fonts";
@@ -108,10 +108,16 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({
   let consumed = 0;
   const fontSize = fittedSize;
 
+  // Estimate card height so a tall snippet scales down to clear the captions.
+  const estHeight =
+    (scene.text?.heading ? 64 * 1.2 + 36 : 0) +
+    72 /* card vertical padding */ +
+    Math.max(1, lines.length) * (fontSize * 1.5);
+
   return (
     <AbsoluteFill style={{ color: theme.fg, fontFamily: FONT }}>
       <Background theme={theme} variant={(theme as any).bgVariant} />
-      <SafeZone center={false}>
+      <FitStage estHeight={estHeight}>
         {scene.text?.heading ? (
           <h2
             style={{
@@ -171,7 +177,7 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({
             );
           })}
         </div>
-      </SafeZone>
+      </FitStage>
     </AbsoluteFill>
   );
 };

@@ -59,7 +59,9 @@ export async function captions(lang: string, full16k: string) {
   const { captions: words } = toCaptions({ whisperCppOutput });
   const { pages } = createTikTokStyleCaptions({
     captions: words as any,
-    combineTokensWithinMilliseconds: 1200,
+    // shorter window => fewer words per page => captions stay compact and
+    // comfortably inside the reserved caption band
+    combineTokensWithinMilliseconds: 900,
   });
 
   // keyword emphasis (sparse)

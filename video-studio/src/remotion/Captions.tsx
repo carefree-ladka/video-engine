@@ -1,8 +1,23 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  interpolate,
+} from "remotion";
 import { FONT } from "./fonts";
+import {
+  captionBottomInset,
+  captionFontSize,
+  captionMaxHeight,
+} from "./layout";
 
-type Token = { text: string; startMs: number; endMs: number; emphasis?: boolean };
+type Token = {
+  text: string;
+  startMs: number;
+  endMs: number;
+  emphasis?: boolean;
+};
 type Page = { startMs: number; endMs: number; tokens: Token[] };
 export type CaptionStyle = "karaoke" | "block" | "minimal";
 
@@ -10,16 +25,19 @@ export const Captions: React.FC<{
   pages: Page[];
   style?: CaptionStyle;
   accent?: string;
-  bottomPct?: number;
-}> = ({ pages, style = "karaoke", accent = "#FF3366", bottomPct = 0.22 }) => {
+}> = ({ pages, style = "karaoke", accent = "#FF3366" }) => {
   const frame = useCurrentFrame();
   const { fps, height, width } = useVideoConfig();
+  const g = { width, height };
   const ms = (frame / fps) * 1000;
-  const vertical = height > width;
-  const size = vertical ? 70 : 50;
 
   const page = pages.find((p) => ms >= p.startMs && ms <= p.endMs);
   if (!page) return null;
+
+  // Font shrinks as the page gets wordier so it wraps to more lines rather
+  // than growing taller; captionMaxHeight is the hard clamp that keeps the
+  // block inside the reserved band no matter what.
+  const size = captionFontSize(g, page.tokens.length);
 
   const pin = interpolate(ms, [page.startMs, page.startMs + 120], [0, 1], {
     extrapolateLeft: "clamp",
@@ -33,14 +51,23 @@ export const Captions: React.FC<{
   };
 
   return (
-    <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: height * bottomPct }}>
+    <AbsoluteFill
+      style={{
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingBottom: captionBottomInset(g),
+      }}
+    >
       <div
         style={{
           maxWidth: "88%",
+          maxHeight: captionMaxHeight(g),
+          overflow: "hidden",
           textAlign: "center",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
+          alignContent: "flex-end",
           gap: `${Math.round(size * 0.25)}px ${Math.round(size * 0.22)}px`,
           fontFamily: FONT,
           lineHeight: 1.25,
@@ -70,7 +97,8 @@ export const Captions: React.FC<{
                 fontWeight: 700,
                 color,
                 background: bg,
-                padding: bg !== "transparent" ? `0 ${Math.round(size * 0.14)}px` : 0,
+                padding:
+                  bg !== "transparent" ? `0 ${Math.round(size * 0.14)}px` : 0,
                 borderRadius: 12,
                 transform: `scale(${pop})`,
                 ...stroke,

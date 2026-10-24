@@ -1,12 +1,21 @@
 import React from "react";
 import { AbsoluteFill, useVideoConfig } from "remotion";
+import { captionBandPct, contentSideInset, contentTopInset } from "./layout";
 
-export const SafeZone: React.FC<{ children: React.ReactNode; center?: boolean }> = ({ children, center = true }) => {
+export const SafeZone: React.FC<{
+  children: React.ReactNode;
+  center?: boolean;
+}> = ({ children, center = true }) => {
   const { width, height } = useVideoConfig();
-  const vertical = height > width;
-  const pad = vertical
-    ? { top: height * 0.1, bottom: height * 0.2, left: width * 0.07, right: width * 0.07 }
-    : { top: height * 0.08, bottom: height * 0.08, left: width * 0.06, right: width * 0.06 };
+  const g = { width, height };
+  // Bottom padding reserves the full caption band so centered content is
+  // lifted clear of the subtitles on every platform.
+  const pad = {
+    top: contentTopInset(g),
+    bottom: height * captionBandPct(g),
+    left: contentSideInset(g),
+    right: contentSideInset(g),
+  };
   return (
     <AbsoluteFill
       style={{
@@ -17,6 +26,7 @@ export const SafeZone: React.FC<{ children: React.ReactNode; center?: boolean }>
         display: "flex",
         flexDirection: "column",
         justifyContent: center ? "center" : "flex-start",
+        overflow: "hidden",
       }}
     >
       {children}

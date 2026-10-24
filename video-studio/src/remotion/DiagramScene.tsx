@@ -5,7 +5,7 @@ import {
   useVideoConfig,
   interpolate,
 } from "remotion";
-import { SafeZone } from "./SafeZone";
+import { FitStage } from "./Stage";
 import { Background } from "./Background";
 import { useReveal, wipeUp, EASING } from "./motion";
 import { FONT, DISPLAY } from "./fonts";
@@ -32,20 +32,20 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
   const accentIndex = diagram.accentIndex ?? -1;
   const dash = -(frame * 6) % 48;
 
-  // Estimate vertical content height so we can scale it to clear the caption band.
-  const estHeight = () => {
-    let h = scene.text?.heading ? 118 : 0;
-    for (const b of diagram.boxes) {
-      const items = b.items?.length ?? 0;
-      h += 36 + 48 + (items ? 16 : 0) + items * 64;
-    }
-    h += Math.max(0, diagram.boxes.length - 1) * 20;
-    if (diagram.loop) h += 110;
-    return h || 1;
+  // Estimate content height so FitStage can scale it to clear the caption band.
+  // Vertical stacks boxes (sum); horizontal lays them in a row (tallest box).
+  const boxHeight = (b: Box) => {
+    const items = b.items?.length ?? 0;
+    return 36 + 48 + (items ? 16 : 0) + items * 64;
   };
-  // usable band above the caption zone (captions sit in the bottom ~22-30%)
-  const availH = height * 0.59;
-  const scale = vertical ? Math.min(1, availH / estHeight()) : 1;
+  const headingH = scene.text?.heading ? 118 : 0;
+  const loopH = diagram.loop ? 110 : 0;
+  const estHeight = vertical
+    ? headingH +
+      diagram.boxes.reduce((h, b) => h + boxHeight(b), 0) +
+      Math.max(0, diagram.boxes.length - 1) * 20 +
+      loopH
+    : headingH + Math.max(260, ...diagram.boxes.map(boxHeight)) + loopH || 1;
 
   const boxesEl = (
     <div
@@ -175,34 +175,12 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
   return (
     <AbsoluteFill style={{ color: theme.fg, fontFamily: FONT }}>
       <Background theme={theme} variant={theme.bgVariant} />
-      {vertical ? (
-        // top-aligned + scaled so content always clears the caption band
-        <div
-          style={{
-            position: "absolute",
-            top: height * 0.11,
-            left: width * 0.06,
-            right: width * 0.06,
-          }}
-        >
-          <div
-            style={{
-              transform: `scale(${scale})`,
-              transformOrigin: "top center",
-            }}
-          >
-            {heading}
-            {boxesEl}
-            {loopEl}
-          </div>
-        </div>
-      ) : (
-        <SafeZone>
-          {heading}
-          {boxesEl}
-          {loopEl}
-        </SafeZone>
-      )}
+      {/* top-aligned + scaled so content always clears the caption band */}
+      <FitStage estHeight={estHeight} align="center">
+        {heading}
+        {boxesEl}
+        {loopEl}
+      </FitStage>
     </AbsoluteFill>
   );
 };

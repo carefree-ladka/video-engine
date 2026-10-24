@@ -8,6 +8,7 @@ import { clockWipe } from "@remotion/transitions/clock-wipe";
 import { SCENES } from "./scenes";
 import { Captions } from "./Captions";
 import { FONT } from "./fonts";
+import { captionBandPct } from "./layout";
 
 export type VideoProps = {
   storyboard: any;
@@ -115,11 +116,13 @@ export const Video: React.FC<VideoProps> = ({
 
       {storyboard.audio ? <Audio src={staticFile(storyboard.audio)} /> : null}
 
-      {/* persistent scrim so captions always have contrast over any scene content */}
+      {/* persistent scrim across the reserved caption band so captions always
+          have contrast, regardless of scene content behind them */}
       <AbsoluteFill
         style={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 30%)",
+          background: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) ${Math.round(
+            captionBandPct({ width, height }) * 100,
+          )}%)`,
           pointerEvents: "none",
         }}
       />

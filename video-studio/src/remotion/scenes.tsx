@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
 import { SafeZone } from "./SafeZone";
+import { FitStage } from "./Stage";
 import { Background } from "./Background";
 import { useReveal, wipeX, wipeUp, LightSweep, EASING } from "./motion";
 import { FONT, DISPLAY } from "./fonts";
@@ -77,10 +78,15 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
   theme,
 }) => {
   const hp = useReveal(2, 12, EASING.snap);
+  const bullets = scene.text?.bullets ?? [];
+  // Estimate content height so a long list scales down to clear the captions.
+  const estHeight =
+    (scene.text?.heading ? 70 * 1.1 + 36 : 0) +
+    bullets.length * (50 * 1.3 + 32);
   return (
     <AbsoluteFill style={{ color: theme.fg }}>
       <Background theme={theme} variant={theme.bgVariant} />
-      <SafeZone>
+      <FitStage estHeight={estHeight}>
         {scene.text?.heading ? (
           <h2
             style={{
@@ -95,7 +101,7 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
             {scene.text.heading}
           </h2>
         ) : null}
-        {(scene.text?.bullets ?? []).map((b, i) => {
+        {bullets.map((b, i) => {
           const p = useReveal(10 + i * 4, 12, EASING.snap);
           return (
             <div
@@ -123,7 +129,7 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
             </div>
           );
         })}
-      </SafeZone>
+      </FitStage>
     </AbsoluteFill>
   );
 };
