@@ -9,6 +9,7 @@
     "render": "tsx src/pipeline/render.ts",
     "pace": "tsx src/pipeline/retime.ts",
     "thumbs": "tsx src/pipeline/thumbnail.ts",
+    "publish": "tsx src/pipeline/publish.ts",
     "check-f5": "bash scripts/check-f5.sh"
   },
   "dependencies": {

@@ -6,9 +6,17 @@ import { detectStack, pickAccentWord, titleScene } from "./text.js";
 
 const ROOT = process.cwd();
 
-export async function thumbnails(lang: string) {
+export async function thumbnails(
+  lang: string,
+  opts: { dir?: string; prefix?: string } = {},
+) {
+  const dir = opts.dir ?? path.join(ROOT, "out");
+  const prefix = opts.prefix ?? `thumb.${lang}.`;
   const sb = JSON.parse(
-    await fs.readFile(path.join(ROOT, "input", `storyboard.${lang}.json`), "utf8"),
+    await fs.readFile(
+      path.join(ROOT, "input", `storyboard.${lang}.json`),
+      "utf8",
+    ),
   );
   const brand = JSON.parse(
     await fs.readFile(path.join(ROOT, "input", "brand.json"), "utf8"),
@@ -35,7 +43,7 @@ export async function thumbnails(lang: string) {
   const serveUrl = await bundle({
     entryPoint: path.join(ROOT, "src", "remotion", "index.ts"),
   });
-  await fs.mkdir(path.join(ROOT, "out"), { recursive: true });
+  await fs.mkdir(dir, { recursive: true });
 
   const targets: Array<[string, string]> = [
     ["ThumbShort", "short"],
@@ -43,8 +51,12 @@ export async function thumbnails(lang: string) {
   ];
   const written: string[] = [];
   for (const [id, suffix] of targets) {
-    const composition = await selectComposition({ serveUrl, id, inputProps: props });
-    const output = path.join(ROOT, "out", `thumb.${lang}.${suffix}.png`);
+    const composition = await selectComposition({
+      serveUrl,
+      id,
+      inputProps: props,
+    });
+    const output = path.join(dir, `${prefix}${suffix}.png`);
     await renderStill({ composition, serveUrl, output, inputProps: props });
     written.push(output);
     console.log(`[thumb:${lang}] ${suffix} -> ${output}`);

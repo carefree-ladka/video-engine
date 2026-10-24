@@ -8,3 +8,6 @@ tmp
 
 # retime pristine backups
 input/*.orig.json
+
+# assembled deliverable bundles
+output
