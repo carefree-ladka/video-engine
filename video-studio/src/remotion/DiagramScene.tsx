@@ -19,7 +19,14 @@ type Scene = {
   };
   durationSec?: number;
 };
-type Theme = { bg: string; fg: string; accent: string; bgVariant?: string };
+type Theme = {
+  bg: string;
+  fg: string;
+  accent: string;
+  bgVariant?: string;
+  light?: boolean;
+  card?: string;
+};
 
 export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
   scene,
@@ -74,6 +81,8 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
             <Card
               highlighted={isAccent}
               accent={theme.accent}
+              light={theme.light}
+              surface={theme.card}
               radius={18}
               style={{
                 flex: 1,
@@ -102,8 +111,12 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
                       fontFamily: FONT,
                       fontWeight: 500,
                       fontSize: vertical ? 26 : 24,
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.06)",
+                      background: theme.light
+                        ? "rgba(20,16,12,0.05)"
+                        : "rgba(255,255,255,0.05)",
+                      border: theme.light
+                        ? "1px solid rgba(20,16,12,0.08)"
+                        : "1px solid rgba(255,255,255,0.06)",
                       borderRadius: 10,
                       padding: "9px 14px",
                       margin: "8px 0",

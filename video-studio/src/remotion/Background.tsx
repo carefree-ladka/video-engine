@@ -1,46 +1,112 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
 
-// Fine film grain as an inline SVG data URI — the single biggest thing that
-// stops a dark background from looking flat and "AI-generated".
+// Fine film grain — stops flat fills looking sterile. Used on both dark and paper.
 const GRAIN =
   "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>\")";
 
-// Layered, designed background: deep gradient base + warm accent glow + a cool
-// counter-glow for richness + masked hairline grid + grain + vignette.
-// variants: "grid-glow" (default), "mesh" (two blobs, no grid), "plain".
-export const Background: React.FC<{
-  theme: { bg: string; accent: string };
-  variant?: string;
-}> = ({ theme, variant = "grid-glow" }) => {
-  const warm = `${theme.accent}22`;
-  const warmSoft = `${theme.accent}14`;
-  const cool = "rgba(109,94,246,0.10)"; // faint indigo, adds depth without the "AI gradient" cliche
+type BgTheme = {
+  bg: string;
+  accent: string;
+  accent2?: string;
+  light?: boolean;
+};
+
+export const Background: React.FC<{ theme: BgTheme; variant?: string }> = ({
+  theme,
+  variant = "grid-glow",
+}) => {
+  const accent = theme.accent;
+  const accent2 = theme.accent2 ?? accent;
+
+  // ---- light / editorial treatments ----
+  if (
+    variant === "paper" ||
+    variant === "plane" ||
+    variant === "grid" ||
+    variant === "glow"
+  ) {
+    return (
+      <AbsoluteFill style={{ backgroundColor: theme.bg }}>
+        {variant === "plane" ? (
+          // flat colour plane with the faintest top sheen for depth
+          <AbsoluteFill
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.06), transparent 40%)",
+            }}
+          />
+        ) : (
+          <AbsoluteFill
+            style={{
+              background: `linear-gradient(160deg, ${shade(theme.bg, 4)} 0%, ${theme.bg} 55%, ${shade(theme.bg, -3)} 100%)`,
+            }}
+          />
+        )}
+
+        {variant === "grid" ? (
+          <AbsoluteFill
+            style={{
+              backgroundImage: `linear-gradient(${accent2}22 1px, transparent 1px), linear-gradient(90deg, ${accent2}22 1px, transparent 1px)`,
+              backgroundSize: "54px 54px",
+            }}
+          />
+        ) : null}
+
+        {variant === "glow" ? (
+          <AbsoluteFill
+            style={{
+              background: `radial-gradient(42% 32% at 36% 42%, ${accent}66, transparent 70%)`,
+            }}
+          />
+        ) : null}
+
+        {/* paper grain */}
+        <AbsoluteFill
+          style={{
+            backgroundImage: GRAIN,
+            backgroundSize: "240px 240px",
+            opacity: 0.06,
+            mixBlendMode: "multiply",
+            pointerEvents: "none",
+          }}
+        />
+        {/* soft edge darken */}
+        <AbsoluteFill
+          style={{
+            background:
+              "radial-gradient(130% 120% at 50% 40%, transparent 60%, rgba(0,0,0,0.08))",
+          }}
+        />
+      </AbsoluteFill>
+    );
+  }
+
+  // ---- dark treatments (ink / grid-glow / mesh) ----
+  const warm = `${accent}22`;
+  const warmSoft = `${accent}14`;
+  const cool = `${accent2}1A`;
   const gridMask =
     "radial-gradient(135% 100% at 50% 24%, black 52%, transparent 94%)";
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      {/* deep diagonal gradient base */}
       <AbsoluteFill
         style={{
-          background: `linear-gradient(158deg, ${lighten(theme.bg, 10)} 0%, ${theme.bg} 46%, ${darken(theme.bg, 8)} 100%)`,
+          background: `linear-gradient(158deg, ${shade(theme.bg, 10)} 0%, ${theme.bg} 46%, ${shade(theme.bg, -8)} 100%)`,
         }}
       />
-      {/* top sheen */}
       <AbsoluteFill
         style={{
           background:
             "radial-gradient(120% 70% at 50% -18%, rgba(255,255,255,0.055), transparent 60%)",
         }}
       />
-      {/* warm accent glow (top-right) */}
       <AbsoluteFill
         style={{
           background: `radial-gradient(52% 40% at 84% 8%, ${warm}, transparent 64%)`,
         }}
       />
-      {/* cool counter-glow (bottom-left) for a rich two-tone depth */}
       <AbsoluteFill
         style={{
           background: `radial-gradient(50% 42% at 10% 96%, ${cool}, transparent 66%)`,
@@ -53,8 +119,7 @@ export const Background: React.FC<{
           }}
         />
       ) : null}
-      {/* masked hairline grid */}
-      {variant !== "plain" && variant !== "mesh" ? (
+      {variant !== "mesh" ? (
         <AbsoluteFill
           style={{
             backgroundImage:
@@ -65,7 +130,6 @@ export const Background: React.FC<{
           }}
         />
       ) : null}
-      {/* grain */}
       <AbsoluteFill
         style={{
           backgroundImage: GRAIN,
@@ -75,7 +139,6 @@ export const Background: React.FC<{
           pointerEvents: "none",
         }}
       />
-      {/* vignette */}
       <AbsoluteFill
         style={{
           background:
@@ -86,7 +149,6 @@ export const Background: React.FC<{
   );
 };
 
-// --- tiny hex shade helpers (keep background self-contained) ---
 function clamp(n: number) {
   return Math.max(0, Math.min(255, Math.round(n)));
 }
@@ -108,5 +170,3 @@ function shade(hex: string, amt: number) {
       .padStart(2, "0");
   return `#${to(r)}${to(g)}${to(b)}`;
 }
-const lighten = (hex: string, amt: number) => shade(hex, amt);
-const darken = (hex: string, amt: number) => shade(hex, -amt);

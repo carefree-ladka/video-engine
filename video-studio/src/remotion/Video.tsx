@@ -9,6 +9,7 @@ import { SCENES } from "./scenes";
 import { Captions } from "./Captions";
 import { FONT } from "./fonts";
 import { captionBandPct } from "./layout";
+import { resolveLook } from "./looks";
 
 export type VideoProps = {
   storyboard: any;
@@ -18,7 +19,11 @@ export type VideoProps = {
 
 const TRANSITION_FRAMES = 11;
 
-const Watermark: React.FC<{ brand: any }> = ({ brand }) => {
+const Watermark: React.FC<{ brand: any; fg: string; light: boolean }> = ({
+  brand,
+  fg,
+  light,
+}) => {
   const { width, height } = useVideoConfig();
   if (!brand?.handle) return null;
   return (
@@ -28,12 +33,12 @@ const Watermark: React.FC<{ brand: any }> = ({ brand }) => {
           position: "absolute",
           top: height * 0.06,
           right: width * 0.06,
-          opacity: 0.85,
-          color: "#fff",
+          opacity: light ? 0.7 : 0.85,
+          color: fg,
           fontFamily: FONT,
           fontWeight: 700,
           fontSize: Math.round(height * 0.028),
-          textShadow: "0 2px 8px rgba(0,0,0,0.6)",
+          textShadow: light ? "none" : "0 2px 8px rgba(0,0,0,0.6)",
         }}
       >
         {brand.handle}
@@ -68,19 +73,7 @@ export const Video: React.FC<VideoProps> = ({
   brand,
 }) => {
   const { fps, width, height } = useVideoConfig();
-  const theme = storyboard.style?.palette
-    ? {
-        bg: storyboard.style.palette.bg,
-        fg: storyboard.style.palette.fg,
-        accent: storyboard.style.palette.accent,
-        bgVariant: storyboard.style.background ?? "grid-glow",
-      }
-    : {
-        bg: "#0E0B12",
-        fg: "#F5F3F7",
-        accent: "#F5A524",
-        bgVariant: "grid-glow",
-      };
+  const theme = resolveLook(storyboard.style);
 
   const scenes: any[] = storyboard.scenes ?? [];
   const family = storyboard.style?.transitionFamily ?? "slide";
@@ -117,10 +110,12 @@ export const Video: React.FC<VideoProps> = ({
       {storyboard.audio ? <Audio src={staticFile(storyboard.audio)} /> : null}
 
       {/* persistent scrim across the reserved caption band so captions always
-          have contrast, regardless of scene content behind them */}
+          have contrast. Dark scrim on dark looks; soft light scrim on paper looks. */}
       <AbsoluteFill
         style={{
-          background: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) ${Math.round(
+          background: `linear-gradient(to top, ${
+            theme.light ? "rgba(255,255,255,0.72)" : "rgba(0,0,0,0.6)"
+          }, ${theme.light ? "rgba(255,255,255,0)" : "rgba(0,0,0,0)"} ${Math.round(
             captionBandPct({ width, height }) * 100,
           )}%)`,
           pointerEvents: "none",
@@ -129,10 +124,11 @@ export const Video: React.FC<VideoProps> = ({
 
       <Captions
         pages={captions?.pages ?? []}
-        style={storyboard.style?.captionStyle ?? "karaoke"}
+        style={storyboard.style?.captionStyle ?? theme.captionStyle}
+        colors={theme.captions}
       />
 
-      <Watermark brand={brand} />
+      <Watermark brand={brand} fg={theme.fg} light={theme.light} />
     </AbsoluteFill>
   );
 };
