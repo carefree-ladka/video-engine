@@ -3,6 +3,7 @@ import { AbsoluteFill } from "remotion";
 import { SafeZone } from "./SafeZone";
 import { FitStage } from "./Stage";
 import { Card } from "./Card";
+import { SocialHandles } from "./Social";
 import { Background } from "./Background";
 import { useReveal, wipeX, wipeUp, LightSweep, EASING } from "./motion";
 import { FONT, DISPLAY } from "./fonts";
@@ -212,10 +213,16 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
   );
 };
 
-const Cta: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
+const Cta: React.FC<{ scene: Scene; theme: Theme; brand?: any }> = ({
+  scene,
+  theme,
+  brand,
+}) => {
   const p = useReveal(2, 16, EASING.longTail);
   const pill = useReveal(12, 14, EASING.overshoot);
   const s = useReveal(22, 12, EASING.snap);
+  const soc = useReveal(26, 14, EASING.overshoot);
+  const socials = brand?.socials ?? {};
   return (
     <AbsoluteFill style={{ color: theme.fg }}>
       <Background theme={theme} variant="mesh" />
@@ -254,7 +261,17 @@ const Cta: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
             Follow ▸
           </div>
 
-          {scene.text?.sub ? (
+          {socials.instagram || socials.youtube ? (
+            <div style={{ marginTop: 40 }}>
+              <SocialHandles
+                instagram={socials.instagram}
+                youtube={socials.youtube}
+                fg={theme.fg}
+                opacity={soc}
+                rise={(1 - soc) * 18}
+              />
+            </div>
+          ) : scene.text?.sub ? (
             <p
               style={{
                 fontFamily: FONT,
@@ -340,7 +357,7 @@ const Interstitial: React.FC<{ scene: Scene; theme: Theme }> = ({
 
 export const SCENES: Record<
   string,
-  React.FC<{ scene: Scene; theme: Theme }>
+  React.FC<{ scene: Scene; theme: Theme; brand?: any }>
 > = {
   title: Title,
   bullets: Bullets,

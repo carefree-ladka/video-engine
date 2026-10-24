@@ -1,5 +1,9 @@
 {
   "channel": "Code2Offer",
   "handle": "@code2offer",
-  "captionStyle": "karaoke"
+  "captionStyle": "karaoke",
+  "socials": {
+    "instagram": "@code2_offer",
+    "youtube": "@code2offer"
+  }
 }

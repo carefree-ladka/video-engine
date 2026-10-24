@@ -96,7 +96,7 @@ export const Video: React.FC<VideoProps> = ({
     const Comp = SCENES[s.template] ?? SCENES.title;
     children.push(
       <TransitionSeries.Sequence key={s.id} durationInFrames={dur}>
-        <Comp scene={s} theme={theme} />
+        <Comp scene={s} theme={theme} brand={brand} />
       </TransitionSeries.Sequence>,
     );
     if (useTransitions && !isLast) {
