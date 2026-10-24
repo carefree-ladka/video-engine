@@ -1,0 +1,42 @@
+{
+  "lang": "en",
+  "channel": "Code2Offer",
+  "primaryKeyword": "javascript debounce",
+  "youtube": {
+    "title": "JavaScript Debounce Explained (Stop Spamming Your API)",
+    "description": "Learn JavaScript debounce in under a minute — the trick that stops your search, input and scroll handlers from spamming your API. We build it from scratch and compare debounce vs throttle.\n\nWhat you'll learn:\n• What debounce actually does — wait for the pause, then run once\n• The 5-line debounce using a closure + setTimeout / clearTimeout\n• Where to use it: search-as-you-type, resize & scroll handlers, auto-save\n• Debounce vs throttle — how to pick the right one\n\n⏱️ Chapters\n0:00 The problem: spamming your API\n0:06 How debounce works\n0:15 The implementation\n0:26 Where to use it\n0:33 Debounce vs throttle\n\n👇 Follow for daily JavaScript\n📺 YouTube: @code2offer\n📸 Instagram: @code2_offer\n\n#javascript #webdevelopment #coding #debounce #frontend",
+    "tags": [
+      "javascript debounce",
+      "debounce function",
+      "debounce vs throttle",
+      "debounce javascript tutorial",
+      "javascript performance",
+      "js interview questions",
+      "event handling javascript",
+      "settimeout debounce",
+      "javascript closures",
+      "frontend optimization",
+      "web development",
+      "javascript tutorial",
+      "learn javascript",
+      "js tips",
+      "frontend interview"
+    ]
+  },
+  "youtubeShorts": {
+    "title": "Stop spamming your API — JS debounce in 40s #Shorts",
+    "description": "The debounce trick every JS dev should know — build it in 5 lines.\n#javascript #webdev #coding #debounce #shorts\n@code2offer"
+  },
+  "instagram": {
+    "caption": "Your search bar fires an API call on every keystroke. Here's the fix 👇\n\nDebounce waits until the user *stops* typing, then runs once.\n5 lines. Works for search, resize, scroll and auto-save.\nDebounce waits for quiet — throttle runs on an interval.\n\nSave this for your next interview, and follow @code2_offer for daily JS.",
+    "hashtags": [
+      "#javascript", "#coding", "#programming", "#webdevelopment", "#developer", "#code", "#webdev", "#tech",
+      "#javascripttips", "#frontenddeveloper", "#codingtips", "#learntocode", "#100daysofcode", "#webdeveloper", "#softwareengineer", "#reactjs",
+      "#debounce", "#debouncevsthrottle", "#jsinterview", "#javascriptinterview", "#frontendtips", "#jsdeveloper"
+    ]
+  },
+  "linkedin": {
+    "post": "Most frontend performance problems trace back to one habit: doing work on every event.\n\nA search box that calls your API on every keystroke will hammer the backend and rate-limit real users. Debounce fixes it by waiting for a pause, then running once.\n\n→ Wrap the handler in a debounce (a closure over a timer)\n→ Every keystroke clears the pending timer and starts a new one\n→ The callback runs only after the user goes quiet (e.g. 300ms)\n→ Reach for it on search-as-you-type, resize/scroll handlers, and auto-save\n\nRule of thumb: debounce waits for quiet, throttle runs at a fixed interval. Pick by the behavior you want.\n\nWhat's your default debounce delay — 200ms, 300ms, more?",
+    "hashtags": ["#javascript", "#webdevelopment", "#frontend", "#softwareengineering"]
+  }
+}

@@ -2,30 +2,53 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { bundle } from "@remotion/bundler";
 import { selectComposition, renderMedia } from "@remotion/renderer";
+import { finalize } from "./finalize.js";
 
 const ROOT = process.cwd();
 
 export async function render(lang: string) {
-  const storyboard = JSON.parse(await fs.readFile(path.join(ROOT, "input", `storyboard.${lang}.json`), "utf8"));
+  const storyboard = JSON.parse(
+    await fs.readFile(
+      path.join(ROOT, "input", `storyboard.${lang}.json`),
+      "utf8",
+    ),
+  );
   let captions = { pages: [] as any[] };
   try {
-    captions = JSON.parse(await fs.readFile(path.join(ROOT, "input", `captions.${lang}.json`), "utf8"));
+    captions = JSON.parse(
+      await fs.readFile(
+        path.join(ROOT, "input", `captions.${lang}.json`),
+        "utf8",
+      ),
+    );
   } catch {
-    console.warn(`[render:${lang}] no captions file, rendering without captions`);
+    console.warn(
+      `[render:${lang}] no captions file, rendering without captions`,
+    );
   }
-  const brand = JSON.parse(await fs.readFile(path.join(ROOT, "input", "brand.json"), "utf8"));
+  const brand = JSON.parse(
+    await fs.readFile(path.join(ROOT, "input", "brand.json"), "utf8"),
+  );
 
   const inputProps = { storyboard, captions, brand };
 
   console.log(`[render:${lang}] bundling...`);
-  const serveUrl = await bundle({ entryPoint: path.join(ROOT, "src", "remotion", "index.ts") });
+  const serveUrl = await bundle({
+    entryPoint: path.join(ROOT, "src", "remotion", "index.ts"),
+  });
 
-  const composition = await selectComposition({ serveUrl, id: "MainVideo", inputProps });
+  const composition = await selectComposition({
+    serveUrl,
+    id: "MainVideo",
+    inputProps,
+  });
 
   await fs.mkdir(path.join(ROOT, "out"), { recursive: true });
   const outputLocation = path.join(ROOT, "out", `video.${lang}.mp4`);
 
-  console.log(`[render:${lang}] rendering ${composition.durationInFrames} frames @ ${composition.width}x${composition.height}...`);
+  console.log(
+    `[render:${lang}] rendering ${composition.durationInFrames} frames @ ${composition.width}x${composition.height}...`,
+  );
   await renderMedia({
     composition,
     serveUrl,
@@ -33,11 +56,20 @@ export async function render(lang: string) {
     outputLocation,
     inputProps,
     onProgress: ({ progress }) => {
-      if (Math.round(progress * 100) % 20 === 0) process.stdout.write(`  ${Math.round(progress * 100)}%\r`);
+      if (Math.round(progress * 100) % 20 === 0)
+        process.stdout.write(`  ${Math.round(progress * 100)}%\r`);
     },
   });
 
   console.log(`\n[render:${lang}] done -> ${outputLocation}`);
+
+  // normalize loudness (+ mix a ducked music bed if one is present)
+  try {
+    await finalize(lang);
+  } catch (e) {
+    console.warn(`[render:${lang}] finalize skipped: ${(e as Error).message}`);
+  }
+
   return outputLocation;
 }
 

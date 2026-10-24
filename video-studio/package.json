@@ -8,6 +8,8 @@
     "make": "tsx src/pipeline/make.ts",
     "render": "tsx src/pipeline/render.ts",
     "pace": "tsx src/pipeline/retime.ts",
+    "finalize": "tsx src/pipeline/finalize.ts",
+    "subs": "tsx src/pipeline/subtitles.ts",
     "thumbs": "tsx src/pipeline/thumbnail.ts",
     "publish": "tsx src/pipeline/publish.ts",
     "check-f5": "bash scripts/check-f5.sh"

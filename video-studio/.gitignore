@@ -11,3 +11,6 @@ input/*.orig.json
 
 # assembled deliverable bundles
 output
+
+# music beds (user assets)
+input/music

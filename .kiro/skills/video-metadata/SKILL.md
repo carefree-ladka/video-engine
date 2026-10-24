@@ -22,25 +22,25 @@ Ground every line in what the video actually teaches; never invent features.
 
 ## Outputs
 
-Working files (scratch) live in `video-studio/out/`:
-
-- `out/metadata.<lang>.json` — the authored copy, structured (you write this).
-- `out/metadata.<lang>.md` — same content, human-readable.
+Authored source of truth (durable, committed): `video-studio/input/metadata.<lang>.json`
+— you write this. (Legacy `out/metadata.<lang>.json` is still read as a fallback.)
 
 The final deliverable is a single bundle per video, assembled by `npm run publish -- <lang>`:
 
 ```
 output/<lang>/
   video/video.mp4
-  thumbnails/short.png   long.png
-  socials/youtube.txt    instagram.txt   linkedin.txt
+  thumbnails/short.png    long.png
+  subtitles/captions.srt  captions.vtt
+  socials/youtube.txt     instagram.txt   linkedin.txt
 ```
 
-- `socials/*.txt` are generated from `out/metadata.<lang>.json` with labelled TITLE / DESCRIPTION / TAGS / CAPTION / HASHTAGS sections for copy-paste.
+- `socials/*.txt` are generated from `input/metadata.<lang>.json` with labelled TITLE / DESCRIPTION / TAGS / CAPTION / HASHTAGS sections for copy-paste.
+- `subtitles/captions.srt` + `.vtt` are exported from the caption timings (accessibility + upload).
 - `thumbnails/` are rendered straight into the bundle (short 1080×1920, long 1280×720). The thumbnail text is deterministic (title hook + accent word + badge); tune it in `src/remotion/Thumbnail.tsx` or the title scene.
 - `video/video.mp4` is copied from the rendered `out/video.<lang>.mp4`.
 
-So the flow is: you author `out/metadata.<lang>.json` → run `npm run publish -- <lang>` → hand the user `output/<lang>/`.
+So the flow is: you author `input/metadata.<lang>.json` → run `npm run publish -- <lang>` → hand the user `output/<lang>/`.
 
 ## The playbook (how to make it rank, not just exist)
 
@@ -58,6 +58,6 @@ See `references/platform-playbook.md` for the full detail. Core rules:
 
 1. Read the storyboard + brand. Identify the primary keyword, the hook, and the 3–6 real teaching points.
 2. Write each platform block per the playbook, tailored to this specific video and audience. Vary the angle per platform (search-intent for YouTube, scroll-stopping for Reels, insight for LinkedIn).
-3. Write `out/metadata.<lang>.json` (and optionally the `.md`).
-4. Run `npm run publish -- <lang>` to assemble `output/<lang>/` (video + thumbnails + socials .txt).
+3. Write `input/metadata.<lang>.json` (durable, committed source of truth).
+4. Run `npm run publish -- <lang>` to assemble `output/<lang>/` (video + thumbnails + subtitles + socials .txt).
 5. Show the user the copy and the bundle path, and offer to tweak angle/keywords.

@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { thumbnails } from "./thumbnail.js";
+import { subtitles } from "./subtitles.js";
 
 const ROOT = process.cwd();
 
@@ -14,6 +15,7 @@ export async function publish(lang: string) {
     video: path.join(base, "video"),
     thumbnails: path.join(base, "thumbnails"),
     socials: path.join(base, "socials"),
+    subtitles: path.join(base, "subtitles"),
   };
   for (const d of Object.values(dirs)) await fs.mkdir(d, { recursive: true });
 
@@ -31,18 +33,33 @@ export async function publish(lang: string) {
   // 2) thumbnails rendered straight into the bundle
   await thumbnails(lang, { dir: dirs.thumbnails, prefix: "" });
 
-  // 3) socials from authored metadata (out/metadata.<lang>.json)
-  const metaPath = path.join(ROOT, "out", `metadata.${lang}.json`);
-  let meta: any = null;
+  // 2b) subtitle sidecars (.srt / .vtt)
   try {
-    meta = JSON.parse(await fs.readFile(metaPath, "utf8"));
-  } catch {
-    /* none yet */
+    await subtitles(lang, dirs.subtitles);
+  } catch (e) {
+    console.warn(
+      `[publish:${lang}] subtitles skipped: ${(e as Error).message}`,
+    );
+  }
+
+  // 3) socials from authored metadata — source of truth is input/metadata.<lang>.json
+  //    (committed, durable); fall back to out/ for older runs.
+  let meta: any = null;
+  for (const metaPath of [
+    path.join(ROOT, "input", `metadata.${lang}.json`),
+    path.join(ROOT, "out", `metadata.${lang}.json`),
+  ]) {
+    try {
+      meta = JSON.parse(await fs.readFile(metaPath, "utf8"));
+      break;
+    } catch {
+      /* try next */
+    }
   }
   if (!meta) {
     await fs.writeFile(
       path.join(dirs.socials, "README.txt"),
-      "No metadata found for this video.\n\nAsk the video-producer agent to author reach-optimized\nmetadata (video-metadata skill). It writes out/metadata." +
+      "No metadata found for this video.\n\nAsk the video-producer agent to author reach-optimized\nmetadata (video-metadata skill). It writes input/metadata." +
         lang +
         ".json, then `npm run publish -- " +
         lang +
