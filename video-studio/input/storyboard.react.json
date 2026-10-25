@@ -1,0 +1,115 @@
+{
+  "title": "How React's Virtual DOM Works",
+  "platform": "short",
+  "language": "en",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "totalSeconds": 42.818,
+  "audio": "narration/en/full.wav",
+  "style": {
+    "look": "neo-grotesk",
+    "captionStyle": "karaoke",
+    "transitionFamily": "slide"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "template": "title",
+      "motion": "kinetic",
+      "narration": "React updates the screen without redrawing the whole page. The trick is the Virtual DOM.",
+      "text": {
+        "kicker": "React",
+        "heading": "How the Virtual DOM works",
+        "sub": "why React feels instant",
+        "fill": "gradient"
+      },
+      "durationSec": 5.712
+    },
+    {
+      "id": "s2",
+      "template": "diagram",
+      "narration": "The real DOM is slow to touch. So React keeps a lightweight copy in memory, a tree of plain JavaScript objects.",
+      "text": {
+        "heading": "A copy in memory",
+        "diagram": {
+          "accentIndex": 1,
+          "boxes": [
+            {
+              "title": "Real DOM",
+              "items": [
+                "slow to touch"
+              ]
+            },
+            {
+              "title": "Virtual DOM",
+              "items": [
+                "plain JS objects",
+                "cheap to rebuild"
+              ]
+            }
+          ]
+        }
+      },
+      "durationSec": 7.012
+    },
+    {
+      "id": "s3",
+      "template": "code",
+      "narration": "Here's a counter. Click it, you call setCount. React builds a new virtual tree instead of touching the page.",
+      "text": {
+        "heading": "An example",
+        "windowLabel": "Counter.jsx",
+        "footnote": "setCount schedules a re-render, not a full repaint.",
+        "code": [
+          "function Counter() {",
+          "  const [count, setCount] = useState(0);",
+          "  return (",
+          "    <button onClick={() => setCount(count + 1)}>",
+          "      Clicked {count} times",
+          "    </button>",
+          "  );",
+          "}"
+        ]
+      },
+      "durationSec": 7.616
+    },
+    {
+      "id": "s4",
+      "template": "stat",
+      "narration": "Why does this matter? At sixty frames per second you get about sixteen milliseconds per frame. React diffs the trees and writes only what changed, so you stay in budget.",
+      "text": {
+        "kicker": "One frame",
+        "value": "16ms",
+        "sub": "your budget at 60fps",
+        "fill": "gradient"
+      },
+      "durationSec": 10.31
+    },
+    {
+      "id": "s5",
+      "template": "bullets",
+      "narration": "That's the payoff. React batches updates, writes to the real DOM once, and lets you describe the UI instead of mutating it.",
+      "text": {
+        "kicker": "Takeaway",
+        "heading": "Why it's fast",
+        "bullets": [
+          "batches updates together",
+          "writes to the DOM once",
+          "declarative, not manual"
+        ]
+      },
+      "durationSec": 8.313
+    },
+    {
+      "id": "s6",
+      "template": "cta",
+      "narration": "Now you know what React is really doing. Follow for daily React.",
+      "text": {
+        "heading": "Follow for daily React",
+        "sub": "@code2offer"
+      },
+      "durationSec": 3.855
+    }
+  ]
+}

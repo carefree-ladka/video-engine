@@ -1,0 +1,23 @@
+{
+  "title": "sfx test",
+  "platform": "short",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "s1",
+      "template": "title",
+      "sfx": "whoosh",
+      "text": { "heading": "A" },
+      "durationSec": 1.2
+    },
+    {
+      "id": "s2",
+      "template": "title",
+      "sfx": { "cue": "pop", "gain": 0.6 },
+      "text": { "heading": "B" },
+      "durationSec": 1.5
+    }
+  ]
+}

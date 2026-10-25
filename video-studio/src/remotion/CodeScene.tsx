@@ -1,41 +1,57 @@
-import React from 'react';
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
-import { FitStage } from './Stage';
-import { Card } from './Card';
-import { Background } from './Background';
-import { useEnter } from './motion';
-import { FONT, MONO, DISPLAY } from './fonts';
+import React from "react";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  interpolate,
+  Easing,
+} from "remotion";
+import { FitStage } from "./Stage";
+import { Card } from "./Card";
+import { Background } from "./Background";
+import { useEnter } from "./motion";
+import { FONT, MONO, DISPLAY } from "./fonts";
 
 type Scene = {
-  text?: { heading?: string; bullets?: string[]; code?: string[] };
+  text?: {
+    heading?: string;
+    bullets?: string[];
+    code?: string[];
+    // Label shown in the editor title bar (defaults to "example"). Set it
+    // per scene so a window can read e.g. "Counter.jsx" or "reconcile()".
+    windowLabel?: string;
+    // Explanatory note rendered beneath the code card. Keep prose/comments
+    // here instead of mixing "// ..." lines into the code array.
+    footnote?: string;
+  };
   durationSec?: number;
 };
 type Theme = { bg: string; fg: string; accent: string };
 
 // Minimal JS tokenizer -> colored spans. Good enough for short code snippets.
 const KEYWORDS = new Set([
-  'function',
-  'return',
-  'let',
-  'const',
-  'var',
-  'if',
-  'else',
-  'for',
-  'while',
-  'class',
-  'new',
-  '=>',
-  'await',
-  'async',
-  'import',
-  'from',
-  'export',
-  'default',
-  'typeof',
-  'of',
-  'in',
-  'this',
+  "function",
+  "return",
+  "let",
+  "const",
+  "var",
+  "if",
+  "else",
+  "for",
+  "while",
+  "class",
+  "new",
+  "=>",
+  "await",
+  "async",
+  "import",
+  "from",
+  "export",
+  "default",
+  "typeof",
+  "of",
+  "in",
+  "this",
 ]);
 
 type Tok = { text: string; color: string };
@@ -48,29 +64,32 @@ function tokenizeLine(line: string, theme: Theme): Tok[] {
   let m: RegExpExecArray | null;
   while ((m = re.exec(line))) {
     if (m[1])
-      toks.push({ text: m[1], color: '#6B7280' }); // comment
+      toks.push({ text: m[1], color: "#6B7280" }); // comment
     else if (m[2])
-      toks.push({ text: m[2], color: '#F59E0B' }); // string
+      toks.push({ text: m[2], color: "#F59E0B" }); // string
     else if (m[3])
-      toks.push({ text: m[3], color: '#F97316' }); // number
+      toks.push({ text: m[3], color: "#F97316" }); // number
     else if (m[4])
       toks.push({
         text: m[4],
-        color: KEYWORDS.has(m[4]) ? theme.accent : '#E5E7EB',
+        color: KEYWORDS.has(m[4]) ? theme.accent : "#E5E7EB",
       });
     // word/keyword
     else if (m[5])
       toks.push({ text: m[5], color: theme.accent }); // =>
     else if (m[6])
-      toks.push({ text: m[6], color: '#94A3B8' }); // punctuation
+      toks.push({ text: m[6], color: "#94A3B8" }); // punctuation
     else if (m[7])
-      toks.push({ text: m[7], color: '#E5E7EB' }); // whitespace
-    else toks.push({ text: m[8] ?? '', color: '#E5E7EB' });
+      toks.push({ text: m[7], color: "#E5E7EB" }); // whitespace
+    else toks.push({ text: m[8] ?? "", color: "#E5E7EB" });
   }
   return toks;
 }
 
-export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, theme }) => {
+export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({
+  scene,
+  theme,
+}) => {
   const frame = useCurrentFrame();
   const { fps, width } = useVideoConfig();
   const lines = scene.text?.code ?? scene.text?.bullets ?? [];
@@ -79,18 +98,22 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
   // auto-size the font so the longest line fits the code card (no horizontal clipping)
   const maxLen = lines.reduce((m, l) => Math.max(m, l.length), 1);
   const innerWidth = width * 0.86 - 80; // safe-zone width minus card padding
-  const fittedSize = Math.max(22, Math.min(46, Math.floor(innerWidth / (maxLen * 0.62))));
+  const fittedSize = Math.max(
+    22,
+    Math.min(46, Math.floor(innerWidth / (maxLen * 0.62))),
+  );
 
-  const code = lines.join('\n');
+  const code = lines.join("\n");
   const totalChars = code.length || 1;
   // typewriter: reveal over ~60% of the scene, then hold
   const durFrames = Math.max(1, Math.round((scene.durationSec || 4) * fps));
   const revealFrames = Math.max(1, Math.round(durFrames * 0.6));
   const shown = Math.floor(
     interpolate(frame, [6, revealFrames], [0, totalChars], {
-      extrapolateLeft: 'clamp',
-      extrapolateRight: 'clamp',
-    })
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.inOut(Easing.ease),
+    }),
   );
   const caretOn = frame % 16 < 8 && shown < totalChars;
 
@@ -98,11 +121,15 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
   let consumed = 0;
   const fontSize = fittedSize;
 
+  const windowLabel = scene.text?.windowLabel ?? "example";
+  const footnote = scene.text?.footnote;
+
   // Estimate card height so a tall snippet scales down to clear the captions.
   const estHeight =
     (scene.text?.heading ? 64 * 1.2 + 36 : 0) +
     72 /* card vertical padding */ +
-    Math.max(1, lines.length) * (fontSize * 1.5);
+    Math.max(1, lines.length) * (fontSize * 1.5) +
+    (footnote ? 64 : 0);
 
   return (
     <AbsoluteFill style={{ color: theme.fg, fontFamily: FONT }}>
@@ -114,7 +141,7 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
               fontFamily: DISPLAY,
               fontSize: 64,
               fontWeight: 800,
-              letterSpacing: '-0.02em',
+              letterSpacing: "-0.02em",
               marginBottom: 32,
               opacity: headingP,
               transform: `translateY(${(1 - headingP) * 20}px)`,
@@ -124,19 +151,20 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
           </h2>
         ) : null}
 
-        <Card radius={20} style={{ overflow: 'hidden' }}>
+        <Card radius={20} style={{ overflow: "hidden" }}>
           {/* editor title bar with traffic lights */}
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 12,
-              padding: '16px 22px',
-              borderBottom: '1px solid rgba(255,255,255,0.07)',
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.04), transparent)',
+              padding: "16px 22px",
+              borderBottom: "1px solid rgba(255,255,255,0.07)",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.04), transparent)",
             }}
           >
-            {['#FF5F57', '#FEBC2E', '#28C840'].map(c => (
+            {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => (
               <span
                 key={c}
                 style={{
@@ -153,16 +181,16 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
                 marginLeft: 10,
                 fontFamily: MONO,
                 fontSize: 22,
-                color: 'rgba(245,243,247,0.5)',
+                color: "rgba(245,243,247,0.5)",
               }}
             >
-              example
+              {windowLabel}
             </span>
           </div>
 
           <div
             style={{
-              padding: '30px 40px 36px',
+              padding: "30px 40px 36px",
               fontFamily: MONO,
               fontSize,
               lineHeight: 1.55,
@@ -179,7 +207,7 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
                 rendered.push(
                   <span key={ti} style={{ color: t.color }}>
                     {slice}
-                  </span>
+                  </span>,
                 );
                 consumed += t.text.length;
               }
@@ -187,7 +215,10 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
               if (li < lines.length - 1) consumed += 1;
               const lineHasContent = rendered.length > 0;
               return (
-                <div key={li} style={{ minHeight: fontSize * 1.5, whiteSpace: 'pre' }}>
+                <div
+                  key={li}
+                  style={{ minHeight: fontSize * 1.5, whiteSpace: "pre" }}
+                >
                   {rendered}
                   {lineHasContent && caretOn && consumed >= shown ? (
                     <span style={{ color: theme.accent }}>▋</span>
@@ -197,6 +228,22 @@ export const CodeScene: React.FC<{ scene: Scene; theme: Theme }> = ({ scene, the
             })}
           </div>
         </Card>
+
+        {footnote ? (
+          <div
+            style={{
+              marginTop: 22,
+              fontFamily: FONT,
+              fontSize: 30,
+              fontWeight: 500,
+              lineHeight: 1.3,
+              color: (theme as any).muted ?? "rgba(245,243,247,0.6)",
+              opacity: headingP,
+            }}
+          >
+            {footnote}
+          </div>
+        ) : null}
       </FitStage>
     </AbsoluteFill>
   );

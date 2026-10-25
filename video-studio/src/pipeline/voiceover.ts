@@ -6,6 +6,7 @@ import { EdgeTTS } from "node-edge-tts";
 import { ffmpeg, probeDurationSec } from "./ffbin.js";
 import { VOICE_BY_LANG, ELEVENLABS_MODEL, F5, EDGE_TTS } from "../config.js";
 import { normalizeForTTS } from "./normalize.js";
+import { assertValidStoryboard } from "./validate.js";
 
 const execFileP = promisify(execFile);
 const ROOT = process.cwd();
@@ -166,6 +167,7 @@ export async function voiceover(lang: string) {
   await loadDotEnv();
   const sbPath = path.join(ROOT, "input", `storyboard.${lang}.json`);
   const sb = JSON.parse(await fs.readFile(sbPath, "utf8"));
+  assertValidStoryboard(sb, lang);
   const map = VOICE_BY_LANG[lang] ?? VOICE_BY_LANG.en;
 
   const argv = process.argv;
@@ -184,7 +186,9 @@ export async function voiceover(lang: string) {
     if (["f5", "edge", "eleven", "say"].includes(envProvider)) {
       provider = envProvider as any;
     } else {
-      console.warn(`[voiceover:${lang}] Unknown TTS_PROVIDER="${process.env.TTS_PROVIDER}", using 'say'`);
+      console.warn(
+        `[voiceover:${lang}] Unknown TTS_PROVIDER="${process.env.TTS_PROVIDER}", using 'say'`,
+      );
       provider = "say";
     }
   } else if (key) provider = "eleven";

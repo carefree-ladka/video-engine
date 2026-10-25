@@ -1,804 +1,845 @@
 {
   "pages": [
     {
-      "text": "chatgpt doesn't",
-      "startMs": 180,
+      "startMs": 0,
+      "endMs": 1386,
       "tokens": [
         {
-          "text": "chatgpt",
-          "endMs": 320,
-          "emphasis": true,
-          "startMs": 180
+          "text": "Stop",
+          "startMs": 0,
+          "endMs": 277,
+          "emphasis": false
         },
         {
-          "text": " doesn't",
-          "endMs": 970,
-          "emphasis": true,
-          "startMs": 560
+          "text": "writing",
+          "startMs": 277,
+          "endMs": 762,
+          "emphasis": true
+        },
+        {
+          "text": "four",
+          "startMs": 762,
+          "endMs": 1039,
+          "emphasis": false
+        },
+        {
+          "text": "lines",
+          "startMs": 1039,
+          "endMs": 1386,
+          "emphasis": true
         }
-      ],
-      "durationMs": 950,
-      "endMs": 1130
+      ]
     },
     {
-      "text": "read text the way",
-      "startMs": 1130,
+      "startMs": 1386,
+      "endMs": 2425,
       "tokens": [
         {
-          "text": "read",
-          "emphasis": false,
-          "startMs": 1130,
-          "endMs": 1450
+          "text": "of",
+          "startMs": 1386,
+          "endMs": 1524,
+          "emphasis": false
         },
         {
-          "text": " text",
-          "emphasis": false,
-          "startMs": 1450,
-          "endMs": 1820
+          "text": "Python",
+          "startMs": 1524,
+          "endMs": 1940,
+          "emphasis": true
         },
         {
-          "text": " the",
-          "emphasis": false,
-          "startMs": 1820,
-          "endMs": 2010
+          "text": "when",
+          "startMs": 1940,
+          "endMs": 2217,
+          "emphasis": false
         },
         {
-          "text": " way",
-          "emphasis": false,
-          "startMs": 2010,
-          "endMs": 2250
+          "text": "one",
+          "startMs": 2217,
+          "endMs": 2425,
+          "emphasis": false
         }
-      ],
-      "durationMs": 1120,
-      "endMs": 2250
+      ]
     },
     {
-      "text": "you think",
-      "startMs": 2250,
+      "startMs": 2425,
+      "endMs": 3326,
       "tokens": [
         {
-          "text": "you",
-          "emphasis": false,
-          "startMs": 2250,
-          "endMs": 2490
+          "text": "will",
+          "startMs": 2425,
+          "endMs": 2702,
+          "emphasis": false
         },
         {
-          "text": " think",
-          "emphasis": true,
-          "startMs": 2490,
-          "endMs": 3640
+          "text": "do.",
+          "startMs": 2702,
+          "endMs": 2841,
+          "emphasis": false
+        },
+        {
+          "text": "Meet",
+          "startMs": 2841,
+          "endMs": 3118,
+          "emphasis": false
+        },
+        {
+          "text": "the",
+          "startMs": 3118,
+          "endMs": 3326,
+          "emphasis": false
         }
-      ],
-      "durationMs": 1390,
-      "endMs": 3640
+      ]
     },
     {
-      "text": "it processes text",
-      "startMs": 3640,
+      "startMs": 3326,
+      "endMs": 4504,
       "tokens": [
         {
-          "text": "it",
-          "emphasis": false,
-          "startMs": 3640,
-          "endMs": 3860
+          "text": "list",
+          "startMs": 3326,
+          "endMs": 3603,
+          "emphasis": false
         },
         {
-          "text": " processes",
-          "emphasis": true,
-          "startMs": 3860,
-          "endMs": 4400
-        },
-        {
-          "text": " text",
-          "emphasis": false,
-          "startMs": 4400,
-          "endMs": 4740
+          "text": "comprehension.",
+          "startMs": 3603,
+          "endMs": 4504,
+          "emphasis": true
         }
-      ],
-      "durationMs": 1100,
-      "endMs": 4740
+      ]
     },
     {
-      "text": "using something called",
-      "startMs": 4740,
+      "startMs": 4504,
+      "endMs": 5462,
       "tokens": [
         {
-          "text": "using",
-          "emphasis": true,
-          "startMs": 4740,
-          "endMs": 5040
+          "text": "The",
+          "startMs": 4504,
+          "endMs": 4709,
+          "emphasis": false
         },
         {
-          "text": " something",
-          "emphasis": true,
-          "startMs": 5040,
-          "endMs": 5440
+          "text": "old",
+          "startMs": 4709,
+          "endMs": 4914,
+          "emphasis": false
         },
         {
-          "text": " called",
-          "emphasis": true,
-          "startMs": 5440,
-          "endMs": 5680
+          "text": "way",
+          "startMs": 4914,
+          "endMs": 5120,
+          "emphasis": false
+        },
+        {
+          "text": "makes",
+          "startMs": 5120,
+          "endMs": 5462,
+          "emphasis": true
         }
-      ],
-      "durationMs": 940,
-      "endMs": 5680
+      ]
     },
     {
-      "text": "tokens look",
-      "startMs": 5680,
+      "startMs": 5462,
+      "endMs": 6488,
       "tokens": [
         {
-          "text": "tokens",
-          "emphasis": true,
-          "startMs": 5680,
-          "endMs": 6160
+          "text": "an",
+          "startMs": 5462,
+          "endMs": 5599,
+          "emphasis": false
         },
         {
-          "text": " look",
-          "emphasis": false,
-          "startMs": 6160,
-          "endMs": 6880
+          "text": "empty",
+          "startMs": 5599,
+          "endMs": 5941,
+          "emphasis": true
+        },
+        {
+          "text": "list,",
+          "startMs": 5941,
+          "endMs": 6214,
+          "emphasis": false
+        },
+        {
+          "text": "then",
+          "startMs": 6214,
+          "endMs": 6488,
+          "emphasis": false
         }
-      ],
-      "durationMs": 1200,
-      "endMs": 6880
+      ]
     },
     {
-      "text": "at this sentence",
-      "startMs": 6880,
+      "startMs": 6488,
+      "endMs": 7651,
       "tokens": [
         {
-          "text": "at",
-          "emphasis": false,
-          "startMs": 6880,
-          "endMs": 7290
+          "text": "loops",
+          "startMs": 6488,
+          "endMs": 6830,
+          "emphasis": true
         },
         {
-          "text": " this",
-          "emphasis": false,
-          "startMs": 7290,
-          "endMs": 7360
+          "text": "and",
+          "startMs": 6830,
+          "endMs": 7035,
+          "emphasis": false
         },
         {
-          "text": " sentence",
-          "emphasis": true,
-          "startMs": 7360,
-          "endMs": 8390
+          "text": "appends",
+          "startMs": 7035,
+          "endMs": 7514,
+          "emphasis": true
+        },
+        {
+          "text": "to",
+          "startMs": 7514,
+          "endMs": 7651,
+          "emphasis": false
         }
-      ],
-      "durationMs": 1510,
-      "endMs": 8390
+      ]
     },
     {
-      "text": "i love coding an",
-      "startMs": 8390,
+      "startMs": 7651,
+      "endMs": 9087,
       "tokens": [
         {
-          "text": "i",
-          "emphasis": false,
-          "startMs": 8390,
-          "endMs": 8440
+          "text": "it.",
+          "startMs": 7651,
+          "endMs": 7788,
+          "emphasis": false
         },
         {
-          "text": " love",
-          "emphasis": false,
-          "startMs": 8440,
-          "endMs": 8680
+          "text": "A",
+          "startMs": 7788,
+          "endMs": 7924,
+          "emphasis": false
         },
         {
-          "text": " coding",
-          "emphasis": true,
-          "startMs": 8680,
-          "endMs": 9120
+          "text": "comprehension",
+          "startMs": 7924,
+          "endMs": 8814,
+          "emphasis": true
         },
         {
-          "text": " an",
-          "emphasis": false,
-          "startMs": 9120,
-          "endMs": 9350
+          "text": "does",
+          "startMs": 8814,
+          "endMs": 9087,
+          "emphasis": false
         }
-      ],
-      "durationMs": 960,
-      "endMs": 9350
+      ]
     },
     {
-      "text": "ai tokenizer",
-      "startMs": 9350,
+      "startMs": 9087,
+      "endMs": 9840,
       "tokens": [
         {
-          "text": "ai",
-          "endMs": 9570,
-          "emphasis": false,
-          "startMs": 9350
+          "text": "all",
+          "startMs": 9087,
+          "endMs": 9292,
+          "emphasis": false
         },
         {
-          "text": " tokenizer",
-          "endMs": 10150,
-          "emphasis": true,
-          "startMs": 10140
+          "text": "of",
+          "startMs": 9292,
+          "endMs": 9429,
+          "emphasis": false
+        },
+        {
+          "text": "that",
+          "startMs": 9429,
+          "endMs": 9703,
+          "emphasis": false
+        },
+        {
+          "text": "in",
+          "startMs": 9703,
+          "endMs": 9840,
+          "emphasis": false
         }
-      ],
-      "durationMs": 1250,
-      "endMs": 10600
+      ]
     },
     {
-      "text": "splits text",
-      "startMs": 10600,
-      "tokens": [
-        {
-          "text": "splits",
-          "emphasis": true,
-          "startMs": 10600,
-          "endMs": 11280
-        },
-        {
-          "text": " text",
-          "emphasis": false,
-          "startMs": 11280,
-          "endMs": 11750
-        }
-      ],
-      "durationMs": 1150,
-      "endMs": 11750
-    },
-    {
-      "text": "into smaller pieces",
-      "startMs": 11750,
-      "tokens": [
-        {
-          "text": "into",
-          "emphasis": false,
-          "startMs": 11750,
-          "endMs": 12240
-        },
-        {
-          "text": " smaller",
-          "emphasis": true,
-          "startMs": 12240,
-          "endMs": 12560
-        },
-        {
-          "text": " pieces",
-          "emphasis": true,
-          "startMs": 12560,
-          "endMs": 12960
-        }
-      ],
-      "durationMs": 1210,
-      "endMs": 12960
-    },
-    {
-      "text": "called tokens a",
-      "startMs": 12960,
-      "tokens": [
-        {
-          "text": "called",
-          "emphasis": true,
-          "startMs": 12960,
-          "endMs": 13320
-        },
-        {
-          "text": " tokens",
-          "emphasis": true,
-          "startMs": 13320,
-          "endMs": 13760
-        },
-        {
-          "text": " a",
-          "emphasis": false,
-          "startMs": 13760,
-          "endMs": 14330
-        }
-      ],
-      "durationMs": 1370,
-      "endMs": 14330
-    },
-    {
-      "text": "token can be a whole",
-      "startMs": 14330,
-      "tokens": [
-        {
-          "text": "token",
-          "emphasis": true,
-          "startMs": 14330,
-          "endMs": 14610
-        },
-        {
-          "text": " can",
-          "emphasis": false,
-          "startMs": 14610,
-          "endMs": 14800
-        },
-        {
-          "text": " be",
-          "emphasis": false,
-          "startMs": 14800,
-          "endMs": 14840
-        },
-        {
-          "text": " a",
-          "emphasis": false,
-          "startMs": 14840,
-          "endMs": 14890
-        },
-        {
-          "text": " whole",
-          "emphasis": true,
-          "startMs": 14890,
-          "endMs": 15390
-        }
-      ],
-      "durationMs": 1060,
-      "endMs": 15390
-    },
-    {
-      "text": "word part of",
-      "startMs": 15390,
-      "tokens": [
-        {
-          "text": "word",
-          "emphasis": false,
-          "startMs": 15390,
-          "endMs": 15750
-        },
-        {
-          "text": " part",
-          "emphasis": false,
-          "startMs": 15750,
-          "endMs": 16130
-        },
-        {
-          "text": " of",
-          "emphasis": false,
-          "startMs": 16130,
-          "endMs": 16300
-        }
-      ],
-      "durationMs": 910,
-      "endMs": 16300
-    },
-    {
-      "text": "a word or even",
-      "startMs": 16300,
+      "startMs": 9840,
+      "endMs": 11071,
       "tokens": [
         {
           "text": "a",
-          "emphasis": false,
-          "startMs": 16300,
-          "endMs": 16540
+          "startMs": 9840,
+          "endMs": 9977,
+          "emphasis": false
         },
         {
-          "text": " word",
-          "emphasis": false,
-          "startMs": 16540,
-          "endMs": 16790
+          "text": "single",
+          "startMs": 9977,
+          "endMs": 10387,
+          "emphasis": true
         },
         {
-          "text": " or",
-          "emphasis": false,
-          "startMs": 16790,
-          "endMs": 16980
-        },
-        {
-          "text": " even",
-          "emphasis": false,
-          "startMs": 16980,
-          "endMs": 17390
+          "text": "expression.",
+          "startMs": 10387,
+          "endMs": 11071,
+          "emphasis": true
         }
-      ],
-      "durationMs": 1090,
-      "endMs": 17390
+      ]
     },
     {
-      "text": "punctuation",
-      "startMs": 17390,
+      "startMs": 11071,
+      "endMs": 12294,
       "tokens": [
         {
-          "text": "punctuation",
-          "endMs": 17860,
-          "emphasis": true,
-          "startMs": 17390
+          "text": "The",
+          "startMs": 11071,
+          "endMs": 11300,
+          "emphasis": false
+        },
+        {
+          "text": "shape",
+          "startMs": 11300,
+          "endMs": 11683,
+          "emphasis": true
+        },
+        {
+          "text": "is",
+          "startMs": 11683,
+          "endMs": 11835,
+          "emphasis": false
+        },
+        {
+          "text": "simple:",
+          "startMs": 11835,
+          "endMs": 12294,
+          "emphasis": true
         }
-      ],
-      "durationMs": 1080,
-      "endMs": 18470
+      ]
     },
     {
-      "text": "different",
-      "startMs": 18470,
+      "startMs": 12294,
+      "endMs": 13670,
       "tokens": [
         {
-          "text": "different",
-          "emphasis": true,
-          "startMs": 18470,
-          "endMs": 19540
+          "text": "an",
+          "startMs": 12294,
+          "endMs": 12447,
+          "emphasis": false
+        },
+        {
+          "text": "expression,",
+          "startMs": 12447,
+          "endMs": 13212,
+          "emphasis": true
+        },
+        {
+          "text": "then",
+          "startMs": 13212,
+          "endMs": 13517,
+          "emphasis": false
+        },
+        {
+          "text": "a",
+          "startMs": 13517,
+          "endMs": 13670,
+          "emphasis": false
         }
-      ],
-      "durationMs": 1070,
-      "endMs": 19540
+      ]
     },
     {
-      "text": "models may split",
-      "startMs": 19540,
-      "tokens": [
-        {
-          "text": "models",
-          "emphasis": true,
-          "startMs": 19540,
-          "endMs": 20240
-        },
-        {
-          "text": " may",
-          "emphasis": false,
-          "startMs": 20240,
-          "endMs": 20400
-        },
-        {
-          "text": " split",
-          "emphasis": true,
-          "startMs": 20400,
-          "endMs": 20720
-        }
-      ],
-      "durationMs": 1180,
-      "endMs": 20720
-    },
-    {
-      "text": "the same text",
-      "startMs": 20720,
-      "tokens": [
-        {
-          "text": "the",
-          "emphasis": false,
-          "startMs": 20720,
-          "endMs": 20960
-        },
-        {
-          "text": " same",
-          "emphasis": false,
-          "startMs": 20960,
-          "endMs": 21330
-        },
-        {
-          "text": " text",
-          "emphasis": false,
-          "startMs": 21330,
-          "endMs": 21690
-        }
-      ],
-      "durationMs": 970,
-      "endMs": 21690
-    },
-    {
-      "text": "differently",
-      "startMs": 21690,
-      "tokens": [
-        {
-          "text": "differently",
-          "emphasis": true,
-          "startMs": 21690,
-          "endMs": 22710
-        }
-      ],
-      "durationMs": 1020,
-      "endMs": 22710
-    },
-    {
-      "text": "why do tokens",
-      "startMs": 22710,
-      "tokens": [
-        {
-          "text": "why",
-          "emphasis": false,
-          "startMs": 22710,
-          "endMs": 23160
-        },
-        {
-          "text": " do",
-          "emphasis": false,
-          "startMs": 23160,
-          "endMs": 23270
-        },
-        {
-          "text": " tokens",
-          "emphasis": true,
-          "startMs": 23270,
-          "endMs": 23710
-        }
-      ],
-      "durationMs": 1000,
-      "endMs": 23710
-    },
-    {
-      "text": "matter your",
-      "startMs": 23710,
-      "tokens": [
-        {
-          "text": "matter",
-          "emphasis": true,
-          "startMs": 23710,
-          "endMs": 24260
-        },
-        {
-          "text": " your",
-          "emphasis": false,
-          "startMs": 24260,
-          "endMs": 24630
-        }
-      ],
-      "durationMs": 920,
-      "endMs": 24630
-    },
-    {
-      "text": "prompt and the",
-      "startMs": 24630,
-      "tokens": [
-        {
-          "text": "prompt",
-          "emphasis": true,
-          "startMs": 24630,
-          "endMs": 25450
-        },
-        {
-          "text": " and",
-          "emphasis": false,
-          "startMs": 25450,
-          "endMs": 25520
-        },
-        {
-          "text": " the",
-          "emphasis": false,
-          "startMs": 25520,
-          "endMs": 25790
-        }
-      ],
-      "durationMs": 1160,
-      "endMs": 25790
-    },
-    {
-      "text": "models response",
-      "startMs": 25790,
-      "tokens": [
-        {
-          "text": "models",
-          "emphasis": true,
-          "startMs": 25790,
-          "endMs": 26270
-        },
-        {
-          "text": " response",
-          "emphasis": true,
-          "startMs": 26270,
-          "endMs": 27010
-        }
-      ],
-      "durationMs": 1220,
-      "endMs": 27010
-    },
-    {
-      "text": "use tokens",
-      "startMs": 27010,
-      "tokens": [
-        {
-          "text": "use",
-          "emphasis": false,
-          "startMs": 27010,
-          "endMs": 27280
-        },
-        {
-          "text": " tokens",
-          "emphasis": true,
-          "startMs": 27280,
-          "endMs": 27920
-        }
-      ],
-      "durationMs": 1980,
-      "endMs": 28990
-    },
-    {
-      "text": "they affect context",
-      "startMs": 28990,
-      "tokens": [
-        {
-          "text": "they",
-          "emphasis": false,
-          "startMs": 28990,
-          "endMs": 29150
-        },
-        {
-          "text": " affect",
-          "emphasis": true,
-          "startMs": 29150,
-          "endMs": 29560
-        },
-        {
-          "text": " context",
-          "emphasis": true,
-          "startMs": 29560,
-          "endMs": 30040
-        }
-      ],
-      "durationMs": 1050,
-      "endMs": 30040
-    },
-    {
-      "text": "limits and often",
-      "startMs": 30040,
-      "tokens": [
-        {
-          "text": "limits",
-          "emphasis": true,
-          "startMs": 30040,
-          "endMs": 30450
-        },
-        {
-          "text": " and",
-          "emphasis": false,
-          "startMs": 30450,
-          "endMs": 30720
-        },
-        {
-          "text": " often",
-          "emphasis": true,
-          "startMs": 30720,
-          "endMs": 30990
-        }
-      ],
-      "durationMs": 950,
-      "endMs": 30990
-    },
-    {
-      "text": "determine api usage",
-      "startMs": 30990,
-      "tokens": [
-        {
-          "text": "determine",
-          "emphasis": true,
-          "startMs": 30990,
-          "endMs": 31610
-        },
-        {
-          "text": " api",
-          "emphasis": false,
-          "startMs": 31610,
-          "endMs": 31810
-        },
-        {
-          "text": " usage",
-          "emphasis": true,
-          "startMs": 31810,
-          "endMs": 32190
-        }
-      ],
-      "durationMs": 1200,
-      "endMs": 32190
-    },
-    {
-      "text": "costs now",
-      "startMs": 32190,
-      "tokens": [
-        {
-          "text": "costs",
-          "emphasis": true,
-          "startMs": 32190,
-          "endMs": 32560
-        },
-        {
-          "text": " now",
-          "emphasis": false,
-          "startMs": 32560,
-          "endMs": 33400
-        }
-      ],
-      "durationMs": 1210,
-      "endMs": 33400
-    },
-    {
-      "text": "you know tokens",
-      "startMs": 33400,
-      "tokens": [
-        {
-          "text": "you",
-          "emphasis": false,
-          "startMs": 33400,
-          "endMs": 33660
-        },
-        {
-          "text": " know",
-          "emphasis": false,
-          "startMs": 33660,
-          "endMs": 33960
-        },
-        {
-          "text": " tokens",
-          "emphasis": true,
-          "startMs": 33960,
-          "endMs": 34750
-        }
-      ],
-      "durationMs": 1350,
-      "endMs": 34750
-    },
-    {
-      "text": "follow",
-      "startMs": 34750,
-      "tokens": [
-        {
-          "text": "follow",
-          "emphasis": true,
-          "startMs": 34750,
-          "endMs": 35850
-        }
-      ],
-      "durationMs": 1100,
-      "endMs": 35850
-    },
-    {
-      "text": "for more gen ai",
-      "startMs": 35850,
+      "startMs": 13670,
+      "endMs": 15199,
       "tokens": [
         {
           "text": "for",
-          "emphasis": false,
-          "startMs": 35850,
-          "endMs": 36010
+          "startMs": 13670,
+          "endMs": 13900,
+          "emphasis": false
         },
         {
-          "text": " more",
-          "emphasis": false,
-          "startMs": 36010,
-          "endMs": 36340
+          "text": "clause.",
+          "startMs": 13900,
+          "endMs": 14358,
+          "emphasis": true
         },
         {
-          "text": " gen",
-          "emphasis": false,
-          "startMs": 36340,
-          "endMs": 36660
+          "text": "This",
+          "startMs": 14358,
+          "endMs": 14664,
+          "emphasis": false
         },
         {
-          "text": " ai",
-          "endMs": 36770,
-          "emphasis": false,
-          "startMs": 36660
+          "text": "squares",
+          "startMs": 14664,
+          "endMs": 15199,
+          "emphasis": true
         }
-      ],
-      "durationMs": 1030,
-      "endMs": 36880
+      ]
     },
     {
-      "text": "concepts",
-      "startMs": 36880,
+      "startMs": 15199,
+      "endMs": 16575,
       "tokens": [
         {
-          "text": "concepts",
-          "emphasis": true,
-          "startMs": 36880,
-          "endMs": 37930
-        }
-      ],
-      "durationMs": 1050,
-      "endMs": 37930
-    },
-    {
-      "text": "explain simply",
-      "startMs": 37930,
-      "tokens": [
-        {
-          "text": "explain",
-          "emphasis": true,
-          "startMs": 37930,
-          "endMs": 38630
+          "text": "every",
+          "startMs": 15199,
+          "endMs": 15581,
+          "emphasis": true
         },
         {
-          "text": " simply",
-          "emphasis": true,
-          "startMs": 38630,
-          "endMs": 39360
+          "text": "number",
+          "startMs": 15581,
+          "endMs": 16040,
+          "emphasis": true
+        },
+        {
+          "text": "from",
+          "startMs": 16040,
+          "endMs": 16346,
+          "emphasis": false
+        },
+        {
+          "text": "one",
+          "startMs": 16346,
+          "endMs": 16575,
+          "emphasis": false
         }
-      ],
-      "durationMs": 1430,
-      "endMs": 39360
+      ]
+    },
+    {
+      "startMs": 16575,
+      "endMs": 17034,
+      "tokens": [
+        {
+          "text": "to",
+          "startMs": 16575,
+          "endMs": 16728,
+          "emphasis": false
+        },
+        {
+          "text": "five.",
+          "startMs": 16728,
+          "endMs": 17034,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 17034,
+      "endMs": 17715,
+      "tokens": [
+        {
+          "text": "Add",
+          "startMs": 17034,
+          "endMs": 17261,
+          "emphasis": false
+        },
+        {
+          "text": "an",
+          "startMs": 17261,
+          "endMs": 17412,
+          "emphasis": false
+        },
+        {
+          "text": "if",
+          "startMs": 17412,
+          "endMs": 17564,
+          "emphasis": false
+        },
+        {
+          "text": "at",
+          "startMs": 17564,
+          "endMs": 17715,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 17715,
+      "endMs": 18775,
+      "tokens": [
+        {
+          "text": "the",
+          "startMs": 17715,
+          "endMs": 17942,
+          "emphasis": false
+        },
+        {
+          "text": "end",
+          "startMs": 17942,
+          "endMs": 18169,
+          "emphasis": false
+        },
+        {
+          "text": "to",
+          "startMs": 18169,
+          "endMs": 18321,
+          "emphasis": false
+        },
+        {
+          "text": "filter.",
+          "startMs": 18321,
+          "endMs": 18775,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 18775,
+      "endMs": 19835,
+      "tokens": [
+        {
+          "text": "Here",
+          "startMs": 18775,
+          "endMs": 19078,
+          "emphasis": false
+        },
+        {
+          "text": "we",
+          "startMs": 19078,
+          "endMs": 19229,
+          "emphasis": false
+        },
+        {
+          "text": "keep",
+          "startMs": 19229,
+          "endMs": 19532,
+          "emphasis": false
+        },
+        {
+          "text": "only",
+          "startMs": 19532,
+          "endMs": 19835,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 19835,
+      "endMs": 21273,
+      "tokens": [
+        {
+          "text": "the",
+          "startMs": 19835,
+          "endMs": 20062,
+          "emphasis": false
+        },
+        {
+          "text": "even",
+          "startMs": 20062,
+          "endMs": 20365,
+          "emphasis": false
+        },
+        {
+          "text": "numbers",
+          "startMs": 20365,
+          "endMs": 20894,
+          "emphasis": true
+        },
+        {
+          "text": "under",
+          "startMs": 20894,
+          "endMs": 21273,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 21273,
+      "endMs": 21500,
+      "tokens": [
+        {
+          "text": "ten.",
+          "startMs": 21273,
+          "endMs": 21500,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 21500,
+      "endMs": 22428,
+      "tokens": [
+        {
+          "text": "Reach",
+          "startMs": 21500,
+          "endMs": 21887,
+          "emphasis": true
+        },
+        {
+          "text": "for",
+          "startMs": 21887,
+          "endMs": 22119,
+          "emphasis": false
+        },
+        {
+          "text": "it",
+          "startMs": 22119,
+          "endMs": 22273,
+          "emphasis": false
+        },
+        {
+          "text": "on",
+          "startMs": 22273,
+          "endMs": 22428,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 22428,
+      "endMs": 24284,
+      "tokens": [
+        {
+          "text": "simple",
+          "startMs": 22428,
+          "endMs": 22892,
+          "emphasis": true
+        },
+        {
+          "text": "transforms.",
+          "startMs": 22892,
+          "endMs": 23666,
+          "emphasis": true
+        },
+        {
+          "text": "It's",
+          "startMs": 23666,
+          "endMs": 23898,
+          "emphasis": false
+        },
+        {
+          "text": "clean,",
+          "startMs": 23898,
+          "endMs": 24284,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 24284,
+      "endMs": 25831,
+      "tokens": [
+        {
+          "text": "and",
+          "startMs": 24284,
+          "endMs": 24516,
+          "emphasis": false
+        },
+        {
+          "text": "usually",
+          "startMs": 24516,
+          "endMs": 25058,
+          "emphasis": true
+        },
+        {
+          "text": "faster",
+          "startMs": 25058,
+          "endMs": 25522,
+          "emphasis": true
+        },
+        {
+          "text": "than",
+          "startMs": 25522,
+          "endMs": 25831,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 25831,
+      "endMs": 26991,
+      "tokens": [
+        {
+          "text": "a",
+          "startMs": 25831,
+          "endMs": 25986,
+          "emphasis": false
+        },
+        {
+          "text": "manual",
+          "startMs": 25986,
+          "endMs": 26450,
+          "emphasis": true
+        },
+        {
+          "text": "loop.",
+          "startMs": 26450,
+          "endMs": 26759,
+          "emphasis": false
+        },
+        {
+          "text": "But",
+          "startMs": 26759,
+          "endMs": 26991,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 26991,
+      "endMs": 28229,
+      "tokens": [
+        {
+          "text": "when",
+          "startMs": 26991,
+          "endMs": 27301,
+          "emphasis": false
+        },
+        {
+          "text": "the",
+          "startMs": 27301,
+          "endMs": 27533,
+          "emphasis": false
+        },
+        {
+          "text": "logic",
+          "startMs": 27533,
+          "endMs": 27920,
+          "emphasis": true
+        },
+        {
+          "text": "gets",
+          "startMs": 27920,
+          "endMs": 28229,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 28229,
+      "endMs": 29621,
+      "tokens": [
+        {
+          "text": "nested,",
+          "startMs": 28229,
+          "endMs": 28693,
+          "emphasis": true
+        },
+        {
+          "text": "a",
+          "startMs": 28693,
+          "endMs": 28848,
+          "emphasis": false
+        },
+        {
+          "text": "normal",
+          "startMs": 28848,
+          "endMs": 29312,
+          "emphasis": true
+        },
+        {
+          "text": "loop",
+          "startMs": 29312,
+          "endMs": 29621,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 29621,
+      "endMs": 30704,
+      "tokens": [
+        {
+          "text": "is",
+          "startMs": 29621,
+          "endMs": 29776,
+          "emphasis": false
+        },
+        {
+          "text": "kinder",
+          "startMs": 29776,
+          "endMs": 30240,
+          "emphasis": true
+        },
+        {
+          "text": "to",
+          "startMs": 30240,
+          "endMs": 30395,
+          "emphasis": false
+        },
+        {
+          "text": "read.",
+          "startMs": 30395,
+          "endMs": 30704,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 30704,
+      "endMs": 32474,
+      "tokens": [
+        {
+          "text": "That's",
+          "startMs": 30704,
+          "endMs": 31058,
+          "emphasis": true
+        },
+        {
+          "text": "list",
+          "startMs": 31058,
+          "endMs": 31341,
+          "emphasis": false
+        },
+        {
+          "text": "comprehensions",
+          "startMs": 31341,
+          "endMs": 32333,
+          "emphasis": true
+        },
+        {
+          "text": "in",
+          "startMs": 32333,
+          "endMs": 32474,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 32474,
+      "endMs": 33961,
+      "tokens": [
+        {
+          "text": "sixty",
+          "startMs": 32474,
+          "endMs": 32828,
+          "emphasis": true
+        },
+        {
+          "text": "seconds.",
+          "startMs": 32828,
+          "endMs": 33324,
+          "emphasis": true
+        },
+        {
+          "text": "Follow",
+          "startMs": 33324,
+          "endMs": 33749,
+          "emphasis": true
+        },
+        {
+          "text": "for",
+          "startMs": 33749,
+          "endMs": 33961,
+          "emphasis": false
+        }
+      ]
+    },
+    {
+      "startMs": 33961,
+      "endMs": 34740,
+      "tokens": [
+        {
+          "text": "daily",
+          "startMs": 33961,
+          "endMs": 34315,
+          "emphasis": true
+        },
+        {
+          "text": "Python.",
+          "startMs": 34315,
+          "endMs": 34740,
+          "emphasis": true
+        }
+      ]
     }
-  ]
+  ],
+  "_source": "synthetic"
 }

@@ -1,0 +1,28 @@
+{
+  "_comment": "Paste the 'video-studio' block into your MCP client config. For Kiro: .kiro/settings/mcp.json (workspace) or ~/.kiro/settings/mcp.json (user). For Claude Desktop: claude_desktop_config.json. For Codex/others: the client's mcpServers map.",
+  "mcpServers": {
+    "video-studio": {
+      "command": "npx",
+      "args": [
+        "tsx",
+        "/Users/pawan.kumar2/Desktop/video-engine/video-studio/src/mcp/server.ts"
+      ],
+      "cwd": "/Users/pawan.kumar2/Desktop/video-engine/video-studio",
+      "disabled": false,
+      "autoApprove": [
+        "describe_storyboard_format",
+        "list_templates",
+        "list_looks",
+        "list_presets",
+        "list_voices",
+        "list_storyboards",
+        "read_storyboard",
+        "validate_storyboard",
+        "list_jobs",
+        "get_job_status",
+        "list_outputs",
+        "get_output_info"
+      ]
+    }
+  }
+}

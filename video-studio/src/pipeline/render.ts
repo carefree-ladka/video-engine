@@ -3,6 +3,8 @@ import path from "node:path";
 import { bundle } from "@remotion/bundler";
 import { selectComposition, renderMedia } from "@remotion/renderer";
 import { finalize } from "./finalize.js";
+import { applySfx } from "./sfx.js";
+import { assertValidStoryboard } from "./validate.js";
 
 const ROOT = process.cwd();
 
@@ -13,6 +15,7 @@ export async function render(lang: string) {
       "utf8",
     ),
   );
+  assertValidStoryboard(storyboard, lang);
   let captions = { pages: [] as any[] };
   try {
     captions = JSON.parse(
@@ -55,6 +58,14 @@ export async function render(lang: string) {
     codec: "h264",
     outputLocation,
     inputProps,
+    // Quality: Remotion's default CRF produced ~0.5 Mbps on our flat dark
+    // backgrounds, which bands the gradients. Force a high target bitrate
+    // (~10 Mbps) with headroom so gradients stay clean. finalize.ts copies the
+    // video stream (-c:v copy), so this is the bitrate of the delivered file.
+    videoBitrate: "10M",
+    encodingMaxRate: "14M",
+    encodingBufferSize: "20M",
+    x264Preset: "slow",
     onProgress: ({ progress }) => {
       if (Math.round(progress * 100) % 20 === 0)
         process.stdout.write(`  ${Math.round(progress * 100)}%\r`);
@@ -68,6 +79,13 @@ export async function render(lang: string) {
     await finalize(lang);
   } catch (e) {
     console.warn(`[render:${lang}] finalize skipped: ${(e as Error).message}`);
+  }
+
+  // mix scene-timed sound effects (no-op if the storyboard has no cues)
+  try {
+    await applySfx(lang, outputLocation);
+  } catch (e) {
+    console.warn(`[render:${lang}] sfx skipped: ${(e as Error).message}`);
   }
 
   return outputLocation;

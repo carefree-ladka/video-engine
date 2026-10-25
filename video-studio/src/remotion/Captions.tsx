@@ -26,7 +26,19 @@ export const Captions: React.FC<{
   pages: Page[];
   style?: CaptionStyle;
   colors?: CaptionColors;
-}> = ({ pages, style = "karaoke", colors = CODE2OFFER }) => {
+  // vertical position of the caption's bottom edge, as a fraction of frame
+  // height (e.g. 0.22). Overrides the default safe-zone inset.
+  position?: number;
+  // hard cap on words shown at once; a longer page is windowed to the group
+  // of `maxWords` containing the current word.
+  maxWords?: number;
+}> = ({
+  pages,
+  style = "karaoke",
+  colors = CODE2OFFER,
+  position,
+  maxWords,
+}) => {
   const frame = useCurrentFrame();
   const { fps, height, width } = useVideoConfig();
   const g = { width, height };
@@ -36,7 +48,23 @@ export const Captions: React.FC<{
   const page = pages.find((p) => ms >= p.startMs && ms <= p.endMs);
   if (!page) return null;
 
-  const size = captionFontSize(g, page.tokens.length);
+  // Optionally window a long page down to `maxWords` so captions stay compact.
+  let tokens = page.tokens;
+  if (maxWords && maxWords > 0 && tokens.length > maxWords) {
+    let center = tokens.findIndex((t) => ms >= t.startMs && ms <= t.endMs);
+    if (center < 0) {
+      const up = tokens.findIndex((t) => ms < t.startMs);
+      center = up < 0 ? tokens.length - 1 : up;
+    }
+    const chunk = Math.floor(center / maxWords);
+    tokens = tokens.slice(chunk * maxWords, chunk * maxWords + maxWords);
+  }
+
+  const size = captionFontSize(g, tokens.length);
+  const bottomInset =
+    typeof position === "number"
+      ? height * Math.max(0, Math.min(0.9, position))
+      : captionBottomInset(g);
 
   // Whole-page entrance (used as-is for long-form; words also reveal
   // individually in vertical Shorts/Reels).
@@ -57,7 +85,7 @@ export const Captions: React.FC<{
       style={{
         justifyContent: "flex-end",
         alignItems: "center",
-        paddingBottom: captionBottomInset(g),
+        paddingBottom: bottomInset,
       }}
     >
       <div
@@ -81,7 +109,7 @@ export const Captions: React.FC<{
             : `translateY(${(1 - pagePin) * 14}px)`,
         }}
       >
-        {page.tokens.map((t, i) => {
+        {tokens.map((t, i) => {
           const active = ms >= t.startMs && ms <= t.endMs;
           const role = roleFor(t.text, t.emphasis);
           const popWord = role !== "base";

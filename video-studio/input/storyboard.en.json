@@ -1,97 +1,140 @@
 {
+  "title": "Python List Comprehensions in 60 Seconds",
+  "platform": "short",
+  "language": "en",
   "width": 1080,
   "height": 1920,
   "fps": 30,
-  "totalSeconds": 39.744,
+  "totalSeconds": 34.74,
   "audio": "narration/en/full.wav",
   "style": {
-    "palette": {
-      "bg": "#0F172A",
-      "fg": "#F8FAFC",
-      "accent": "#3B82F6"
-    },
+    "look": "neo-grotesk",
     "captionStyle": "karaoke",
-    "transitionFamily": "fade",
-    "background": "grid-glow"
+    "transitionFamily": "slide"
+  },
+  "sound": {
+    "music": {
+      "enabled": true,
+      "volume": 0.07
+    },
+    "sfx": {
+      "enabled": true,
+      "masterGain": 0.35,
+      "autoTransition": {
+        "enabled": true,
+        "cue": "whoosh"
+      }
+    }
   },
   "scenes": [
     {
       "id": "s1",
-      "template": "title",
-      "narration": "ChatGPT doesn't read text the way you think! It processes text using something called tokens.",
+      "template": "hook",
+      "motion": "kinetic",
+      "narration": "Stop writing four lines of Python when one will do. Meet the list comprehension.",
       "text": {
-        "heading": "What Are Tokens?",
-        "sub": "The building blocks of AI text"
+        "kicker": "Python",
+        "heading": "Loops in one line",
+        "sub": "list comprehensions",
+        "fill": "gradient"
       },
-      "durationSec": 7.128
+      "durationSec": 4.504
     },
     {
       "id": "s2",
-      "template": "code",
-      "narration": "Look at this sentence: I love coding. An AI tokenizer splits text into smaller pieces called tokens.",
+      "template": "compare",
+      "narration": "The old way makes an empty list, then loops and appends to it. A comprehension does all of that in a single expression.",
       "text": {
-        "heading": "Step 1: Split the Text",
-        "code": [
-          "Input:",
-          "\"I love coding!\"",
-          "",
-          "Tokens:",
-          "[\"I\", \" love\",",
-          " \" coding\", \"!\"]",
-          "",
-          "# Illustrative token split"
-        ]
+        "kicker": "Before vs after",
+        "heading": "Same result, less noise",
+        "compare": {
+          "divider": "VS",
+          "left": {
+            "label": "for loop",
+            "tone": "bad",
+            "items": ["make an empty list", "loop, then append", "three lines"]
+          },
+          "right": {
+            "label": "comprehension",
+            "tone": "good",
+            "items": ["build it inline", "one expression", "one line"]
+          }
+        }
       },
-      "durationSec": 7.56
+      "durationSec": 6.567
     },
     {
       "id": "s3",
       "template": "code",
-      "narration": "A token can be a whole word, part of a word, or even punctuation. Different models may split the same text differently.",
+      "narration": "The shape is simple: an expression, then a for clause. This squares every number from one to five.",
+      "sfx": { "cue": "pop", "offset": 0.5 },
+      "zoom": { "x": 50, "y": 47, "scale": 1.45, "start": 1.3, "in": 0.6 },
       "text": {
-        "heading": "Step 2: What Counts?",
-        "code": [
-          "Whole word: \"AI\"",
-          "",
-          "Word parts:",
-          "\"un\" + \"believ\" + \"able\"",
-          "",
-          "Punctuation: \"!\"",
-          "",
-          "# Examples only"
-        ]
+        "heading": "The one-liner",
+        "windowLabel": "squares.py",
+        "footnote": "Pattern: [ expression for item in iterable ]  →  [1, 4, 9, 16, 25]",
+        "code": ["squares = [n * n for n in range(1, 6)]"]
       },
-      "durationSec": 8.424
+      "durationSec": 5.963
     },
     {
       "id": "s4",
       "template": "code",
-      "narration": "Why do tokens matter? Your prompt and the model's response use tokens. They affect context limits and often determine API usage costs.",
+      "narration": "Add an if at the end to filter. Here we keep only the even numbers under ten.",
+      "sfx": [
+        { "cue": "pop", "offset": 0.5 },
+        { "cue": "tick", "offset": 1.4 }
+      ],
+      "zoom": [
+        {
+          "x": 50,
+          "y": 47,
+          "scale": 1.4,
+          "start": 0.8,
+          "in": 0.5,
+          "hold": 1.4,
+          "out": 0.4
+        },
+        { "x": 66, "y": 47, "scale": 1.7, "start": 2.6, "in": 0.45 }
+      ],
       "text": {
-        "heading": "Step 3: Why Tokens Matter",
-        "code": [
-          "Your Prompt",
-          "     ↓",
-          "Input Tokens",
-          "     ↓",
-          "AI Model",
-          "     ↓",
-          "Output Tokens",
-          "",
-          "# Context + API Cost"
-        ]
+        "heading": "Add a filter",
+        "windowLabel": "evens.py",
+        "footnote": "A trailing if keeps only the items you want  →  [0, 2, 4, 6, 8]",
+        "code": ["evens = [n for n in range(10) if n % 2 == 0]"]
       },
-      "durationSec": 10.392
+      "durationSec": 4.466
     },
     {
       "id": "s5",
-      "template": "cta",
-      "narration": "Now you know tokens! Follow for more GenAI concepts, explained simply.",
+      "template": "bullets",
+      "narration": "Reach for it on simple transforms. It's clean, and usually faster than a manual loop. But when the logic gets nested, a normal loop is kinder to read.",
+      "sfx": [
+        { "cue": "click", "offset": 0.4 },
+        { "cue": "click", "offset": 2.2 },
+        { "cue": "click", "offset": 4.0 }
+      ],
       "text": {
-        "heading": "GenAI, Made Simple",
-        "sub": "Follow @Code2Offer"
+        "kicker": "Rule of thumb",
+        "heading": "When to use it",
+        "bullets": [
+          "great for simple transforms",
+          "usually faster than a loop",
+          "skip it when logic gets nested"
+        ]
       },
-      "durationSec": 6.24
+      "durationSec": 9.204
+    },
+    {
+      "id": "s6",
+      "template": "cta",
+      "narration": "That's list comprehensions in sixty seconds. Follow for daily Python.",
+      "sfx": { "cue": "ding", "offset": 0.3 },
+      "text": {
+        "heading": "Follow for daily Python",
+        "sub": "@code2offer"
+      },
+      "durationSec": 4.036
     }
   ]
 }

@@ -13,17 +13,34 @@ export type Geom = { width: number; height: number };
 
 export const isVertical = (g: Geom): boolean => g.height > g.width;
 
+// ---------------------------------------------------------------------------
+// Caption placement config.
+//
+// CAPTION_BOTTOM_PCT is the single knob for how far up from the bottom the
+// caption text sits, as a fraction of frame height. Vertical formats (Shorts /
+// Reels / Stories) overlay platform UI across the bottom ~15-20% of the frame,
+// so captions must clear that. 0.22 puts the caption's bottom edge at 78% of
+// the height — text reads around 70-78%, safely above the UI chrome.
+// Horizontal (YouTube) has no bottom chrome, so it can sit lower.
+// ---------------------------------------------------------------------------
+export const CAPTION_BOTTOM_PCT = { vertical: 0.22, horizontal: 0.09 } as const;
+
 // Fraction of the frame height reserved at the bottom for captions
 // (includes the breathing gap beneath the text). Portrait formats give the
 // caption more room because the text is larger and wraps sooner.
 export function captionBandPct(g: Geom): number {
-  return isVertical(g) ? 0.3 : 0.26;
+  return isVertical(g) ? 0.34 : 0.26;
 }
 
 // Distance (px) from the bottom of the frame to the bottom edge of the
 // caption text — the breathing gap below the subtitles.
 export function captionBottomInset(g: Geom): number {
-  return g.height * (isVertical(g) ? 0.1 : 0.09);
+  return (
+    g.height *
+    (isVertical(g)
+      ? CAPTION_BOTTOM_PCT.vertical
+      : CAPTION_BOTTOM_PCT.horizontal)
+  );
 }
 
 // Y position (px from the top) where the caption band begins. Scene content

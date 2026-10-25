@@ -5,8 +5,13 @@
   "type": "module",
   "scripts": {
     "studio": "remotion studio src/remotion/index.ts",
+    "mcp": "tsx src/mcp/server.ts",
     "make": "export PYENV_ROOT=\"$HOME/.pyenv\" && export PATH=\"$PYENV_ROOT/bin:$PATH\" && eval \"$(pyenv init -)\" 2>/dev/null; tsx src/pipeline/make.ts",
     "render": "tsx src/pipeline/render.ts",
+    "formats": "tsx src/pipeline/formats.ts",
+    "scaffold": "tsx src/pipeline/scaffold.ts",
+    "sfx": "tsx src/pipeline/sfx.ts",
+    "preview": "tsx src/pipeline/audio-preview.ts",
     "pace": "tsx src/pipeline/retime.ts",
     "finalize": "tsx src/pipeline/finalize.ts",
     "subs": "tsx src/pipeline/subtitles.ts",
@@ -15,6 +20,7 @@
     "check-f5": "export PYENV_ROOT=\"$HOME/.pyenv\" && export PATH=\"$PYENV_ROOT/bin:$PATH\" && eval \"$(pyenv init -)\" 2>/dev/null; bash scripts/check-f5.sh"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
     "@remotion/bundler": "^4.0.538",
     "@remotion/captions": "^4.0.538",
     "@remotion/cli": "^4.0.538",
@@ -29,7 +35,8 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-icons": "^5.7.0",
-    "remotion": "^4.0.538"
+    "remotion": "^4.0.538",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

@@ -69,10 +69,14 @@ export async function captions(lang: string, full16k: string) {
     const fixedTokens: any[] = [];
     for (let i = 0; i < page.tokens.length; i++) {
       const tok = page.tokens[i];
-      const text = tok.text || '';
+      const text = tok.text || "";
 
       // If token doesn't start with space and previous token exists, merge them
-      if (fixedTokens.length > 0 && !text.startsWith(' ') && !text.match(/^[.,:;!?]$/)) {
+      if (
+        fixedTokens.length > 0 &&
+        !text.startsWith(" ") &&
+        !text.match(/^[.,:;!?]$/)
+      ) {
         const prev = fixedTokens[fixedTokens.length - 1];
         // Merge: extend previous token's text and endMs
         prev.text = prev.text + text;
@@ -84,7 +88,10 @@ export async function captions(lang: string, full16k: string) {
     page.tokens = fixedTokens;
 
     // Rebuild page text from fixed tokens
-    page.text = fixedTokens.map(t => t.text).join('').trim();
+    page.text = fixedTokens
+      .map((t) => t.text)
+      .join("")
+      .trim();
   }
 
   // keyword emphasis (sparse) + fix field names to match Captions.tsx
@@ -120,4 +127,16 @@ export async function captions(lang: string, full16k: string) {
   await fs.writeFile(outPath, JSON.stringify({ pages }, null, 2));
   console.log(`[captions:${lang}] ${pages.length} pages (model=${cfg.model})`);
   return outPath;
+}
+
+// allow: tsx src/pipeline/captions.ts <lang>
+// Uses the 16k mono mix produced by the voiceover step (tmp/<lang>/full16k.wav),
+// so a voiceover run must have happened first.
+if (process.argv[1] && process.argv[1].endsWith("captions.ts")) {
+  const lang = process.argv[2] || "en";
+  const full16k = path.join(ROOT, "tmp", lang, "full16k.wav");
+  captions(lang, full16k).catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
 }
