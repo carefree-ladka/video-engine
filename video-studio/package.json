@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "studio": "remotion studio src/remotion/index.ts",
-    "make": "tsx src/pipeline/make.ts",
+    "make": "export PYENV_ROOT=\"$HOME/.pyenv\" && export PATH=\"$PYENV_ROOT/bin:$PATH\" && eval \"$(pyenv init -)\" 2>/dev/null; tsx src/pipeline/make.ts",
     "render": "tsx src/pipeline/render.ts",
     "pace": "tsx src/pipeline/retime.ts",
     "finalize": "tsx src/pipeline/finalize.ts",
     "subs": "tsx src/pipeline/subtitles.ts",
     "thumbs": "tsx src/pipeline/thumbnail.ts",
     "publish": "tsx src/pipeline/publish.ts",
-    "check-f5": "bash scripts/check-f5.sh"
+    "check-f5": "export PYENV_ROOT=\"$HOME/.pyenv\" && export PATH=\"$PYENV_ROOT/bin:$PATH\" && eval \"$(pyenv init -)\" 2>/dev/null; bash scripts/check-f5.sh"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.538",
@@ -25,6 +25,7 @@
     "@remotion/shapes": "^4.0.538",
     "@remotion/transitions": "^4.0.538",
     "msedge-tts": "^2.1.0",
+    "node-edge-tts": "^1.2.11",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-icons": "^5.7.0",

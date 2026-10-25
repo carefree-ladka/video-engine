@@ -1,132 +1,97 @@
 {
-  "title": "Debounce in JS",
-  "platform": "short",
-  "language": "en",
   "width": 1080,
   "height": 1920,
   "fps": 30,
-  "totalSeconds": 35.998,
+  "totalSeconds": 39.744,
   "audio": "narration/en/full.wav",
   "style": {
-    "genre": "tech-explainer",
-    "mood": "punchy",
     "palette": {
-      "bg": "#0E0B12",
-      "fg": "#F5F3F7",
-      "accent": "#F5A524"
+      "bg": "#0F172A",
+      "fg": "#F8FAFC",
+      "accent": "#3B82F6"
     },
     "captionStyle": "karaoke",
-    "transitionFamily": "slide",
+    "transitionFamily": "fade",
     "background": "grid-glow"
   },
   "scenes": [
     {
       "id": "s1",
       "template": "title",
-      "narration": "Typing fires your search fifty times a second. Debounce fixes that.",
-      "motion": "popWords",
+      "narration": "ChatGPT doesn't read text the way you think! It processes text using something called tokens.",
       "text": {
-        "heading": "Stop spamming your API",
-        "sub": "debounce, in 40 seconds",
-        "kicker": "JavaScript"
+        "heading": "What Are Tokens?",
+        "sub": "The building blocks of AI text"
       },
-      "durationSec": 4.01
+      "durationSec": 7.128
     },
     {
       "id": "s2",
-      "template": "diagram",
-      "narration": "Debounce waits until the events stop. Every keystroke resets a timer, and the function only runs once after a short pause.",
-      "motion": "build",
+      "template": "code",
+      "narration": "Look at this sentence: I love coding. An AI tokenizer splits text into smaller pieces called tokens.",
       "text": {
-        "heading": "How debounce works",
-        "diagram": {
-          "accentIndex": 2,
-          "loop": "every key resets the timer",
-          "boxes": [
-            {
-              "title": "events",
-              "items": [
-                "k k k k k"
-              ]
-            },
-            {
-              "title": "timer",
-              "items": [
-                "resets on each key"
-              ]
-            },
-            {
-              "title": "runs once",
-              "items": [
-                "after 300ms of quiet"
-              ]
-            }
-          ]
-        }
+        "heading": "Step 1: Split the Text",
+        "code": [
+          "Input:",
+          "\"I love coding!\"",
+          "",
+          "Tokens:",
+          "[\"I\", \" love\",",
+          " \" coding\", \"!\"]",
+          "",
+          "# Illustrative token split"
+        ]
       },
-      "durationSec": 7.648
+      "durationSec": 7.56
     },
     {
       "id": "s3",
       "template": "code",
-      "narration": "Here's the whole thing. Keep a timer in a closure. Clear it on every call, and set it again. Only the last call survives.",
-      "motion": "typewriter",
+      "narration": "A token can be a whole word, part of a word, or even punctuation. Different models may split the same text differently.",
       "text": {
-        "heading": "The implementation",
+        "heading": "Step 2: What Counts?",
         "code": [
-          "function debounce(fn, delay) {",
-          "  let t;",
-          "  return (...args) => {",
-          "    clearTimeout(t);",
-          "    t = setTimeout(() => fn(...args), delay);",
-          "  };",
-          "}"
+          "Whole word: \"AI\"",
+          "",
+          "Word parts:",
+          "\"un\" + \"believ\" + \"able\"",
+          "",
+          "Punctuation: \"!\"",
+          "",
+          "# Examples only"
         ]
       },
-      "durationSec": 7.214
+      "durationSec": 8.424
     },
     {
       "id": "s4",
-      "template": "bullets",
-      "narration": "Use it anywhere events fire too fast: search as you type, window resize, scroll handlers, and auto-save.",
-      "motion": "slideUp",
+      "template": "code",
+      "narration": "Why do tokens matter? Your prompt and the model's response use tokens. They affect context limits and often determine API usage costs.",
       "text": {
-        "heading": "Where to use it",
-        "bullets": [
-          "search-as-you-type",
-          "resize & scroll handlers",
-          "auto-save on input"
-        ],
-        "kicker": "Use cases"
+        "heading": "Step 3: Why Tokens Matter",
+        "code": [
+          "Your Prompt",
+          "     ↓",
+          "Input Tokens",
+          "     ↓",
+          "AI Model",
+          "     ↓",
+          "Output Tokens",
+          "",
+          "# Context + API Cost"
+        ]
       },
-      "durationSec": 6.309
+      "durationSec": 10.392
     },
     {
       "id": "s5",
-      "template": "bullets",
-      "narration": "Quick contrast. Debounce waits for quiet. Throttle runs at most once per interval. Don't mix them up.",
-      "motion": "slideUp",
-      "text": {
-        "heading": "Debounce vs throttle",
-        "bullets": [
-          "debounce: wait for a pause",
-          "throttle: once per interval",
-          "pick by the behavior you want"
-        ],
-        "kicker": "Comparison"
-      },
-      "durationSec": 6.087
-    },
-    {
-      "id": "s6",
       "template": "cta",
-      "narration": "Add this one helper, and your API will thank you. Follow for daily JS.",
-      "motion": "fade",
+      "narration": "Now you know tokens! Follow for more GenAI concepts, explained simply.",
       "text": {
-        "heading": "Follow for daily JS",
-        "sub": "@code2offer"
+        "heading": "GenAI, Made Simple",
+        "sub": "Follow @Code2Offer"
       },
-      "durationSec": 4.73
+      "durationSec": 6.24
     }
   ]
 }

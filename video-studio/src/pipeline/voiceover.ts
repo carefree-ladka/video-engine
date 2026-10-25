@@ -2,9 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { MsEdgeTTS, OUTPUT_FORMAT, ProsodyOptions } from "msedge-tts";
+import { EdgeTTS } from "node-edge-tts";
 import { ffmpeg, probeDurationSec } from "./ffbin.js";
-import { VOICE_BY_LANG, ELEVENLABS_MODEL, F5 } from "../config.js";
+import { VOICE_BY_LANG, ELEVENLABS_MODEL, F5, EDGE_TTS } from "../config.js";
 import { normalizeForTTS } from "./normalize.js";
 
 const execFileP = promisify(execFile);
@@ -77,44 +77,26 @@ async function elevenToWav(
   await ffmpeg(["-y", "-i", mp3, "-ar", "44100", "-ac", "2", wav]);
 }
 
-function streamToBuffer(stream: any): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-    stream.on("data", (c: Buffer) => chunks.push(c));
-    stream.on("end", () => resolve(Buffer.concat(chunks)));
-    stream.on("close", () => resolve(Buffer.concat(chunks)));
-    stream.on("error", reject);
-    setTimeout(() => reject(new Error("Edge TTS timeout")), 60000);
-  });
-}
-
-function edgeProsody(): ProsodyOptions {
-  const p = new ProsodyOptions();
-  if (process.env.TTS_VOICE_RATE) (p as any).rate = process.env.TTS_VOICE_RATE;
-  if (process.env.TTS_VOICE_PITCH)
-    (p as any).pitch = process.env.TTS_VOICE_PITCH;
-  if (process.env.TTS_VOICE_VOLUME)
-    (p as any).volume = process.env.TTS_VOICE_VOLUME;
-  return p;
-}
-
-async function makeEdge(voice: string): Promise<MsEdgeTTS> {
-  const tts = new MsEdgeTTS();
-  await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-  return tts;
-}
-
 async function edgeToWav(
-  tts: MsEdgeTTS,
-  prosody: ProsodyOptions,
+  voice: string,
+  rate: string,
+  pitch: string,
+  volume: string,
   text: string,
   mp3: string,
   wav: string,
 ) {
-  const { audioStream } = tts.toStream(text, prosody);
-  const buf = await streamToBuffer(audioStream);
-  if (!buf.length) throw new Error("Edge TTS returned no audio");
-  await fs.writeFile(mp3, buf);
+  const tts = new EdgeTTS({
+    voice,
+    lang: voice.split("-").slice(0, 2).join("-"), // en-US from en-US-GuyNeural
+    saveSubtitles: false,
+    rate,
+    pitch,
+    volume,
+    timeout: 15000,
+  });
+
+  await tts.ttsPromise(text, mp3);
   await ffmpeg(["-y", "-i", mp3, "-ar", "44100", "-ac", "2", wav]);
 }
 
@@ -189,56 +171,53 @@ export async function voiceover(lang: string) {
   const argv = process.argv;
   const key =
     process.env.ELEVEN_LABS_KEY || process.env.ELEVENLABS_API_KEY || null;
-  const edgeVoice = process.env.TTS_VOICE || null;
   const allowFallback = argv.includes("--allow-fallback");
 
+  // Provider selection priority: CLI flag > .env TTS_PROVIDER > auto-detect
   let provider: "eleven" | "say" | "f5" | "edge";
   if (argv.includes("--f5")) provider = "f5";
   else if (argv.includes("--edge")) provider = "edge";
   else if (argv.includes("--say")) provider = "say";
   else if (argv.includes("--eleven")) provider = "eleven";
-  else if (edgeVoice)
-    provider = "edge"; // TTS_VOICE in .env -> Edge neural voice
-  else if (key) provider = "eleven";
+  else if (process.env.TTS_PROVIDER) {
+    const envProvider = process.env.TTS_PROVIDER.toLowerCase();
+    if (["f5", "edge", "eleven", "say"].includes(envProvider)) {
+      provider = envProvider as any;
+    } else {
+      console.warn(`[voiceover:${lang}] Unknown TTS_PROVIDER="${process.env.TTS_PROVIDER}", using 'say'`);
+      provider = "say";
+    }
+  } else if (key) provider = "eleven";
   else provider = "say";
-
-  if (provider === "edge" && !edgeVoice) {
-    console.warn(
-      `[voiceover:${lang}] --edge requested but no TTS_VOICE set; using local 'say'.`,
-    );
-    provider = "say";
-  }
 
   // F5: batch (hard fail if it can't use your voice)
   let f5Map: Record<string, string> = {};
   if (provider === "f5") f5Map = await runF5Batch(lang, sb);
 
-  // Edge: init one session up front; hard-fail if blocked (unless --allow-fallback)
-  let edge: MsEdgeTTS | null = null;
-  const prosody = edgeProsody();
+  // Edge: test connection up front; hard-fail if blocked (unless --allow-fallback)
   if (provider === "edge") {
-    console.log(`[voiceover:${lang}] provider=edge voice=${edgeVoice}`);
+    console.log(`[voiceover:${lang}] provider=edge voice=${EDGE_TTS.voice}`);
     try {
-      edge = await makeEdge(edgeVoice!);
-      // probe once so we fail fast with a clear message if the WS is blocked
+      // Probe test to fail fast if Edge TTS is blocked
       await edgeToWav(
-        edge,
-        prosody,
+        EDGE_TTS.voice,
+        EDGE_TTS.rate,
+        EDGE_TTS.pitch,
+        EDGE_TTS.volume,
         "test.",
         path.join(ROOT, "tmp", `edge-probe-${lang}.mp3`),
         path.join(ROOT, "tmp", `edge-probe-${lang}.wav`),
       );
     } catch (e: any) {
       const msg =
-        `Edge TTS unreachable — "${edgeVoice}" was NOT used. ` +
-        `Your network is blocking the Edge TTS websocket (speech.platform.bing.com). ` +
-        `Run on a VPN/network that doesn't intercept it. Detail: ${(e.message || e).toString()}`;
+        `Edge TTS unreachable — "${EDGE_TTS.voice}" was NOT used. ` +
+        `Your network may be blocking the Edge TTS service. ` +
+        `Detail: ${(e.message || e).toString()}`;
       if (!allowFallback) throw new Error(msg);
       console.warn(
         `[voiceover:${lang}] ${msg}\n  --allow-fallback set: using local 'say' (${map.sayVoice}).`,
       );
       provider = "say";
-      edge = null;
     }
   } else if (provider !== "f5") {
     console.log(
@@ -274,10 +253,12 @@ export async function voiceover(lang: string) {
           `apad=pad_dur=${pad}`,
           wav,
         ]);
-      } else if (provider === "edge" && edge) {
+      } else if (provider === "edge") {
         await edgeToWav(
-          edge,
-          prosody,
+          EDGE_TTS.voice,
+          EDGE_TTS.rate,
+          EDGE_TTS.pitch,
+          EDGE_TTS.volume,
           normalizeForTTS(text),
           path.join(tmpDir, `${scene.id}.mp3`),
           wav,
@@ -330,8 +311,6 @@ export async function voiceover(lang: string) {
     total += dur;
     sceneWavs.push(wav);
   }
-
-  if (edge) edge.close();
 
   const listFile = path.join(tmpDir, "list.txt");
   await fs.writeFile(

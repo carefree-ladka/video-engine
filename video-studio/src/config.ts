@@ -40,9 +40,17 @@ export const F5 = {
   refTextFile: "input/voice/reference.txt",
   python: process.env.F5_PYTHON || "python3", // set F5_PYTHON to a 3.11-3.13 interpreter
   script: "scripts/f5_infer.py",
-  speed: 0.95, // slightly slower = calmer, more human
+  speed: 0.92, // slightly slower = more natural, human-like pacing
   nfe: 32, // flow-matching steps; higher = cleaner, slower
-  scenePauseMs: 260, // breathing gap appended to each scene for natural pacing
+  scenePauseMs: 350, // longer breathing gap between scenes for natural flow
+};
+
+// Edge TTS settings (Microsoft's free neural voices)
+export const EDGE_TTS = {
+  voice: process.env.EDGE_TTS_VOICE || "en-US-GuyNeural",
+  rate: process.env.EDGE_TTS_RATE || "+0%",    // -50% to +100%
+  pitch: process.env.EDGE_TTS_PITCH || "+0%",  // adjust voice pitch
+  volume: process.env.EDGE_TTS_VOLUME || "+0%", // adjust volume
 };
 
 // Whisper per language — non-English needs a multilingual model (NOT the .en ones).

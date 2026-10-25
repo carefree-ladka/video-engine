@@ -64,8 +64,36 @@ export async function captions(lang: string, full16k: string) {
     combineTokensWithinMilliseconds: 900,
   });
 
-  // keyword emphasis (sparse)
+  // Fix broken words: merge tokens that don't start with space
   for (const page of pages as any[]) {
+    const fixedTokens: any[] = [];
+    for (let i = 0; i < page.tokens.length; i++) {
+      const tok = page.tokens[i];
+      const text = tok.text || '';
+
+      // If token doesn't start with space and previous token exists, merge them
+      if (fixedTokens.length > 0 && !text.startsWith(' ') && !text.match(/^[.,:;!?]$/)) {
+        const prev = fixedTokens[fixedTokens.length - 1];
+        // Merge: extend previous token's text and endMs
+        prev.text = prev.text + text;
+        prev.endMs = tok.endMs || tok.toMs;
+      } else {
+        fixedTokens.push({ ...tok });
+      }
+    }
+    page.tokens = fixedTokens;
+
+    // Rebuild page text from fixed tokens
+    page.text = fixedTokens.map(t => t.text).join('').trim();
+  }
+
+  // keyword emphasis (sparse) + fix field names to match Captions.tsx
+  for (const page of pages as any[]) {
+    // Add endMs to page (Captions.tsx expects startMs and endMs)
+    if (!page.endMs && page.durationMs) {
+      page.endMs = page.startMs + page.durationMs;
+    }
+
     for (const tok of page.tokens) {
       const w = String(tok.text)
         .toLowerCase()
@@ -77,6 +105,14 @@ export async function captions(lang: string, full16k: string) {
           (lang.startsWith("en")
             ? !STOP_EN.has(w) && w.length >= 5
             : w.length >= 3));
+
+      // Convert fromMs/toMs to startMs/endMs for Captions.tsx compatibility
+      if (tok.fromMs !== undefined) {
+        tok.startMs = tok.fromMs;
+        tok.endMs = tok.toMs;
+        delete tok.fromMs;
+        delete tok.toMs;
+      }
     }
   }
 
