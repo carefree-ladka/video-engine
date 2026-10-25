@@ -1,0 +1,275 @@
+{
+  "pages": [
+    {
+      "startMs": 0,
+      "endMs": 953,
+      "tokens": [
+        {
+          "text": "These",
+          "startMs": 0,
+          "endMs": 340,
+          "emphasis": true
+        },
+        {
+          "text": "are",
+          "startMs": 340,
+          "endMs": 544,
+          "emphasis": true
+        },
+        {
+          "text": "the",
+          "startMs": 544,
+          "endMs": 748,
+          "emphasis": true
+        },
+        {
+          "text": "top",
+          "startMs": 748,
+          "endMs": 953,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 953,
+      "endMs": 2381,
+      "tokens": [
+        {
+          "text": "five",
+          "startMs": 953,
+          "endMs": 1225,
+          "emphasis": true
+        },
+        {
+          "text": "Python",
+          "startMs": 1225,
+          "endMs": 1633,
+          "emphasis": true
+        },
+        {
+          "text": "tricks.",
+          "startMs": 1633,
+          "endMs": 2041,
+          "emphasis": true
+        },
+        {
+          "text": "Stick",
+          "startMs": 2041,
+          "endMs": 2381,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 2381,
+      "endMs": 3946,
+      "tokens": [
+        {
+          "text": "around,",
+          "startMs": 2381,
+          "endMs": 2790,
+          "emphasis": true
+        },
+        {
+          "text": "because",
+          "startMs": 2790,
+          "endMs": 3266,
+          "emphasis": true
+        },
+        {
+          "text": "number",
+          "startMs": 3266,
+          "endMs": 3674,
+          "emphasis": true
+        },
+        {
+          "text": "five",
+          "startMs": 3674,
+          "endMs": 3946,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 3946,
+      "endMs": 5375,
+      "tokens": [
+        {
+          "text": "will",
+          "startMs": 3946,
+          "endMs": 4218,
+          "emphasis": true
+        },
+        {
+          "text": "genuinely",
+          "startMs": 4218,
+          "endMs": 4831,
+          "emphasis": true
+        },
+        {
+          "text": "shock",
+          "startMs": 4831,
+          "endMs": 5171,
+          "emphasis": true
+        },
+        {
+          "text": "you.",
+          "startMs": 5171,
+          "endMs": 5375,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 5375,
+      "endMs": 7142,
+      "tokens": [
+        {
+          "text": "Number",
+          "startMs": 5375,
+          "endMs": 5905,
+          "emphasis": true
+        },
+        {
+          "text": "one,",
+          "startMs": 5905,
+          "endMs": 6170,
+          "emphasis": true
+        },
+        {
+          "text": "f-strings.",
+          "startMs": 6170,
+          "endMs": 6877,
+          "emphasis": true
+        },
+        {
+          "text": "Two,",
+          "startMs": 6877,
+          "endMs": 7142,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 7142,
+      "endMs": 8821,
+      "tokens": [
+        {
+          "text": "comprehensions.",
+          "startMs": 7142,
+          "endMs": 8379,
+          "emphasis": true
+        },
+        {
+          "text": "Three,",
+          "startMs": 8379,
+          "endMs": 8821,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 8821,
+      "endMs": 10499,
+      "tokens": [
+        {
+          "text": "enumerate.",
+          "startMs": 8821,
+          "endMs": 9616,
+          "emphasis": true
+        },
+        {
+          "text": "Four,",
+          "startMs": 9616,
+          "endMs": 9969,
+          "emphasis": true
+        },
+        {
+          "text": "zip.",
+          "startMs": 9969,
+          "endMs": 10234,
+          "emphasis": true
+        },
+        {
+          "text": "And",
+          "startMs": 10234,
+          "endMs": 10499,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 10499,
+      "endMs": 12178,
+      "tokens": [
+        {
+          "text": "number",
+          "startMs": 10499,
+          "endMs": 11030,
+          "emphasis": true
+        },
+        {
+          "text": "five,",
+          "startMs": 11030,
+          "endMs": 11383,
+          "emphasis": true
+        },
+        {
+          "text": "the",
+          "startMs": 11383,
+          "endMs": 11648,
+          "emphasis": true
+        },
+        {
+          "text": "walrus",
+          "startMs": 11648,
+          "endMs": 12178,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 12178,
+      "endMs": 12885,
+      "tokens": [
+        {
+          "text": "operator.",
+          "startMs": 12178,
+          "endMs": 12885,
+          "emphasis": true
+        }
+      ]
+    },
+    {
+      "startMs": 12885,
+      "endMs": 14267,
+      "tokens": [
+        {
+          "text": "Follow",
+          "startMs": 12885,
+          "endMs": 13300,
+          "emphasis": true
+        },
+        {
+          "text": "for",
+          "startMs": 13300,
+          "endMs": 13507,
+          "emphasis": true
+        },
+        {
+          "text": "daily",
+          "startMs": 13507,
+          "endMs": 13852,
+          "emphasis": true
+        },
+        {
+          "text": "Python.",
+          "startMs": 13852,
+          "endMs": 14267,
+          "emphasis": true
+        }
+      ]
+    }
+  ],
+  "_source": "synthetic"
+}

@@ -5,8 +5,10 @@ import { selectComposition, renderMedia } from "@remotion/renderer";
 import { finalize } from "./finalize.js";
 import { applySfx } from "./sfx.js";
 import { assertValidStoryboard } from "./validate.js";
+import { resolveBrowser } from "./browser.js";
 
 const ROOT = process.cwd();
+const BROWSER = resolveBrowser();
 
 export async function render(lang: string) {
   const storyboard = JSON.parse(
@@ -50,7 +52,7 @@ export async function render(lang: string) {
       id: "MainVideo",
       inputProps,
       timeoutInMilliseconds: 120000,
-      browserExecutable: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      browserExecutable: BROWSER,
       chromiumOptions: {
         headless: true,
       },
@@ -83,7 +85,7 @@ export async function render(lang: string) {
     encodingBufferSize: "20M",
     x264Preset: "slow",
     timeoutInMilliseconds: 300000, // 5 minutes
-    browserExecutable: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    browserExecutable: BROWSER,
     chromiumOptions: {
       headless: true,
     },

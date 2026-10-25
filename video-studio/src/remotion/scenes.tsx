@@ -1,5 +1,10 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, interpolate } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  interpolate,
+} from "remotion";
 import { SafeZone } from "./SafeZone";
 import { FitStage } from "./Stage";
 import { Card } from "./Card";
@@ -15,7 +20,11 @@ import { HookScene } from "./HookScene";
 import { ChartScene } from "./ChartScene";
 import { BrollScene } from "./BrollScene";
 import { CompareScene } from "./CompareScene";
+import { TerminalScene } from "./TerminalScene";
+import { DiffScene } from "./DiffScene";
+import { BeforeAfterScene } from "./BeforeAfterScene";
 import { SocialHandles } from "./Social";
+import { parseEmphasis } from "./emphasis";
 import { RenderLook } from "./looks";
 
 export type HeadingFill = "solid" | "gradient" | "outline";
@@ -270,9 +279,23 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
   scene,
   theme,
 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   const k = useReveal(1, 10, EASING.snap);
   const hp = useReveal(3, 12, EASING.snap);
   const bullets = scene.text?.bullets ?? [];
+
+  // Emphasis: pop + glow one (or more) items, and dim the rest — e.g. the
+  // "the 5th one will shock you" beat. `at` is scene-local seconds; default is
+  // right after the item reveals.
+  const em = parseEmphasis((scene as any).emphasize);
+  const revealEndF = (i: number) => 10 + i * 5 + 16; // frame an item has settled
+  const dimStartF = em.items.size
+    ? em.at != null
+      ? em.at * fps
+      : Math.min(...[...em.items].map((idx) => revealEndF(idx - 1)))
+    : Infinity;
+
   const estHeight =
     (scene.text?.kicker ? 46 : 0) +
     (scene.text?.heading ? 74 * 1.1 + 40 : 0) +
@@ -296,19 +319,50 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
           {bullets.map((b, i) => {
             const p = useReveal(10 + i * 5, 14, EASING.overshoot);
             const [lead, ...rest] = b.split(/(?<=^[^\s]+)\s/);
+
+            const isEm = em.items.has(i + 1);
+            const emF = em.at != null ? em.at * fps : revealEndF(i);
+            // the ring/glow only appears at the trigger, so the item looks
+            // ordinary until the "shock" reveal.
+            const emActive = isEm && frame >= emF;
+            // pop on trigger, settle slightly enlarged and held
+            const pop = isEm
+              ? interpolate(frame - emF, [0, 8, 18], [1, 1.09, 1.05], {
+                  extrapolateLeft: "clamp",
+                  extrapolateRight: "clamp",
+                  easing: EASING.overshoot,
+                })
+              : 1;
+            // dim non-emphasized items once the emphasis fires
+            const dim =
+              em.dimOthers && em.items.size && !isEm
+                ? interpolate(frame, [dimStartF, dimStartF + 10], [1, 0.3], {
+                    extrapolateLeft: "clamp",
+                    extrapolateRight: "clamp",
+                  })
+                : 1;
+
             return (
               <div
                 key={i}
                 style={{
-                  opacity: p,
-                  transform: `translateY(${(1 - p) * 26}px)`,
+                  opacity: p * dim,
+                  transform: `translateY(${(1 - p) * 26}px) scale(${pop.toFixed(3)})`,
+                  transformOrigin: "left center",
                 }}
               >
                 <Card
                   light={theme.light}
                   surface={theme.card}
                   accent={theme.accent}
-                  style={{ padding: "20px 26px" }}
+                  style={{
+                    padding: "20px 26px",
+                    ...(emActive
+                      ? {
+                          boxShadow: `0 0 0 3px ${theme.accent}, 0 20px 60px -12px ${theme.accent}`,
+                        }
+                      : {}),
+                  }}
                 >
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 22 }}
@@ -327,7 +381,9 @@ const Bullets: React.FC<{ scene: Scene; theme: Theme }> = ({
                         fontWeight: 800,
                         color: theme.light ? "#fff" : theme.bg,
                         background: `linear-gradient(145deg, ${theme.accent}, ${theme.accent}C0)`,
-                        boxShadow: `0 8px 22px -8px ${theme.accent}99`,
+                        boxShadow: emActive
+                          ? `0 0 26px -2px ${theme.accent}`
+                          : `0 8px 22px -8px ${theme.accent}99`,
                       }}
                     >
                       {i + 1}
@@ -751,4 +807,7 @@ export const SCENES: Record<
   broll: BrollScene,
   compare: CompareScene,
   interstitial: Interstitial,
+  terminal: TerminalScene,
+  diff: DiffScene,
+  beforeafter: BeforeAfterScene,
 };

@@ -29,7 +29,7 @@ import { randomUUID } from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { validateStoryboard } from "../pipeline/validate.js";
+import { validateStoryboard, lintStoryboard } from "../pipeline/validate.js";
 import { PRESETS, VOICE_BY_LANG } from "../config.js";
 import { AUDIO, resolveAudioConfig } from "../audio.config.js";
 
@@ -419,7 +419,17 @@ const TEMPLATES: Record<
     summary:
       "Editor window with typewriter code reveal. Put explanations in footnote (only // comments are detected).",
     required: ["text.code (non-empty string[])"],
-    optional: ["text.heading", "text.windowLabel", "text.footnote"],
+    optional: [
+      "text.heading",
+      "text.windowLabel",
+      "text.footnote",
+      "text.fontSize | text.codeScale (bigger code; clamped to fit unless text.wrap)",
+      "text.wrap (let long lines wrap so they can be larger)",
+      "text.output (string|string[]) shown in an OUTPUT panel that pops in after typing",
+      "text.outputLabel",
+      "text.highlights ([{line,start,dur,color}] — time-synced line highlights)",
+      "text.error ({line,at,message,shake}) — red border on a line + red error in the output + a card shake when it fires",
+    ],
     example: {
       id: "s4",
       template: "code",
@@ -428,6 +438,8 @@ const TEMPLATES: Record<
         heading: "Example",
         windowLabel: "demo.py",
         footnote: "one-line takeaway",
+        output: ["[0, 1, 4, 9, 16]"],
+        highlights: [{ line: 1, start: 1.2 }],
         code: ["squares = [n*n for n in range(5)]"],
       },
     },
@@ -560,6 +572,74 @@ const TEMPLATES: Record<
       template: "interstitial",
       narration: "Next up.",
       text: { kicker: "Part 2", heading: "The details" },
+    },
+  },
+  terminal: {
+    summary:
+      "A terminal window: a prompt + typed command, then the output appears. For CLI tips and 'run it and see'.",
+    required: ["text.command"],
+    optional: [
+      "text.heading",
+      "text.prompt",
+      "text.output",
+      "text.windowLabel",
+      "text.fontSize",
+    ],
+    example: {
+      id: "s13",
+      template: "terminal",
+      narration: "Install it in one line.",
+      text: {
+        heading: "Install",
+        prompt: "$",
+        command: "pip install rich",
+        output: ["Successfully installed rich"],
+      },
+    },
+  },
+  diff: {
+    summary:
+      "A git-style diff: lines starting with '+' are added (green), '-' removed (red), others are context. Great for 'the long way vs the trick'.",
+    required: ["text.diff (or text.code), lines prefixed with + / - / space"],
+    optional: ["text.heading", "text.windowLabel", "text.fontSize"],
+    example: {
+      id: "s14",
+      template: "diff",
+      narration: "Refactor it.",
+      text: {
+        heading: "Before vs after",
+        diff: [
+          "- squares = []",
+          "- for n in nums:",
+          "-     squares.append(n*n)",
+          "+ squares = [n*n for n in nums]",
+        ],
+      },
+    },
+  },
+  beforeafter: {
+    summary:
+      "Two code cards — a red 'before' (− lines, the old way) and a green 'after' (+ lines, the fix). The after card pops in and the before recedes. The 'stop doing this → do this' format.",
+    required: ["text.before.code (string[])", "text.after.code (string[])"],
+    optional: [
+      "text.heading",
+      "text.before.label",
+      "text.after.label",
+      "text.fontSize",
+      "text.dimBefore (fade the before card once after lands; default true)",
+    ],
+    example: {
+      id: "s15",
+      template: "beforeafter",
+      narration: "Stop writing the loop. Use a comprehension.",
+      text: {
+        heading: "The long way vs the trick",
+        before: {
+          label: "the long way",
+          code: ["squares = []", "for n in nums:", "    squares.append(n*n)"],
+        },
+        after: { label: "the trick", code: ["squares = [n*n for n in nums]"] },
+      },
     },
   },
 };
@@ -779,6 +859,28 @@ server.registerTool(
       autoTransitionDefault: AUDIO.sfx.autoTransition.cue,
       note: "Drop input/sfx/<name>.<ext> to override any cue, or input/music/<name>.<ext> for music.",
     });
+  }),
+);
+
+server.registerTool(
+  "lint_storyboard",
+  {
+    title: "Lint a storyboard",
+    description:
+      "Non-fatal quality checks for a storyboard.<lang>.json: handle consistency, length vs the platform limit, text overflow / safe-zone heuristics, and pacing. Returns warnings + notes. Run before generate_video to catch off-brand or broken-looking output.",
+    inputSchema: { lang: z.string().default("en") },
+  },
+  guard(async ({ lang }: { lang: string }) => {
+    assertLang(lang);
+    const sb = await readJson(path.join(INPUT_DIR, `storyboard.${lang}.json`));
+    let brand: any = {};
+    try {
+      brand = await readJson(path.join(INPUT_DIR, "brand.json"));
+    } catch {
+      /* no brand */
+    }
+    const { warnings, notes } = lintStoryboard(sb, brand);
+    return ok({ clean: warnings.length === 0, warnings, notes });
   }),
 );
 
@@ -1213,6 +1315,51 @@ server.registerTool(
       args: pipelineArgs("audio-preview.ts", lang, String(seconds)),
       resolveOutputs: () =>
         existing([path.join(OUT_DIR, `audio-preview.${lang}.wav`)]),
+    });
+    return ok({ jobId: job.id, status: job.status, poll: "get_job_status" });
+  }),
+);
+
+server.registerTool(
+  "qa_video",
+  {
+    title: "QA a rendered video",
+    description:
+      "Post-render checks on out/video.<lang>.mp4: integrated loudness (~-14 LUFS target), black-frame detection, and a 3x3 contact sheet (out/qa.<lang>.contact.png). Returns a jobId; read the log/outputs when done.",
+    inputSchema: { lang: z.string().default("en") },
+  },
+  guard(async ({ lang }: { lang: string }) => {
+    assertLang(lang);
+    const job = enqueueJob({
+      type: "qa_video",
+      lang,
+      command: TSX,
+      args: pipelineArgs("qa.ts", lang),
+      resolveOutputs: () =>
+        existing([path.join(OUT_DIR, `qa.${lang}.contact.png`)]),
+    });
+    return ok({ jobId: job.id, status: job.status, poll: "get_job_status" });
+  }),
+);
+
+server.registerTool(
+  "run_code",
+  {
+    title: "Run code snippets to capture real output",
+    description:
+      'Executes snippets from code/terminal scenes that set "run": true (python/node/bash, inferred from windowLabel or runWith) and writes the real stdout into each scene\'s text.output. SECURITY: runs storyboard code on this machine (timeout, no sandbox) — only use on trusted storyboards. Returns a jobId.',
+    inputSchema: { lang: z.string().default("en") },
+  },
+  guard(async ({ lang }: { lang: string }) => {
+    assertLang(lang);
+    await ensureStoryboard(lang);
+    const job = enqueueJob({
+      type: "run_code",
+      lang,
+      command: TSX,
+      args: pipelineArgs("runcode.ts", lang),
+      resolveOutputs: () =>
+        existing([path.join(INPUT_DIR, `storyboard.${lang}.json`)]),
     });
     return ok({ jobId: job.id, status: job.status, poll: "get_job_status" });
   }),

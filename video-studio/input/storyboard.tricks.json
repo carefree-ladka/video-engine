@@ -1,0 +1,94 @@
+{
+  "title": "Top 5 Python Tricks",
+  "platform": "short",
+  "language": "en",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "totalSeconds": 14.267,
+  "audio": "narration/tricks/full.wav",
+  "style": {
+    "look": "neo-grotesk",
+    "captionStyle": "karaoke",
+    "transitionFamily": "slide",
+    "progressBar": {
+      "position": "top",
+      "thickness": 6
+    }
+  },
+  "sound": {
+    "music": {
+      "enabled": true,
+      "volume": 0.07,
+      "mood": "bright"
+    },
+    "sfx": {
+      "enabled": true,
+      "masterGain": 0.35,
+      "autoTransition": {
+        "enabled": true,
+        "cue": "whoosh"
+      }
+    }
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "template": "hook",
+      "motion": "kinetic",
+      "narration": "These are the top five Python tricks. Stick around, because number five will genuinely shock you.",
+      "sfx": {
+        "cue": "riser",
+        "offset": 0.1
+      },
+      "text": {
+        "kicker": "Python",
+        "heading": "Top 5 tricks",
+        "sub": "the 5th will shock you",
+        "fill": "gradient"
+      },
+      "durationSec": 5.375
+    },
+    {
+      "id": "s2",
+      "template": "bullets",
+      "narration": "Number one, f-strings. Two, comprehensions. Three, enumerate. Four, zip. And number five, the walrus operator.",
+      "emphasize": {
+        "item": 5,
+        "at": 5.4,
+        "dimOthers": true
+      },
+      "sfx": {
+        "cue": "ding",
+        "offset": 5.4
+      },
+      "text": {
+        "kicker": "Top 5 Python tricks",
+        "heading": "the 5th will shock you",
+        "bullets": [
+          "f-strings",
+          "comprehensions",
+          "enumerate",
+          "zip",
+          "walrus :="
+        ]
+      },
+      "durationSec": 7.51
+    },
+    {
+      "id": "s3",
+      "template": "cta",
+      "narration": "Follow for daily Python.",
+      "captions": false,
+      "sfx": {
+        "cue": "ding",
+        "offset": 0.3
+      },
+      "text": {
+        "heading": "Follow for daily Python",
+        "sub": "@code2offer"
+      },
+      "durationSec": 1.382
+    }
+  ]
+}

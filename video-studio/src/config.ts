@@ -48,8 +48,8 @@ export const F5 = {
 // Edge TTS settings (Microsoft's free neural voices)
 export const EDGE_TTS = {
   voice: process.env.EDGE_TTS_VOICE || "en-US-GuyNeural",
-  rate: process.env.EDGE_TTS_RATE || "+0%",    // -50% to +100%
-  pitch: process.env.EDGE_TTS_PITCH || "+0%",  // adjust voice pitch
+  rate: process.env.EDGE_TTS_RATE || "+0%", // -50% to +100%
+  pitch: process.env.EDGE_TTS_PITCH || "+0%", // adjust voice pitch
   volume: process.env.EDGE_TTS_VOLUME || "+0%", // adjust volume
 };
 
@@ -60,4 +60,27 @@ export const WHISPER_BY_LANG: Record<
 > = {
   en: { model: "base.en", language: "en" },
   hi: { model: "base", language: "hi" },
+};
+
+// Pronunciation lexicon: code-ish tokens -> how TTS should say them. Applied to
+// the spoken text only (not captions / on-screen text). Extend as needed.
+// For a one-off, set a scene's `say` field to override the whole line's audio
+// while `narration` stays as the caption/display text.
+export const PRONUNCIATION: Record<string, string> = {
+  "dict.fromkeys": "dict from keys",
+  fromkeys: "from keys",
+  "str.join": "string join",
+  "os.path": "os path",
+  kwargs: "kw args",
+  argv: "arg v",
+  nums: "numbers",
+  arr: "array",
+  idx: "index",
+  len: "len",
+  regex: "reg ex",
+  async: "a sink",
+  nginx: "engine x",
+  jwt: "J W T",
+  sql: "sequel",
+  cli: "C L I",
 };

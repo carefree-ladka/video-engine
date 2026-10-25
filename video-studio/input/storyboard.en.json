@@ -10,20 +10,15 @@
   "style": {
     "look": "neo-grotesk",
     "captionStyle": "karaoke",
-    "transitionFamily": "slide"
+    "transitionFamily": "slide",
+    "progressBar": { "position": "top", "thickness": 6 }
   },
   "sound": {
-    "music": {
-      "enabled": true,
-      "volume": 0.07
-    },
+    "music": { "enabled": true, "volume": 0.07, "mood": "calm" },
     "sfx": {
       "enabled": true,
       "masterGain": 0.35,
-      "autoTransition": {
-        "enabled": true,
-        "cue": "whoosh"
-      }
+      "autoTransition": { "enabled": true, "cue": "whoosh" }
     }
   },
   "scenes": [
@@ -32,6 +27,7 @@
       "template": "hook",
       "motion": "kinetic",
       "narration": "Stop writing four lines of Python when one will do. Meet the list comprehension.",
+      "sfx": { "cue": "riser", "offset": 0.1 },
       "text": {
         "kicker": "Python",
         "heading": "Loops in one line",
@@ -67,13 +63,17 @@
       "id": "s3",
       "template": "code",
       "narration": "The shape is simple: an expression, then a for clause. This squares every number from one to five.",
-      "sfx": { "cue": "pop", "offset": 0.5 },
-      "zoom": { "x": 50, "y": 47, "scale": 1.45, "start": 1.3, "in": 0.6 },
+      "sfx": [
+        { "cue": "pop", "offset": 0.5 },
+        { "cue": "ding", "offset": 3.2 }
+      ],
       "text": {
         "heading": "The one-liner",
         "windowLabel": "squares.py",
-        "footnote": "Pattern: [ expression for item in iterable ]  →  [1, 4, 9, 16, 25]",
-        "code": ["squares = [n * n for n in range(1, 6)]"]
+        "footnote": "[ expression for item in iterable ]",
+        "code": ["squares = [n * n for n in range(1, 6)]"],
+        "output": ["[1, 4, 9, 16, 25]"],
+        "highlights": [{ "line": 1, "start": 1.4 }]
       },
       "durationSec": 5.963
     },
@@ -83,25 +83,15 @@
       "narration": "Add an if at the end to filter. Here we keep only the even numbers under ten.",
       "sfx": [
         { "cue": "pop", "offset": 0.5 },
-        { "cue": "tick", "offset": 1.4 }
-      ],
-      "zoom": [
-        {
-          "x": 50,
-          "y": 47,
-          "scale": 1.4,
-          "start": 0.8,
-          "in": 0.5,
-          "hold": 1.4,
-          "out": 0.4
-        },
-        { "x": 66, "y": 47, "scale": 1.7, "start": 2.6, "in": 0.45 }
+        { "cue": "ding", "offset": 3.0 }
       ],
       "text": {
         "heading": "Add a filter",
         "windowLabel": "evens.py",
-        "footnote": "A trailing if keeps only the items you want  →  [0, 2, 4, 6, 8]",
-        "code": ["evens = [n for n in range(10) if n % 2 == 0]"]
+        "footnote": "a trailing if keeps only what you want",
+        "code": ["evens = [", "  n for n in range(10)", "  if n % 2 == 0", "]"],
+        "output": ["[0, 2, 4, 6, 8]"],
+        "highlights": [{ "line": 3, "start": 2.0, "color": "#FFD23F" }]
       },
       "durationSec": 4.466
     },
@@ -129,6 +119,7 @@
       "id": "s6",
       "template": "cta",
       "narration": "That's list comprehensions in sixty seconds. Follow for daily Python.",
+      "captions": false,
       "sfx": { "cue": "ding", "offset": 0.3 },
       "text": {
         "heading": "Follow for daily Python",

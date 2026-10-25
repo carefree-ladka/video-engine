@@ -15,6 +15,16 @@ import { loadFont as loadFredoka } from "@remotion/google-fonts/Fredoka";
 import { loadFont as loadSpaceGrotesk } from "@remotion/google-fonts/SpaceGrotesk";
 import { loadFont as loadUnbounded } from "@remotion/google-fonts/Unbounded";
 import { loadFont as loadInstrument } from "@remotion/google-fonts/InstrumentSerif";
+// Hyperframes design-system faces.
+import { loadFont as loadBebas } from "@remotion/google-fonts/BebasNeue";
+import { loadFont as loadBarlow } from "@remotion/google-fonts/Barlow";
+import { loadFont as loadBodoni } from "@remotion/google-fonts/BodoniModa";
+import { loadFont as loadNewsreader } from "@remotion/google-fonts/Newsreader";
+import { loadFont as loadHanken } from "@remotion/google-fonts/HankenGrotesk";
+import { loadFont as loadArchivo } from "@remotion/google-fonts/Archivo";
+import { loadFont as loadArchivoBlack } from "@remotion/google-fonts/ArchivoBlack";
+import { loadFont as loadShrikhand } from "@remotion/google-fonts/Shrikhand";
+import { loadFont as loadBaskerville } from "@remotion/google-fonts/LibreBaskerville";
 
 const { fontFamily: montserrat } = loadMontserrat("normal", {
   weights: ["700", "800"],
@@ -22,7 +32,7 @@ const { fontFamily: montserrat } = loadMontserrat("normal", {
   ignoreTooManyRequestsWarning: true,
 });
 const { fontFamily: inter } = loadInter("normal", {
-  weights: ["500", "600", "700", "800"],
+  weights: ["400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   ignoreTooManyRequestsWarning: true,
 });
@@ -84,6 +94,58 @@ const { fontFamily: instrumentItalic } = loadInstrument("italic", {
   ignoreTooManyRequestsWarning: true,
 });
 
+// --- Hyperframes faces ---
+const { fontFamily: bebas } = loadBebas("normal", {
+  weights: ["400"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: barlow } = loadBarlow("normal", {
+  weights: ["400", "700", "900"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: bodoni } = loadBodoni("normal", {
+  weights: ["700", "800"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: newsreader } = loadNewsreader("normal", {
+  weights: ["400", "500"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: newsreaderItalic } = loadNewsreader("italic", {
+  weights: ["400"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: hanken } = loadHanken("normal", {
+  weights: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: archivo } = loadArchivo("normal", {
+  weights: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: archivoBlack } = loadArchivoBlack("normal", {
+  weights: ["400"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: shrikhand } = loadShrikhand("normal", {
+  weights: ["400"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+const { fontFamily: baskerville } = loadBaskerville("normal", {
+  weights: ["400", "700"],
+  subsets: ["latin"],
+  ignoreTooManyRequestsWarning: true,
+});
+
 // Role-based stacks.
 export const DISPLAY = `${montserrat}, ${hind}, Inter, system-ui, sans-serif`; // hooks / titles
 export const FONT = `${inter}, ${hind}, system-ui, sans-serif`; // default body / long-form captions
@@ -99,6 +161,18 @@ export const UNBOUNDED = `${unbounded}, ${montserrat}, ${hind}, system-ui, sans-
 export const INSTRUMENT = `${instrument}, ${playfair}, Georgia, serif`; // light editorial serif display
 export const INSTRUMENT_ITALIC = `${instrumentItalic}, ${playfairItalic}, Georgia, serif`;
 
+// --- Hyperframes role stacks ---
+export const BEBAS = `${bebas}, ${anton}, Impact, sans-serif`; // tall condensed caps (Coral)
+export const BARLOW = `${barlow}, ${inter}, system-ui, sans-serif`; // Broadside display/body
+export const BODONI = `${bodoni}, ${playfair}, Georgia, serif`; // high-contrast serif (Capsule)
+export const NEWSREADER = `${newsreader}, ${playfair}, Georgia, serif`; // editorial serif (Cobalt Grid)
+export const NEWSREADER_ITALIC = `${newsreaderItalic}, ${playfairItalic}, Georgia, serif`;
+export const HANKEN = `${hanken}, ${inter}, system-ui, sans-serif`; // reading grotesk (Cobalt Grid body)
+export const ARCHIVO = `${archivo}, ${inter}, system-ui, sans-serif`; // body sans (Biennale)
+export const ARCHIVO_BLACK = `${archivoBlack}, ${anton}, Impact, sans-serif`; // heavy black display (Creative Mode)
+export const SHRIKHAND = `${shrikhand}, ${playfair}, Georgia, serif`; // chunky display serif (Bold Poster)
+export const BASKERVILLE = `${baskerville}, Georgia, "Times New Roman", serif`; // literary serif body (Bold Poster)
+
 // Map a look's font role to a real stack.
 export type FontRole =
   | "montserrat"
@@ -109,7 +183,16 @@ export type FontRole =
   | "rounded"
   | "grotesk"
   | "unbounded"
-  | "instrument";
+  | "instrument"
+  | "bebas"
+  | "barlow"
+  | "bodoni"
+  | "newsreader"
+  | "hanken"
+  | "archivo"
+  | "archivoBlack"
+  | "shrikhand"
+  | "baskerville";
 export const fontFor = (role: FontRole): string => {
   switch (role) {
     case "serif":
@@ -128,6 +211,24 @@ export const fontFor = (role: FontRole): string => {
       return INTER;
     case "poppins":
       return POPPINS;
+    case "bebas":
+      return BEBAS;
+    case "barlow":
+      return BARLOW;
+    case "bodoni":
+      return BODONI;
+    case "newsreader":
+      return NEWSREADER;
+    case "hanken":
+      return HANKEN;
+    case "archivo":
+      return ARCHIVO;
+    case "archivoBlack":
+      return ARCHIVO_BLACK;
+    case "shrikhand":
+      return SHRIKHAND;
+    case "baskerville":
+      return BASKERVILLE;
     default:
       return DISPLAY;
   }

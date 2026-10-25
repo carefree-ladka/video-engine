@@ -32,18 +32,23 @@ export const Captions: React.FC<{
   // hard cap on words shown at once; a longer page is windowed to the group
   // of `maxWords` containing the current word.
   maxWords?: number;
+  // ms ranges where captions are suppressed (e.g. the CTA scene).
+  hideRanges?: Array<[number, number]>;
 }> = ({
   pages,
   style = "karaoke",
   colors = CODE2OFFER,
   position,
   maxWords,
+  hideRanges,
 }) => {
   const frame = useCurrentFrame();
   const { fps, height, width } = useVideoConfig();
   const g = { width, height };
   const vertical = height > width;
   const ms = (frame / fps) * 1000;
+
+  if (hideRanges?.some(([a, b]) => ms >= a && ms <= b)) return null;
 
   const page = pages.find((p) => ms >= p.startMs && ms <= p.endMs);
   if (!page) return null;

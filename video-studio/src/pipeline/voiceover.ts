@@ -4,8 +4,14 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { EdgeTTS } from "node-edge-tts";
 import { ffmpeg, probeDurationSec } from "./ffbin.js";
-import { VOICE_BY_LANG, ELEVENLABS_MODEL, F5, EDGE_TTS } from "../config.js";
-import { normalizeForTTS } from "./normalize.js";
+import {
+  VOICE_BY_LANG,
+  ELEVENLABS_MODEL,
+  F5,
+  EDGE_TTS,
+  PRONUNCIATION,
+} from "../config.js";
+import { normalizeForTTS, applyLexicon } from "./normalize.js";
 import { assertValidStoryboard } from "./validate.js";
 
 const execFileP = promisify(execFile);
@@ -133,8 +139,13 @@ async function runF5Batch(
     speed: F5.speed,
     nfe: F5.nfe,
     scenes: sb.scenes
-      .filter((s: any) => (s.narration ?? "").trim())
-      .map((s: any) => ({ id: s.id, text: normalizeForTTS(s.narration) })),
+      .filter((s: any) => (s.say ?? s.narration ?? "").trim())
+      .map((s: any) => ({
+        id: s.id,
+        text: normalizeForTTS(
+          applyLexicon((s.say ?? s.narration ?? "").trim(), PRONUNCIATION),
+        ),
+      })),
   };
   const manifestPath = path.join(outDir, "manifest.json");
   await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2));
@@ -240,7 +251,12 @@ export async function voiceover(lang: string) {
 
   for (const scene of sb.scenes) {
     const wav = path.join(tmpDir, `${scene.id}.wav`);
-    const text: string = (scene.narration ?? "").trim();
+    // `say` overrides what TTS speaks (pronunciation); `narration` stays as the
+    // caption/display text. The lexicon fixes code-ish tokens either way.
+    const text: string = applyLexicon(
+      (scene.say ?? scene.narration ?? "").trim(),
+      PRONUNCIATION,
+    );
 
     if (text.length > 0) {
       if (provider === "f5") {

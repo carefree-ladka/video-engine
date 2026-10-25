@@ -12,6 +12,8 @@
     "scaffold": "tsx src/pipeline/scaffold.ts",
     "sfx": "tsx src/pipeline/sfx.ts",
     "preview": "tsx src/pipeline/audio-preview.ts",
+    "qa": "tsx src/pipeline/qa.ts",
+    "runcode": "tsx src/pipeline/runcode.ts",
     "pace": "tsx src/pipeline/retime.ts",
     "finalize": "tsx src/pipeline/finalize.ts",
     "subs": "tsx src/pipeline/subtitles.ts",

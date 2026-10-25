@@ -16,7 +16,21 @@ const KNOWN_TEMPLATES = new Set([
   "broll",
   "compare",
   "interstitial",
+  "terminal",
+  "diff",
+  "beforeafter",
 ]);
+
+// Platform max durations (seconds); 0 = no limit. Mirrors src/config.ts PRESETS
+// but kept inline so validate stays dependency-free.
+const PLATFORM_MAX: Record<string, number> = {
+  youtube: 0,
+  short: 60,
+  reel: 90,
+  story: 60,
+  "ig-feed": 60,
+  "ig-square": 60,
+};
 
 export type ValidationResult = { errors: string[]; warnings: string[] };
 
@@ -100,6 +114,14 @@ export function validateStoryboard(sb: any): ValidationResult {
       if (!Array.isArray(boxes) || boxes.length === 0)
         e(`${where} diagram scene needs text.diagram.boxes`);
     }
+    if (s.template === "beforeafter") {
+      const b = s.text?.before?.code;
+      const a = s.text?.after?.code;
+      if (!Array.isArray(b) || !Array.isArray(a))
+        e(
+          `${where} beforeafter scene needs text.before.code and text.after.code (string arrays)`,
+        );
+    }
 
     if (s.durationSec != null && typeof s.durationSec !== "number")
       w(`${where} durationSec should be a number`);
@@ -123,4 +145,98 @@ export function assertValidStoryboard(sb: any, lang = "en"): void {
   console.log(
     `[validate:${lang}] storyboard OK (${sb.scenes.length} scenes, ${warnings.length} warning(s))`,
   );
+}
+
+// ---------------------------------------------------------------------------
+// Lint: non-fatal quality checks that catch things which make a video look
+// broken or off-brand (handle drift, overflow, length, safe zones). Separate
+// from validateStoryboard (which is about structural correctness).
+// ---------------------------------------------------------------------------
+export type LintResult = { warnings: string[]; notes: string[] };
+
+function collectHandles(obj: any, out: Set<string>) {
+  if (obj == null) return;
+  if (typeof obj === "string") {
+    const m = obj.match(/@[A-Za-z0-9_.]+/g);
+    if (m) for (const h of m) out.add(h.toLowerCase());
+    return;
+  }
+  if (Array.isArray(obj)) {
+    for (const v of obj) collectHandles(v, out);
+    return;
+  }
+  if (typeof obj === "object") {
+    for (const v of Object.values(obj)) collectHandles(v, out);
+  }
+}
+
+export function lintStoryboard(sb: any, brand?: any): LintResult {
+  const warnings: string[] = [];
+  const notes: string[] = [];
+  if (!sb || typeof sb !== "object") return { warnings, notes };
+
+  // 1) handle consistency across storyboard + brand
+  const handles = new Set<string>();
+  collectHandles(sb, handles);
+  collectHandles(brand, handles);
+  if (handles.size > 1)
+    warnings.push(
+      `multiple distinct @handles appear (${[...handles].join(", ")}). Use one everywhere.`,
+    );
+
+  // 2) total length vs platform limit
+  const plat = sb.platform;
+  const max = plat ? PLATFORM_MAX[plat] : 0;
+  if (max && typeof sb.totalSeconds === "number" && sb.totalSeconds > max)
+    warnings.push(
+      `totalSeconds ${sb.totalSeconds.toFixed(1)}s exceeds the ${plat} limit of ${max}s.`,
+    );
+
+  // 3) per-scene overflow / safe-zone heuristics
+  (sb.scenes ?? []).forEach((s: any, i: number) => {
+    const where = `scenes[${i}]${s?.id ? ` (id=${s.id})` : ""}`;
+    const t = s?.text ?? {};
+    if (typeof t.heading === "string" && t.heading.length > 42)
+      notes.push(
+        `${where} heading is long (${t.heading.length} chars); may wrap/shrink.`,
+      );
+    if (Array.isArray(t.bullets) && t.bullets.length > 5)
+      warnings.push(
+        `${where} has ${t.bullets.length} bullets; 5 or fewer reads better.`,
+      );
+    if (Array.isArray(t.code)) {
+      const longest = t.code.reduce(
+        (m: number, l: string) => Math.max(m, l.length),
+        0,
+      );
+      if (longest > 52 && !t.fontSize && !t.codeScale)
+        notes.push(
+          `${where} longest code line is ${longest} chars; it will shrink to fit.`,
+        );
+    }
+    if (
+      s?.template === "stat" &&
+      typeof t.value === "string" &&
+      t.value.length > 7
+    )
+      notes.push(
+        `${where} stat value "${t.value}" is long; big-number impact drops past ~6 chars.`,
+      );
+    if (typeof s?.durationSec === "number" && s.durationSec > 12)
+      notes.push(
+        `${where} is ${s.durationSec.toFixed(1)}s; consider splitting (a visual change every 2-4s lifts retention).`,
+      );
+  });
+
+  // 4) pacing: average seconds-per-scene
+  const n = (sb.scenes ?? []).length;
+  if (n > 0 && typeof sb.totalSeconds === "number") {
+    const avg = sb.totalSeconds / n;
+    if (avg > 7)
+      notes.push(
+        `~${avg.toFixed(1)}s per scene on average; short-form favors faster cuts (2-4s).`,
+      );
+  }
+
+  return { warnings, notes };
 }

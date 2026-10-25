@@ -5,7 +5,7 @@
   "width": 1080,
   "height": 1920,
   "fps": 30,
-  "totalSeconds": 10,
+  "totalSeconds": 15,
   "audio": null,
   "style": {
     "look": "neo-grotesk",
@@ -19,14 +19,51 @@
       "id": "s1",
       "template": "title",
       "durationSec": 5,
-      "text": { "kicker": "Annotations", "heading": "Look right here", "sub": "callouts demo" },
+      "text": {
+        "kicker": "Annotations",
+        "heading": "Look right here",
+        "sub": "callouts demo"
+      },
       "annotations": [
-        { "type": "spotlight", "x": 50, "y": 40, "w": 60, "h": 14, "shape": "rect", "dim": 0.55, "start": 0.3, "dur": 4 },
-        { "type": "box", "x": 50, "y": 40, "w": 60, "h": 14, "label": "this part", "start": 0.6 },
-        { "type": "arrow", "x": 32, "y": 58, "fromX": 14, "fromY": 76, "start": 1.2 },
+        {
+          "type": "spotlight",
+          "x": 50,
+          "y": 40,
+          "w": 60,
+          "h": 14,
+          "shape": "rect",
+          "dim": 0.55,
+          "start": 0.3,
+          "dur": 4
+        },
+        {
+          "type": "box",
+          "x": 50,
+          "y": 40,
+          "w": 60,
+          "h": 14,
+          "label": "this part",
+          "start": 0.6
+        },
+        {
+          "type": "arrow",
+          "x": 32,
+          "y": 58,
+          "fromX": 14,
+          "fromY": 76,
+          "start": 1.2
+        },
         { "type": "underline", "x": 50, "y": 52, "w": 34, "start": 1.6 },
         { "type": "label", "x": 72, "y": 66, "text": "hot", "start": 2.0 },
-        { "type": "pointer", "x": 50, "y": 40, "from": "br", "click": true, "start": 2.6, "in": 1.0 }
+        {
+          "type": "pointer",
+          "x": 50,
+          "y": 40,
+          "from": "br",
+          "click": true,
+          "start": 2.6,
+          "in": 1.0
+        }
       ]
     },
     {
@@ -34,8 +71,29 @@
       "template": "broll",
       "durationSec": 5,
       "transition": "push",
-      "media": { "src": "assets/test.png", "fit": "cover", "kenBurns": true, "from": "left" },
-      "text": { "kicker": "B-ROLL", "heading": "Real media", "caption": "images + video with Ken Burns" }
+      "media": {
+        "src": "assets/test.png",
+        "fit": "cover",
+        "kenBurns": true,
+        "from": "left"
+      },
+      "text": {
+        "kicker": "B-ROLL",
+        "heading": "Real media",
+        "caption": "images + video with Ken Burns"
+      }
+    },
+    {
+      "id": "s3",
+      "template": "code",
+      "durationSec": 5,
+      "transition": "zoom",
+      "text": {
+        "heading": "When it breaks",
+        "windowLabel": "bug.py",
+        "code": ["data = {}", "print(data['x'])"],
+        "error": { "line": 2, "at": 2.2, "message": "KeyError: 'x'" }
+      }
     }
   ]
 }

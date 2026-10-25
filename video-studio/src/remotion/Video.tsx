@@ -123,6 +123,33 @@ const ProgressBar: React.FC<{
   );
 };
 
+// A small corner badge, e.g. "2/5", for episode/step counters.
+const Badge: React.FC<{ text: string; theme: any }> = ({ text, theme }) => {
+  const { width, height } = useVideoConfig();
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+      <div
+        style={{
+          position: "absolute",
+          top: height * 0.06,
+          left: width * 0.06,
+          padding: "8px 18px",
+          borderRadius: 999,
+          background: theme.accent,
+          color: theme.light ? "#fff" : theme.bg,
+          fontFamily: FONT,
+          fontWeight: 800,
+          fontSize: Math.round(height * 0.024),
+          letterSpacing: "0.04em",
+          boxShadow: theme.light ? "none" : `0 0 24px ${theme.accent}55`,
+        }}
+      >
+        {text}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 export const Video: React.FC<VideoProps> = ({
   storyboard,
   captions,
@@ -153,6 +180,19 @@ export const Video: React.FC<VideoProps> = ({
       }
     : null;
 
+  // Caption hide ranges (ms) for scenes that opt out with `captions: false`
+  // (e.g. the CTA, so subtitles never cover the follow handle). Ranges use the
+  // narration timeline = cumulative scene durations.
+  const hideRanges: Array<[number, number]> = [];
+  {
+    let acc = 0;
+    for (const s of scenes) {
+      const d = s.durationSec || 2;
+      if (s.captions === false) hideRanges.push([acc * 1000, (acc + d) * 1000]);
+      acc += d;
+    }
+  }
+
   // Build TransitionSeries children. Each non-last scene gets +TRANSITION_FRAMES so the
   // total (sum - transitions) still equals the audio length -> audio stays in sync.
   const children: React.ReactNode[] = [];
@@ -173,6 +213,7 @@ export const Video: React.FC<VideoProps> = ({
         {s.annotations ? (
           <Annotations items={s.annotations} theme={theme} />
         ) : null}
+        {s.badge ? <Badge text={String(s.badge)} theme={theme} /> : null}
       </TransitionSeries.Sequence>,
     );
     if (useTransitions && !isLast) {
@@ -218,6 +259,7 @@ export const Video: React.FC<VideoProps> = ({
         colors={theme.captions}
         position={capCfg.position}
         maxWords={capCfg.maxWords}
+        hideRanges={hideRanges}
       />
 
       {pbCfg ? <ProgressBar {...pbCfg} /> : null}

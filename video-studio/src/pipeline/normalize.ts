@@ -34,3 +34,19 @@ export function normalizeForTTS(input: string): string {
   t = t.replace(/\s{2,}/g, " ").trim();
   return t;
 }
+
+// Apply a pronunciation lexicon (case-insensitive, whole-token) to spoken text.
+// Longer keys are applied first so "dict.fromkeys" wins over "fromkeys".
+export function applyLexicon(
+  input: string,
+  lexicon: Record<string, string>,
+): string {
+  let t = input;
+  const keys = Object.keys(lexicon).sort((a, b) => b.length - a.length);
+  for (const k of keys) {
+    const esc = k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(`(^|[^\\w.])${esc}(?![\\w])`, "gi");
+    t = t.replace(re, (_m, pre) => `${pre}${lexicon[k]}`);
+  }
+  return t;
+}

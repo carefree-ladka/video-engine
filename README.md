@@ -72,13 +72,86 @@ npm run make -- en --no-captions   # skip caption generation
 npm run make -- en --synthetic     # force synthetic caption alignment (skip Whisper)
 
 # Render only (assumes audio/captions already exist)
-npm run render
+npm run render -- en
+
+# Other pipeline stages (each takes a language arg, default en)
+npm run formats  -- en      # render vertical + square + wide from one bundle
+npm run thumbs   -- en      # short + long thumbnail stills
+npm run subs     -- en      # export an .srt sidecar
+npm run preview  -- en 12   # fast AUDIO-ONLY preview of music + sfx (12s)
+npm run qa       -- en      # post-render QA: loudness, black frames, contact sheet
+npm run runcode  -- en      # execute scenes marked "run": true, capture real output
+npm run scaffold -- "your topic"   # generate a placeholder storyboard to edit
+npm run publish  -- en      # assemble a deliverable bundle in output/
 
 # Verify F5-TTS setup (optional cloned-voice provider)
 npm run check-f5
 ```
 
 Rendered output and generated narration land in `out/` and `public/narration/` respectively (both gitignored).
+
+> **Authoring storyboards:** see [`video-studio/STORYBOARD.md`](video-studio/STORYBOARD.md)
+> for the full JSON schema — every top-level field, the `style`/`sound` blocks,
+> all scene templates, and the cross-cutting features (zoom, annotations,
+> emphasize, code highlights/error/output, transitions, progress bar, captions).
+
+## MCP server (drive the engine from Claude / Codex / Kiro / any agent)
+
+The pipeline is exposed over the [Model Context Protocol](https://modelcontextprotocol.io)
+so an AI agent can author storyboards and produce videos through tools. It speaks
+MCP over **stdio** — your client launches it; you don't normally run it by hand.
+
+### Start it
+
+```bash
+cd video-studio
+npm run mcp          # launches the stdio server (logs to stderr)
+```
+
+A quick self-test (lists tools, validates, exercises error paths — no render):
+
+```bash
+node scripts/mcp-smoke.mjs        # read-only smoke test
+node scripts/mcp-job-smoke.mjs    # async job lifecycle (self-cleaning)
+```
+
+### Wire it into a client
+
+Copy the `video-studio` block from [`video-studio/mcp.example.json`](video-studio/mcp.example.json)
+(use absolute paths):
+
+```json
+{
+  "mcpServers": {
+    "video-studio": {
+      "command": "npx",
+      "args": ["tsx", "/ABSOLUTE/PATH/video-studio/src/mcp/server.ts"],
+      "cwd": "/ABSOLUTE/PATH/video-studio"
+    }
+  }
+}
+```
+
+- **Kiro** — add it to `.kiro/settings/mcp.json` (this workspace) or `~/.kiro/settings/mcp.json` (all workspaces), then reconnect from the MCP Server view.
+- **Claude Desktop** — add it to `claude_desktop_config.json` and restart.
+- **Codex / Cursor / others** — add it to the client's `mcpServers` map.
+
+### Typical agent flow
+
+1. `describe_storyboard_format` + `list_templates` + `list_looks` — learn the contract.
+2. `validate_storyboard` → `write_storyboard` (or `scaffold_storyboard`) — author + persist.
+3. `lint_storyboard` — catch handle drift / overflow / length issues.
+4. `generate_video` — returns a `jobId` (long render runs async).
+5. `get_job_status` — poll until `completed`; read `outputs` for the mp4 path.
+6. `qa_video` — loudness / black-frame / contact-sheet check.
+
+Production steps (`generate_video`, `render_video`, `render_formats`, `preview_audio`,
+`qa_video`, `run_code`, …) run as **background jobs** — the tool returns a `jobId`
+immediately and you poll `get_job_status`. Read-only tools (discovery, validation,
+audio config) answer inline.
+
+The full tool catalog and design notes live in
+[`video-studio/src/mcp/README.md`](video-studio/src/mcp/README.md).
 
 ## Sound & music
 

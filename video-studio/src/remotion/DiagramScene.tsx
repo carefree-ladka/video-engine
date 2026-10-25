@@ -10,6 +10,7 @@ import { Card } from "./Card";
 import { Background } from "./Background";
 import { useReveal, wipeUp, EASING } from "./motion";
 import { FONT, DISPLAY } from "./fonts";
+import { parseEmphasis } from "./emphasis";
 
 type Box = { title: string; items?: string[] };
 type Scene = {
@@ -33,12 +34,21 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
   theme,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { width, height, fps } = useVideoConfig();
   const vertical = height > width;
   const hp = useReveal(2, 12, EASING.snap);
   const diagram = scene.text?.diagram ?? { boxes: [] as Box[] };
   const accentIndex = diagram.accentIndex ?? -1;
   const dash = -(frame * 6) % 48;
+
+  // Timed card emphasis (pop + ring + dim others), same contract as bullets.
+  const em = parseEmphasis((scene as any).emphasize);
+  const boxRevealEndF = (i: number) => 8 + i * 5 + 16;
+  const dimStartF = em.items.size
+    ? em.at != null
+      ? em.at * fps
+      : Math.min(...[...em.items].map((idx) => boxRevealEndF(idx - 1)))
+    : Infinity;
 
   // Estimate content height so FitStage can scale it to clear the caption band.
   // Vertical stacks boxes (sum); horizontal lays them in a row (tallest box).
@@ -67,19 +77,37 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
     >
       {diagram.boxes.map((box, i) => {
         const p = useReveal(8 + i * 5, 14, EASING.overshoot);
-        const isAccent = i === accentIndex;
+        const staticAccent = i === accentIndex;
+        const isEm = em.items.has(i + 1);
+        const emF = em.at != null ? em.at * fps : boxRevealEndF(i);
+        const emActive = isEm && frame >= emF;
+        const hi = staticAccent || emActive;
+        const pop = isEm
+          ? interpolate(frame - emF, [0, 8, 18], [1, 1.07, 1.04], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+              easing: EASING.overshoot,
+            })
+          : 1;
+        const dim =
+          em.dimOthers && em.items.size && !isEm
+            ? interpolate(frame, [dimStartF, dimStartF + 10], [1, 0.3], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              })
+            : 1;
         return (
           <div
             key={i}
             style={{
               flex: vertical ? "0 0 auto" : 1,
               display: "flex",
-              opacity: p,
-              transform: `translateY(${(1 - p) * 40}px)`,
+              opacity: p * dim,
+              transform: `translateY(${(1 - p) * 40}px) scale(${pop.toFixed(3)})`,
             }}
           >
             <Card
-              highlighted={isAccent}
+              highlighted={hi}
               accent={theme.accent}
               light={theme.light}
               surface={theme.card}
@@ -88,6 +116,11 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
                 flex: 1,
                 minHeight: vertical ? 0 : 260,
                 padding: vertical ? "20px 24px" : "26px 24px",
+                ...(emActive
+                  ? {
+                      boxShadow: `0 0 0 3px ${theme.accent}, 0 20px 60px -12px ${theme.accent}`,
+                    }
+                  : {}),
               }}
             >
               <div
@@ -96,7 +129,7 @@ export const DiagramScene: React.FC<{ scene: Scene; theme: Theme }> = ({
                   fontSize: vertical ? 34 : 30,
                   fontWeight: 800,
                   letterSpacing: "-0.01em",
-                  color: isAccent ? theme.accent : theme.fg,
+                  color: hi ? theme.accent : theme.fg,
                   marginBottom: (box.items?.length ?? 0) ? 16 : 0,
                 }}
               >

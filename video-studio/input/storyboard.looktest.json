@@ -1,0 +1,30 @@
+{
+  "title": "Before/after test",
+  "platform": "short",
+  "language": "en",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "totalSeconds": 5,
+  "audio": null,
+  "style": { "look": "neo-grotesk", "transitionFamily": "cut" },
+  "sound": { "music": { "enabled": false }, "sfx": { "enabled": false } },
+  "scenes": [
+    {
+      "id": "s1",
+      "template": "beforeafter",
+      "durationSec": 5,
+      "text": {
+        "heading": "The long way vs the trick",
+        "before": {
+          "label": "the long way",
+          "code": ["squares = []", "for n in nums:", "    squares.append(n*n)"]
+        },
+        "after": {
+          "label": "the trick",
+          "code": ["squares = [n*n for n in nums]"]
+        }
+      }
+    }
+  ]
+}
