@@ -38,13 +38,29 @@ export async function render(lang: string) {
   console.log(`[render:${lang}] bundling...`);
   const serveUrl = await bundle({
     entryPoint: path.join(ROOT, "src", "remotion", "index.ts"),
+    webpackOverride: (config) => config,
   });
+  console.log(`[render:${lang}] bundle ready at ${serveUrl}`);
 
-  const composition = await selectComposition({
-    serveUrl,
-    id: "MainVideo",
-    inputProps,
-  });
+  console.log(`[render:${lang}] selecting composition...`);
+  let composition;
+  try {
+    composition = await selectComposition({
+      serveUrl,
+      id: "MainVideo",
+      inputProps,
+      timeoutInMilliseconds: 120000,
+      browserExecutable: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      chromiumOptions: {
+        headless: true,
+      },
+      logLevel: "verbose",
+    });
+    console.log(`[render:${lang}] composition selected successfully`);
+  } catch (error) {
+    console.error(`[render:${lang}] Failed to select composition:`, error);
+    throw error;
+  }
 
   await fs.mkdir(path.join(ROOT, "out"), { recursive: true });
   const outputLocation = path.join(ROOT, "out", `video.${lang}.mp4`);
@@ -66,6 +82,11 @@ export async function render(lang: string) {
     encodingMaxRate: "14M",
     encodingBufferSize: "20M",
     x264Preset: "slow",
+    timeoutInMilliseconds: 300000, // 5 minutes
+    browserExecutable: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    chromiumOptions: {
+      headless: true,
+    },
     onProgress: ({ progress }) => {
       if (Math.round(progress * 100) % 20 === 0)
         process.stdout.write(`  ${Math.round(progress * 100)}%\r`);
